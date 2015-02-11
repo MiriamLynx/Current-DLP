@@ -1,0 +1,21 @@
+%%
+%byaccj
+%unicode
+%class Lexico
+%public
+%line
+%column
+
+// ************  Patrones (macros) ********************
+Operadores = [+-/*;=()]
+
+%%
+if { System.out.println("SENTENCIA IF"); }
+while { System.out.println("SENTENCIA WHILE"); }
+else { System.out.println("SENTENCIA ELSE"); }
+
+{Operadores} {System.out.println("Operador " + yycharat(0)); }
+
+[ \n\r\t] { }
+
+. { System.out.println("Error:" + yytext()); }

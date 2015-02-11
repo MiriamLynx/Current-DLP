@@ -1,0 +1,25 @@
+%%
+%byaccj
+%unicode
+%class Lexico
+%public
+%line
+%column
+
+// ************  Patrones (macros) ********************
+Operador = [+-/*;=()]
+ConstanteEntera = [0-9]+
+Caracteres = [a-zA-Z]+
+Identificador = {Caracteres}({Caracteres}|{ConstanteEntera}|"_")*
+
+%%
+if { System.out.println("SENTENCIA IF"); }
+while { System.out.println("SENTENCIA WHILE"); }
+else { System.out.println("SENTENCIA ELSE"); }
+
+{Operadores} {System.out.println("Operador " + yycharat(0)); }
+{ConstanteEntera} {System.out.println("Constante entera " + yytext()); }
+
+[ \n\r\t] { }
+
+. { System.out.println("Error:" + yytext()); }

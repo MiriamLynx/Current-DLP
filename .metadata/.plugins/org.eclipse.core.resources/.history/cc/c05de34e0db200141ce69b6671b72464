@@ -1,0 +1,14 @@
+%%
+%byaccj
+%class Lexico
+%public
+%unicode
+%line
+%column
+%%
+
+"if" { System.out.println("If guay"); }
+"while" { System.out.println("While guay"); }
+"else" { System.out.println("Else guay"); }
+
+.|\n { System.out.println("Error"); }

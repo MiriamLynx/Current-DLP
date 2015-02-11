@@ -1,0 +1,11 @@
+%%
+%byaccj
+%unicode
+%%
+if { System.out.println("SENTENCIA IF"); }
+while { System.out.println("SENTENCIA WHILE"); }
+else { System.out.println("SENTENCIA ELSE"); }
+
+[ \n\r\t] { }
+
+. { System.out.println("Error:" + yytext()); }
