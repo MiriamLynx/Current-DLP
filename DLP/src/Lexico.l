@@ -1,8 +1,32 @@
 %%
 %byaccj
+%unicode
+%class Lexico
+%public
+%line
+%column
 
+// ************  Patrones (macros) ********************
+OPERADOR = [+-/*;=()]
+ENTERO = [0-9]+
+CHAR = \'[^\']\'
+CARACTER = [a-zA-Z_Ò—·ÈÌÛ˙¡…Õ”⁄‰ÎÔˆ¸ƒÀœ÷‹]+
+IDENTIFICADOR = {CARACTER}({CARACTER}|{ENTERO})*
+COMENTARIO = "//"~\n
+MULTICOMENTARIO = "/*"~"*/"
+ESPACIOS = [ \n\r\t]
+BASURA = {COMENTARIO}|{ESPACIOS}|{MULTICOMENTARIO}
 
 %%
+if { System.out.println("SENTENCIA IF"); }
+while { System.out.println("SENTENCIA WHILE"); }
+else { System.out.println("SENTENCIA ELSE"); }
 
+{OPERADOR} { System.out.println("Operador [" + yycharat(0) + "]"); }
+{ENTERO} { System.out.println("Constante entera [" + yytext() + "]"); }
+{IDENTIFICADOR} { System.out.println("Identificador [" + yytext() + "]"); }
+{CHAR} { System.out.println("Constante char [" + yytext() + "]"); }
 
-. { System.out.println("Error"); }
+{BASURA} { }
+
+. { System.out.println("Error:" + yytext()); }
