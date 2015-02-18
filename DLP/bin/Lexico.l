@@ -6,6 +6,12 @@
 %line
 %column
 
+%{
+	public String lexeme(){
+	return yytext();
+  }
+%}
+
 // ************  Patrones (macros) ********************
 OPERADOR = [+\-*/;=()]
 ENTERO = [0-9]+
@@ -20,15 +26,19 @@ ESPACIOS = [ \n\r\t]
 BASURA = {COMENTARIO}|{ESPACIOS}|{MULTICOMENTARIO}
 
 %%
-if { System.out.println("SENTENCIA IF"); }
-while { System.out.println("SENTENCIA WHILE"); }
-else { System.out.println("SENTENCIA ELSE"); }
+
+Print { return Parser.PRINT;  }
+Dim { return Parser.DIM;  }
+as { return Parser.AS;  }
+Integer { return Parser.INTEGER;  }
+Real { return Parser.REAL;  }
+Character { return Parser.CHARACTER;  }
 
 {OPERADOR} { return (int) yycharat(0); }
-{ENTERO} { return Token.CTE_ENTERA; }
-{IDENTIFICADOR} { return Token.IDENTIFICADOR;  }
-{CHAR} { return Token.CTE_CHAR;  }
-{REAL} { return Token.CTE_REAL;  } 
+{ENTERO} { return Parser.CTE_ENTERA; }
+{IDENTIFICADOR} { return Parser.IDENT;  }
+{CHAR} { return Parser.CTE_CHAR;  }
+{REAL} { return Parser.CTE_REAL;  } 
 
 {BASURA} { }
 
