@@ -7,11 +7,13 @@
 %column
 
 // ************  Patrones (macros) ********************
-OPERADOR = [+-/*;=()]
+OPERADOR = [+\-*/;=()]
 ENTERO = [0-9]+
+REAL = ({DECIMAL}|{ENTERO})([eE]"-"?{ENTERO})?
+DECIMAL = ({ENTERO}".")|("."{ENTERO})|({ENTERO}"."{ENTERO})
 CHAR = \'[^\']\'
-CARACTER = [a-zA-Z_Ò—·ÈÌÛ˙¡…Õ”⁄‰ÎÔˆ¸ƒÀœ÷‹]+
-IDENTIFICADOR = {CARACTER}({CARACTER}|{ENTERO})*
+STRING = [a-zA-Z_Ò—·ÈÌÛ˙¡…Õ”⁄‰ÎÔˆ¸ƒÀœ÷‹]+
+IDENTIFICADOR = {STRING}({STRING}|{ENTERO})*
 COMENTARIO = "//"~\n
 MULTICOMENTARIO = "/*"~"*/"
 ESPACIOS = [ \n\r\t]
@@ -22,10 +24,11 @@ if { System.out.println("SENTENCIA IF"); }
 while { System.out.println("SENTENCIA WHILE"); }
 else { System.out.println("SENTENCIA ELSE"); }
 
-{OPERADOR} { System.out.println("Operador [" + yycharat(0) + "]"); }
-{ENTERO} { System.out.println("Constante entera [" + yytext() + "]"); }
-{IDENTIFICADOR} { System.out.println("Identificador [" + yytext() + "]"); }
-{CHAR} { System.out.println("Constante char [" + yytext() + "]"); }
+{OPERADOR} { return (int) yycharat(0); }
+{ENTERO} { return Token.CTE_ENTERA; }
+{IDENTIFICADOR} { return Token.IDENTIFICADOR;  }
+{CHAR} { return Token.CTE_CHAR;  }
+{REAL} { return Token.CTE_REAL;  } 
 
 {BASURA} { }
 
