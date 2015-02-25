@@ -1,0 +1,5 @@
+package ast.sentencia;
+
+public class LlamadaProcedimiento {
+
+}

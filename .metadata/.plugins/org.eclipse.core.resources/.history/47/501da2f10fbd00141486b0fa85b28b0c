@@ -1,0 +1,6 @@
+package ast.sentencia;
+
+public class Print {
+
+	public Expresion exp;
+}

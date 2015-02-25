@@ -13,26 +13,25 @@
 %}
 
 // ************  Patrones (macros) ********************
-OPERADOR = [+\-*/;=()]
+OPERADORARITMETICO = [+\-*/]
+OPERADOR LOGICO = ("AND")|("OR")|("NOT")
 ENTERO = [0-9]+
 REAL = ({DECIMAL}|{ENTERO})([eE]"-"?{ENTERO})?
 DECIMAL = ({ENTERO}".")|("."{ENTERO})|({ENTERO}"."{ENTERO})
 CHAR = \'[^\']\'
 STRING = [a-zA-Z_Ò—·ÈÌÛ˙¡…Õ”⁄‰ÎÔˆ¸ƒÀœ÷‹]+
 IDENTIFICADOR = {STRING}({STRING}|{ENTERO})*
-COMENTARIO = "//"~\n
-MULTICOMENTARIO = "/*"~"*/"
+COMENTARIOSIMPLE = "//"~\n
+COMENTARIOMULTILINEA = "/*"~"*/"
 ESPACIOS = [ \n\r\t]
 BASURA = {COMENTARIO}|{ESPACIOS}|{MULTICOMENTARIO}
 
 %%
 
-Print { return Parser.PRINT;  }
-Dim { return Parser.DIM;  }
-as { return Parser.AS;  }
-Integer { return Parser.INTEGER;  }
-Real { return Parser.REAL;  }
-Character { return Parser.CHARACTER;  }
+print { return Parser.PRINT;  }
+integer { return Parser.INTEGER;  }
+real { return Parser.REAL;  }
+character { return Parser.CHARACTER;  }
 
 {OPERADOR} { return (int) yycharat(0); }
 {ENTERO} { return Parser.CTE_ENTERA; }

@@ -1,0 +1,13 @@
+package ast.declaracion;
+
+import java.util.List;
+
+import ast.tipo.Tipo;
+
+public class DeclaracionFuncion implements Declaracion {
+
+	public Tipo retorno;
+	public String nombre;
+	public List<DeclaracionVariable> parametros;
+
+}

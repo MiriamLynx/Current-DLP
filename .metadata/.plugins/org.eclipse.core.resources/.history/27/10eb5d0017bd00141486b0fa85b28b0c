@@ -1,0 +1,17 @@
+package ast.expresion;
+
+public class ConstanteEntera extends AbstractAst implements Expresion {
+
+	public int valor;
+
+	public ConstanteEntera(int linea, int columna, int valor) {
+		super(linea, columna);
+		this.valor = valor;
+	}
+
+	@Override
+	public String toString() {
+		return "LiteralEntero [valor=" + valor + "]";
+	}
+
+}

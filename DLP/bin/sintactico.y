@@ -1,12 +1,9 @@
 %token CTE_ENTERA
 %token CTE_REAL
 %token CTE_CHAR
-%token CTE_STRING
 %token INTEGER
 %token REAL
 %token CHARACTER
-%token DIM
-%token AS
 %token IDENT
 %token PRINT
 
@@ -15,7 +12,7 @@
 
 %%
 
-programa: listaDeDeclaraciones | listaDeSentencias { System.out.println("Programa reconocido"); };
+programa: listaDeDeclaraciones { System.out.println("Programa reconocido"); };
 
 listaDeDeclaraciones: listaDeDeclaraciones declaracion | declaracion ;
 

@@ -1,10 +1,24 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Lexico lex = new Lexico(System.in);
-		Parser parser = new Parser(lex);
-		parser.yyparse();
+
+		final String source = "ejemplo.txt";
+
+		Lexico lex;
+		try {
+
+			lex = new Lexico(new FileReader(source));
+
+			Parser parser = new Parser(lex);
+
+			parser.yyparse();
+
+		} catch (FileNotFoundException e) {
+
+		}
 
 	}
 
