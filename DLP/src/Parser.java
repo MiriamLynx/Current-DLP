@@ -148,58 +148,88 @@ public final static short REAL=261;
 public final static short CHARACTER=262;
 public final static short IDENT=263;
 public final static short PRINT=264;
-public final static short MAYORIGUAL=265;
-public final static short MENORIGUAL=266;
-public final static short IGUAL=267;
-public final static short AND=268;
-public final static short OR=269;
-public final static short NOT=270;
-public final static short DISTINTO=271;
+public final static short IF=265;
+public final static short ELSE=266;
+public final static short WHILE=267;
+public final static short MAIN=268;
+public final static short VOID=269;
+public final static short RETURN=270;
+public final static short MAYORIGUAL=271;
+public final static short MENORIGUAL=272;
+public final static short IGUAL=273;
+public final static short DO=274;
+public final static short END=275;
+public final static short THEN=276;
+public final static short READ=277;
+public final static short AS=278;
+public final static short DIM=279;
+public final static short AND=280;
+public final static short OR=281;
+public final static short NOT=282;
+public final static short DISTINTO=283;
+public final static short CTYPE=284;
 public final static short YYERRCODE=256;
 final static short yylhs[] = {                           -1,
-    0,
+    0,    1,    1,    2,    3,    4,    4,    6,    6,    7,
+    7,    8,    8,    8,    8,    8,    8,    8,    8,   10,
+   10,   11,   11,   12,   12,   13,   13,    9,    9,    9,
+    9,    9,    9,    9,    9,    9,    9,    9,    9,    9,
+    9,    9,    9,    9,    9,    9,    9,    5,    5,    5,
 };
 final static short yylen[] = {                            2,
-    1,
+    1,    0,    2,    1,    6,    0,    1,    3,    4,    0,
+    2,    3,    7,    9,    7,    3,    5,    3,    4,    0,
+    1,    1,    3,    0,    1,    3,    5,    1,    1,    1,
+    3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
+    3,    3,    4,    3,    3,    4,    6,    1,    1,    1,
 };
-final static short yydefred[] = {                         0,
-    1,    0,
+final static short yydefred[] = {                         2,
+    0,    0,    0,    3,    4,    0,    0,    0,    0,    0,
+    0,    0,    8,   48,   50,   49,    0,    0,    5,    9,
 };
-final static short yydgoto[] = {                          2,
+final static short yydgoto[] = {                          1,
+    2,    4,    5,    8,   17,    9,    0,    0,    0,    0,
+    0,    0,    0,
 };
-final static short yysindex[] = {                      -262,
-    0,    0,
+final static short yysindex[] = {                         0,
+    0, -276, -259,    0,    0,  -86, -251, -271,  -83,  -84,
+ -260, -247,    0,    0,    0,    0,  -48,  -81,    0,    0,
 };
 final static short yyrindex[] = {                         0,
-    0,    0,
+    0,   13,    0,    0,    0, -264,    0,    0, -263,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
 };
 final static short yygindex[] = {                         0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,
 };
-final static int YYTABLESIZE=0;
+final static int YYTABLESIZE=15;
 static short yytable[];
 static { yytable();}
 static void yytable(){
-yytable = new short[]{                          1,
+yytable = new short[]{                         14,
+   15,   16,    3,    6,    7,   10,   11,   12,   13,   18,
+   19,   20,    1,    6,    7,
 };
 }
 static short yycheck[];
 static { yycheck(); }
 static void yycheck() {
-yycheck = new short[] {                        262,
+yycheck = new short[] {                        260,
+  261,  262,  279,  263,   91,  257,  278,   91,   93,  257,
+   59,   93,    0,  278,  278,
 };
 }
-final static short YYFINAL=2;
-final static short YYMAXTOKEN=271;
+final static short YYFINAL=1;
+final static short YYMAXTOKEN=284;
 final static String yyname[] = {
 "end-of-file",null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-null,null,null,null,null,null,null,"'%'",null,null,"'('","')'","'*'","'+'",null,
-"'-'","'.'","'/'",null,null,null,null,null,null,null,null,null,null,null,null,
-"'<'","'='","'>'",null,null,null,null,null,null,null,null,null,null,null,null,
+null,null,null,null,null,null,null,"'%'",null,null,"'('","')'","'*'","'+'",
+"','","'-'","'.'","'/'",null,null,null,null,null,null,null,null,null,null,null,
+"';'","'<'","'='","'>'",null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-"'['",null,"']'",null,null,null,null,null,null,null,null,null,null,null,null,
-null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+null,"'['",null,"']'",null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
@@ -207,40 +237,95 @@ null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-null,null,null,null,null,null,null,"CTE_ENTERA","CTE_REAL","CTE_CHAR","INTEGER",
-"REAL","CHARACTER","IDENT","PRINT","MAYORIGUAL","MENORIGUAL","IGUAL","\"AND\"",
-"\"OR\"","\"NOT\"","DISTINTO",
+null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+null,null,null,null,null,null,null,null,"CTE_ENTERA","CTE_REAL","CTE_CHAR",
+"INTEGER","REAL","CHARACTER","IDENT","PRINT","IF","ELSE","WHILE","MAIN","VOID",
+"RETURN","MAYORIGUAL","MENORIGUAL","IGUAL","DO","END","THEN","READ","AS","DIM",
+"AND","OR","NOT","DISTINTO","CTYPE",
 };
 final static String yyrule[] = {
 "$accept : programa",
-"programa : CHARACTER",
+"programa : listaDeclaraciones",
+"listaDeclaraciones :",
+"listaDeclaraciones : listaDeclaraciones declaracion",
+"declaracion : declaracionVariable",
+"declaracionVariable : DIM IDENT declaracionArray AS tipo ';'",
+"declaracionArray :",
+"declaracionArray : listaDimensiones",
+"listaDimensiones : '[' CTE_ENTERA ']'",
+"listaDimensiones : listaDimensiones '[' CTE_ENTERA ']'",
+"listaSentencias :",
+"listaSentencias : listaSentencias sentencia",
+"sentencia : PRINT expresion ';'",
+"sentencia : WHILE expresion DO listaSentencias END WHILE ';'",
+"sentencia : IF expresion THEN listaSentencias ELSE listaSentencias END IF ';'",
+"sentencia : IF expresion THEN listaSentencias END IF ';'",
+"sentencia : RETURN expresion ';'",
+"sentencia : IDENT '(' parametrosLlamada ')' ';'",
+"sentencia : READ expresion ';'",
+"sentencia : expresion '=' expresion ';'",
+"parametrosLlamada :",
+"parametrosLlamada : parametroLlamada",
+"parametroLlamada : expresion",
+"parametroLlamada : parametroLlamada ',' expresion",
+"parametrosFuncion :",
+"parametrosFuncion : parametroFuncion",
+"parametroFuncion : IDENT AS tipo",
+"parametroFuncion : parametroFuncion ',' IDENT AS tipo",
+"expresion : CTE_ENTERA",
+"expresion : CTE_CHAR",
+"expresion : CTE_REAL",
+"expresion : expresion '+' expresion",
+"expresion : expresion '-' expresion",
+"expresion : expresion '*' expresion",
+"expresion : expresion '/' expresion",
+"expresion : expresion '>' expresion",
+"expresion : expresion '<' expresion",
+"expresion : expresion MAYORIGUAL expresion",
+"expresion : expresion MENORIGUAL expresion",
+"expresion : expresion AND expresion",
+"expresion : expresion OR expresion",
+"expresion : expresion DISTINTO expresion",
+"expresion : expresion IGUAL expresion",
+"expresion : expresion '[' expresion ']'",
+"expresion : expresion '.' IDENT",
+"expresion : '(' expresion ')'",
+"expresion : IDENT '(' parametrosLlamada ')'",
+"expresion : CTYPE '(' tipo ',' expresion ')'",
+"tipo : INTEGER",
+"tipo : CHARACTER",
+"tipo : REAL",
 };
 
-//#line 30 "sintactico.y"
+//#line 133 "sintactico.y"
 Lexico lex;
+AST root;
+int token;
 
-Parser (Lexico lex){
-	this.lex=lex;	
+Parser(Yylex lex){
+
+this.lex = lex;
+
 }
 
-void yyerror(String s){
-	System.out.println("Syntax error");
+void yyerror(String s) {
+System.out.println("Error sintáctico en " + lex.line() + ":" + lex.column() + " Token = " + token + " lexema = \"" + lex.lexeme()+"\"");
 }
 
 int yylex(){
-
-	try{
-	
-	int token =lex.yylex();
-	yylval=lex.lexeme();
-	
-		return token;
-		
-	}catch(Exception e){
-		return -1;
-	}
+try{
+int token = lex.yylex();
+yylval= lex.lexeme();
+return token;
+} catch (Exception e) {
+return -1;
+  }
 }
-//#line 185 "Parser.java"
+public AST getAST() {
+return root;
+}
+//#line 270 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -394,10 +479,202 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 25 "sintactico.y"
-{ System.out.println("Programa reconocido"); }
+//#line 43 "sintactico.y"
+{root= new Programa(lexico.getLinea(), lexico.getColumna(),(List<Declaracion>)val_peek(0));}
 break;
-//#line 337 "Parser.java"
+case 2:
+//#line 47 "sintactico.y"
+{ yyval = new ArrayList<Declaracion>(); }
+break;
+case 3:
+//#line 48 "sintactico.y"
+{ yyval = val_peek(1); ((List<Declaracion>)val_peek(1)).add((Declaracion)val_peek(0)); yyval = d;}
+break;
+case 4:
+//#line 52 "sintactico.y"
+{yyval = val_peek(0);	}
+break;
+case 5:
+//#line 59 "sintactico.y"
+{yyval = new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(),(String)val_peek(4),(Tipo)val_peek(1));}
+break;
+case 7:
+//#line 64 "sintactico.y"
+{yyval = new TipoArray(lexico.getLinea(), lexico.getColumna(), (List<Integer>)val_peek(0));	}
+break;
+case 8:
+//#line 68 "sintactico.y"
+{yyval = val_peek(1);}
+break;
+case 9:
+//#line 69 "sintactico.y"
+{yyval = val_peek(3); ((List<Integer>)yyval).add((int)val_peek(2));}
+break;
+case 10:
+//#line 73 "sintactico.y"
+{yyval = new ArrayList<Sentencia>();	}
+break;
+case 11:
+//#line 74 "sintactico.y"
+{yyval = val_peek(1); ((List<Sentencia>)yyval).add((Sentencia)val_peek(0));	}
+break;
+case 12:
+//#line 78 "sintactico.y"
+{yyval = new Print(lexico.getLinea(), lexico.getColumna(),(Expresion)val_peek(1));	}
+break;
+case 13:
+//#line 79 "sintactico.y"
+{yyval = new While(lexico.getLinea(), lexico.getColumna(),(Expresion)val_peek(5),(List<Sentencia>val_peek(3));	}
+break;
+case 14:
+//#line 80 "sintactico.y"
+{yyval = new If(lexico.getLinea(), lexico.getColumna(),(Expresion)val_peek(7), (List<Sentencia>)val_peek(5), (List<Sentencia>)val_peek(3);	}
+break;
+case 15:
+//#line 81 "sintactico.y"
+{yyval = new If(lexico.getLinea(), lexico.getColumna(),(Expresion)val_peek(5), (List<Sentencia>)val_peek(3), new ArrayList<Sentencia>());	}
+break;
+case 16:
+//#line 82 "sintactico.y"
+{yyval = new Return(lexico.getLinea(), lexico.getColumna(),(Expresion)val_peek(1));	}
+break;
+case 17:
+//#line 83 "sintactico.y"
+{yyval = new LlamadaFuncion(lexico.getLinea(), lexico.getColumna(),(String)val_peek(4), (List<Expresion>)val_peek(2));	}
+break;
+case 18:
+//#line 84 "sintactico.y"
+{yyval = new Read(lexico.getLinea(), lexico.getColumna(),(Expresion)val_peek(1));	}
+break;
+case 19:
+//#line 85 "sintactico.y"
+{yyval = new Asignacion(lexico.getLinea(), lexico.getColumna(),(Expresion)val_peek(3), (Expresion)val_peek(1));	}
+break;
+case 20:
+//#line 89 "sintactico.y"
+{yyval = new ArrayList<Expresion>();	}
+break;
+case 21:
+//#line 90 "sintactico.y"
+{yyval = val_peek(0);}
+break;
+case 22:
+//#line 92 "sintactico.y"
+{yyval = new ArrayList<Expresion>(); ((List<Expresion>)yyval).add(Expresion)val_peek(0));	}
+break;
+case 23:
+//#line 93 "sintactico.y"
+{yyval = val_peek(2); ((List<Expresion>yyval).add((Expresion)val_peek(0));	}
+break;
+case 24:
+//#line 97 "sintactico.y"
+{yyval = new ArrayList<DeclaracionVariable>();	}
+break;
+case 25:
+//#line 98 "sintactico.y"
+{yyval = val_peek(0);}
+break;
+case 26:
+//#line 100 "sintactico.y"
+{yyval = new ArrayList<DeclaracionVariable>(); ((List<DeclaracionVariable>)yyval).add(new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(),(Tipo)val_peek(0),(String)val_peek(2)))val_peek(2));	}
+break;
+case 27:
+//#line 101 "sintactico.y"
+{yyval = val_peek(4); ((List<DeclaracionVariable>yyval).add(new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(),(Tipo)val_peek(0),(String)val_peek(4)))val_peek(2));	}
+break;
+case 28:
+//#line 105 "sintactico.y"
+{yyval = new ConstanteEntera(lexico.getLinea(), lexico.getColumna(),(int)val_peek(0));	}
+break;
+case 29:
+//#line 106 "sintactico.y"
+{yyval = new ConstanteChar(lexico.getLinea(), lexico.getColumna(),(char)val_peek(0));	}
+break;
+case 30:
+//#line 107 "sintactico.y"
+{yyval = new ConstanteReal(lexico.getLinea(), lexico.getColumna(),(double)val_peek(0));	}
+break;
+case 31:
+//#line 108 "sintactico.y"
+{yyval = new OperacionAritmetica(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), "+", (Expresion)val_peek(0));	}
+break;
+case 32:
+//#line 109 "sintactico.y"
+{yyval = new OperacionAritmetica(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), "-", (Expresion)val_peek(0));	}
+break;
+case 33:
+//#line 110 "sintactico.y"
+{yyval = new OperacionAritmetica(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), "*", (Expresion)val_peek(0));	}
+break;
+case 34:
+//#line 111 "sintactico.y"
+{yyval = new OperacionAritmetica(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), "/", (Expresion)val_peek(0));	}
+break;
+case 35:
+//#line 112 "sintactico.y"
+{yyval = new OperacionComparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), ">", (Expresion)val_peek(0));	}
+break;
+case 36:
+//#line 113 "sintactico.y"
+{yyval = new OperacionComparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), "<", (Expresion)val_peek(0));	}
+break;
+case 37:
+//#line 114 "sintactico.y"
+{yyval = new OperacionComparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), ">=", (Expresion)val_peek(0));	}
+break;
+case 38:
+//#line 115 "sintactico.y"
+{yyval = new OperacionComparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), "<=", (Expresion)val_peek(0));	}
+break;
+case 39:
+//#line 116 "sintactico.y"
+{yyval = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), "&&", (Expresion)val_peek(0));	}
+break;
+case 40:
+//#line 117 "sintactico.y"
+{yyval = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), "||", (Expresion)val_peek(0));	}
+break;
+case 41:
+//#line 118 "sintactico.y"
+{yyval = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), "<>", (Expresion)val_peek(0));	}
+break;
+case 42:
+//#line 119 "sintactico.y"
+{yyval = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), "==", (Expresion)val_peek(0));	}
+break;
+case 43:
+//#line 120 "sintactico.y"
+{yyval = new AccesoArray(lexico.getLinea(), lexico.getColumna(),(Expresion)val_peek(3),(String)val_peek(1));	}
+break;
+case 44:
+//#line 121 "sintactico.y"
+{yyval = new AccesoCampo(lexico.getLinea(), lexico.getColumna(),(Expresion)val_peek(2),(String)val_peek(0));	}
+break;
+case 45:
+//#line 122 "sintactico.y"
+{yyval = (Expresion)val_peek(1);	}
+break;
+case 46:
+//#line 123 "sintactico.y"
+{yyval = new LlamadaFuncion((String)val_peek(3), (List<Expresion>val_peek(1));	}
+break;
+case 47:
+//#line 124 "sintactico.y"
+{yyval = new Cast((Tipo)val_peek(3), (Expresion)val_peek(1));	}
+break;
+case 48:
+//#line 128 "sintactico.y"
+{yyval = new TipoEntero.getInstance();}
+break;
+case 49:
+//#line 129 "sintactico.y"
+{yyval = new TipoChar.getInstance();}
+break;
+case 50:
+//#line 130 "sintactico.y"
+{yyval = new TipoReal.getInstance();}
+break;
+//#line 614 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

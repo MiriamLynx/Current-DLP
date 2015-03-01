@@ -50,9 +50,50 @@ BASURA = {COMENTARIOSIMPLE}|{ESPACIOS}|{COMENTARIOMULTILINEA}
 %%
 
 print { return Parser.PRINT;  }
+
 integer { return Parser.INTEGER;  }
+
 real { return Parser.REAL;  }
+
 character { return Parser.CHARACTER;  }
+
+if { return Parser.IF; }
+
+else { return Parser.ELSE; }
+
+while { return Parser.WHILE; }
+
+main { return Parser.MAIN; }
+
+integer { return Parser.INTEGER; }
+
+real { return Parer.REAL; }
+
+character { return Parser.CHARACTER; }
+
+void { return Parser.VOID; }
+
+return { return Parser.RETURN; }
+
+do { return Parser.DO; }
+
+end { return Parser.END; }
+
+then {return Parser.THEN; }
+
+as {return Parser.AS; }
+
+read {return Parser.READ; }
+
+and {return Parser.AND; }
+
+or {return Parser.OR; }
+
+not {return Parser.NOT; }
+
+ctype {return Parser.CTYPE; }
+
+dim {return Parser.DIM; }
 
 {ENTERO} { return Parser.CTE_ENTERA; }
 {IDENTIFICADOR} { return Parser.IDENT;  }
@@ -66,6 +107,8 @@ character { return Parser.CHARACTER;  }
 ">="			   {  return Parser.MAYORIGUAL; }
 
 "=="			   {  return Parser.IGUAL; }
+
+"<>"			   {  return Parser.DISTINTO; }
 
 {BASURA} { }
 
