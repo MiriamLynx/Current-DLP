@@ -1,5 +1,7 @@
 package ast.expresion;
 
-public interface Expresion {
+import ast.AST;
+
+public interface Expresion extends AST {
 
 }

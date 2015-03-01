@@ -6,30 +6,29 @@
 %token CHARACTER
 %token IDENT
 %token PRINT
+%token MAYORIGUAL
+%token MENORIGUAL
+%token IGUAL
 
+
+%right '='
+%left 'AND' 'OR' 'NOT'
+%left '>' MAYORIGUAL '<' MENORIGUAL IGUAL DISTINTO
 %left '+' '-'
 %left '*' '/' '%'
+%nonassoc '[' ']'
+%nonassoc '(' ')'
+%nonassoc '.'
 
 %%
 
-programa: listaDeDeclaraciones { System.out.println("Programa reconocido"); };
+programa: CHARACTER { System.out.println("Programa reconocido"); };
 
-listaDeDeclaraciones: listaDeDeclaraciones declaracion | declaracion ;
 
-declaracion: DIM IDENT AS tipo ';' { System.out.println("Declaración de variable"); };
 
-tipo: REAL | CHARACTER | INTEGER ;
 
-listaDeSentencias: listaDeSentencias sentencia | sentencia ;
-
-sentencia: print ;
-
-print: PRINT expresion ';' { System.out.println("Impresion"); };
-
-expresion: expresion '+' expresion | expresion '*' expresion | '(' expresion ')' | CTE_ENTERA ;
 
 %%
-
 Lexico lex;
 
 Parser (Lexico lex){

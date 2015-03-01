@@ -1,5 +1,7 @@
 package ast.sentencia;
 
-public interface Sentencia {
+import ast.AST;
+
+public interface Sentencia extends AST {
 
 }
