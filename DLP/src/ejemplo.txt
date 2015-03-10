@@ -6,17 +6,13 @@ NOTA. Este ejemplo pretende mostrar la sintaxis del lenguaje. No está pensado pa
 - Las funciones y procedimientos deben tener paréntesis aunque no tengan parámetros
 - Tanto las funciones como los procedimientos podrán declarar variables locales solo al inicio de su cuerpo. Por tanto no podrá haber declaración de variables locales en cualquier lugar de la función/procedimiento ni dentro de bloques anidados (por ejemplo el creado por un while)
 - No pueden aparecer expresiones como sentencias
-
 */
 
 dim a as integer;
 dim b as character;
 
-
 dim c[20] as integer;
 dim h[30][20] as real;
-
-/*
 
 // ------------- 
 type Persona
@@ -36,8 +32,6 @@ end type;
 
 dim microsoft as Empresa;
 
-*/
-
 function dobleSuma (a as integer, b as integer) as integer
 	dim local as integer;
 
@@ -53,7 +47,7 @@ dim z as integer;
 
 proc main()
   dim local as integer;
- // dim pepe as Persona;
+  dim pepe as Persona;
   dim v[20] as integer;
 
   pepe.edad = 20;

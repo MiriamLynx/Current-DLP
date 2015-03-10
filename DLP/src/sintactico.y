@@ -74,7 +74,7 @@ declaracionFuncion: FUNCTION IDENT '(' parametrosFuncion ')' AS tipo listaDeclar
 ;
 
 // * Declaracion de struct
-declaracionStruct: TYPE IDENT listaDeclaracionesVariable END TYPE ';' {$$ = new DeclaracionStruct(lexico.getLinea(), lexico.getColumna(), (String)$2, (List<DeclaracionVariable>)$3); }
+declaracionStruct: TYPE IDENT listaDeclaracionesCampo END TYPE ';' {$$ = new DeclaracionStruct(lexico.getLinea(), lexico.getColumna(), (String)$2, (List<DeclaracionVariable>)$3); }
 ;
 
 // * Declaracion de procedimiento
@@ -83,7 +83,12 @@ declaracionProcedimiento: PROC IDENT '(' parametrosFuncion ')' listaDeclaracione
 
 // * Declaracion de variable
 declaracionVariable: DIM IDENT AS tipo ';' {$$ = new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(),(Tipo)$4, (String)$2); }
-| DIM IDENT listaDimensiones AS tipo ';' {Tipo array = new TipoArray(lexico.getLinea(), lexico.getColumna(), (List<Integer>)$3, (Tipo)$5); $$ = new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(), array, (String)$2);}
+| DIM IDENT listaDimensiones AS tipo ';' { Tipo array = new TipoArray(lexico.getLinea(), lexico.getColumna(), (List<Integer>)$3, (Tipo)$5); $$ = new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(), array, (String)$2);}
+;
+
+// * Declaracion de campo
+declaracionCampo: IDENT AS tipo ';' {$$ = new DeclaracionCampo(lexico.getLinea(), lexico.getColumna(),(Tipo)$3, (String)$1); }
+| IDENT listaDimensiones AS tipo ';' {Tipo array = new TipoArray(lexico.getLinea(), lexico.getColumna(), (List<Integer>)$2, (Tipo)$4); $$ = new DeclaracionCampo(lexico.getLinea(), lexico.getColumna(), array, (String)$1);}
 ;
 
 // * Una o más dimensiones de array
@@ -95,6 +100,12 @@ listaDimensiones: '[' CTE_ENTERA ']' { List<Integer> l = new ArrayList<Integer>(
 listaDeclaracionesVariable: {$$ = new ArrayList<DeclaracionVariable>(); }
 |listaDeclaracionesVariable declaracionVariable {List<DeclaracionVariable> l = (List<DeclaracionVariable>)$1; l.add((DeclaracionVariable)$2); $$ = l;}
 ;
+
+// * Cero o más declaraciones de campo
+listaDeclaracionesCampo: {$$ = new ArrayList<DeclaracionCampo>(); }
+|listaDeclaracionesCampo declaracionCampo {List<DeclaracionCampo> l = (List<DeclaracionCampo>)$1; l.add((DeclaracionCampo)$2); $$ = l;}
+;
+
 
 // * Cero o más sentencias
 listaSentencias: {$$ = new ArrayList<Sentencia>();	}
