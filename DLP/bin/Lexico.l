@@ -11,6 +11,11 @@
 
 %{
 // ************  Atributos y métodos ********************
+// * El analizador sintáctico
+private Parser parser;
+public void setParser(Parser parser) {
+	this.parser=parser;
+}
 
 // * Para acceder al número de línea 
 public int getLinea() { 
@@ -43,9 +48,10 @@ IDENTIFICADOR = {STRING}({STRING}|{ENTERO})*
 
 COMENTARIOSIMPLE = "//"~\n
 COMENTARIOMULTILINEA = "/*"~"*/"
-ESPACIOS = [ \n\r\t]
+ESPACIOS = [ \f\t]
+SALTOSDELINEA = \r\n|\n|\r
 
-BASURA = {COMENTARIOSIMPLE}|{ESPACIOS}|{COMENTARIOMULTILINEA}
+BASURA = {COMENTARIOSIMPLE}|{ESPACIOS}|{COMENTARIOMULTILINEA}|{SALTOSDELINEA}
 
 %%
 
@@ -62,8 +68,6 @@ if { return Parser.IF; }
 else { return Parser.ELSE; }
 
 while { return Parser.WHILE; }
-
-main { return Parser.MAIN; }
 
 integer { return Parser.INTEGER; }
 
@@ -95,12 +99,45 @@ ctype {return Parser.CTYPE; }
 
 dim {return Parser.DIM; }
 
-{ENTERO} { return Parser.CTE_ENTERA; }
-{IDENTIFICADOR} { return Parser.IDENT;  }
-{CHAR} { return Parser.CTE_CHAR;  }
-{REAL} { return Parser.CTE_REAL;  } 
+function {return Parser.FUNCTION; }
+
+proc {return Parser.PROC; }
+
+type {return Parser.TYPE; }
+
+{IDENTIFICADOR} { parser.setYylval(yytext()); return Parser.IDENT;  }
+
+{ENTERO} { parser.setYylval(new Integer(yytext())); return Parser.CTE_ENTERA; }
+{CHAR} { parser.setYylval(new Character(yycharat(1))); return Parser.CTE_CHAR;  }
+{REAL} { parser.setYylval(new Double(yytext())); return Parser.CTE_REAL;  } 
 
 {OPERADOR}  { return (int) yycharat(0); }
+
+"="|
+
+"<"|
+
+">"|
+
+"("|
+
+")"|
+
+"{"|
+
+"}"|
+
+";"|
+
+","|
+
+"!"|
+
+"."|
+
+"["|
+
+"]"                {  return (int) yycharat(0); }
 
 "<="			   {  return Parser.MENORIGUAL; }
 

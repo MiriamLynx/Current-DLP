@@ -6,11 +6,13 @@ import ast.AbstractAST;
 
 public class TipoArray extends AbstractAST implements Tipo {
 
-	public List<Integer> tamaño;
+	public List<Integer> size;
+	public Tipo tipo;
 
-	public TipoArray(int linea, int columna, List<Integer> tamaño) {
+	public TipoArray(int linea, int columna, List<Integer> size, Tipo tipo) {
 		super(linea, columna);
-		this.tamaño = tamaño;
+		this.size = size;
+		this.tipo = tipo;
 	}
 
 }

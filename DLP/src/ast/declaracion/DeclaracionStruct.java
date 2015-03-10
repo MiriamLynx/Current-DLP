@@ -7,19 +7,19 @@ import ast.AbstractAST;
 public class DeclaracionStruct extends AbstractAST implements Declaracion {
 
 	public String nombre;
-	public List<DeclaracionVariable> declaraciones;
+	public List<DeclaracionVariable> definiciones;
 
 	public DeclaracionStruct(int linea, int columna, String nombre,
-			List<DeclaracionVariable> declaraciones) {
+			List<DeclaracionVariable> definiciones) {
 		super(linea, columna);
 		this.nombre = nombre;
-		this.declaraciones = declaraciones;
+		this.definiciones = definiciones;
 	}
 
 	@Override
 	public String toString() {
-		return "DeclaracionStruct [nombre=" + nombre + ", Declaraciones="
-				+ declaraciones + "]";
+		return "DefStruct [nombre=" + nombre + ", definiciones=" + definiciones
+				+ "]";
 	}
 
 }

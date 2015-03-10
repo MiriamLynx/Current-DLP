@@ -1,3 +1,14 @@
+%{
+import ast.*;
+import ast.declaracion.*;
+import ast.expresion.*;
+import ast.sentencia.*;
+import ast.tipo.*;
+import java.util.List;
+import java.util.ArrayList;
+%}
+
+
 %token CTE_ENTERA
 %token CTE_REAL
 %token CTE_CHAR
@@ -9,7 +20,6 @@
 %token IF
 %token ELSE
 %token WHILE
-%token MAIN
 %token VOID
 %token RETURN
 %token MAYORIGUAL
@@ -26,7 +36,9 @@
 %token NOT
 %token DISTINTO
 %token CTYPE
-
+%token FUNCTION
+%token PROC
+%token TYPE
 
 %right '='
 %left AND OR NOT
@@ -40,120 +52,150 @@
 %%
 
 // * Programa
-programa: listaDeclaraciones {root= new Programa(lexico.getLinea(), lexico.getColumna(),(List<Declaracion>)$1);}
+programa: listaDeclaraciones {root = new Programa(lexico.getLinea(), lexico.getColumna(), (List<Declaracion>)$1);}
 ;
 
 // * Cero o más declaraciones
-listaDeclaraciones: { $$ = new ArrayList<Declaracion>(); } |
-listaDeclaraciones declaracion	{ $$ = $1; ((List<Declaracion>)$1).add((Declaracion)$2); $$ = d;}
+listaDeclaraciones: { $$ = new ArrayList<Declaracion>(); } 
+|listaDeclaraciones declaracion	{ List<Declaracion> l = (List<Declaracion>)$1; l.add((Declaracion)$2); $$ = l;}
 ;
+
 
 // * Declaracion
 declaracion: declaracionVariable {$$ = $1;	}
-// * |declaracionFuncion {$$ = $1;	}
-// * |declaracionProcedimiento {$$ = $1;	}
-// * |declaracionStruct {$$ = $1;	}
+|declaracionFuncion {$$ = $1;	}
+|declaracionProcedimiento {$$ = $1;	}
+|declaracionStruct {$$ = $1;	}
 ;
 
 
-// * Declaraciones de variable
-declaracionVariable: DIM IDENT declaracionArray AS tipo ';' {$$ = new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(),(String)$2,(Tipo)$5);}
+// * Declaracion de funcion
+declaracionFuncion: FUNCTION IDENT '(' parametrosFuncion ')' AS tipo listaDeclaracionesVariable listaSentencias END FUNCTION ';' {$$ = new DeclaracionFuncion(lexico.getLinea(), lexico.getColumna(), (Tipo)$7, (String)$2, (List<DeclaracionVariable>)$4, (List<DeclaracionVariable>)$8, (List<Sentencia>)$9); }
 ;
 
-
-declaracionArray:|
-listaDimensiones {$$ = new TipoArray(lexico.getLinea(), lexico.getColumna(), (List<Integer>)$1);	}
+// * Declaracion de struct
+declaracionStruct: TYPE IDENT listaDeclaracionesVariable END TYPE ';' {$$ = new DeclaracionStruct(lexico.getLinea(), lexico.getColumna(), (String)$2, (List<DeclaracionVariable>)$3); }
 ;
 
-// * Una o mas dimensiones de array
-listaDimensiones: '[' CTE_ENTERA ']' {$$ = $2;}
-| listaDimensiones '[' CTE_ENTERA ']' {$$ = $1; ((List<Integer>)$$).add((int)$2);}
+// * Declaracion de procedimiento
+declaracionProcedimiento: PROC IDENT '(' parametrosFuncion ')' listaDeclaracionesVariable listaSentencias END PROC ';' {$$ = new DeclaracionFuncion(lexico.getLinea(), lexico.getColumna(), null, (String)$2,(List<DeclaracionVariable>)$4, (List<DeclaracionVariable>)$6, (List<Sentencia>)$7); }
+;
+
+// * Declaracion de variable
+declaracionVariable: DIM IDENT AS tipo ';' {$$ = new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(),(Tipo)$4, (String)$2); }
+| DIM IDENT listaDimensiones AS tipo ';' {Tipo array = new TipoArray(lexico.getLinea(), lexico.getColumna(), (List<Integer>)$3, (Tipo)$5); $$ = new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(), array, (String)$2);}
+;
+
+// * Una o más dimensiones de array
+listaDimensiones: '[' CTE_ENTERA ']' { List<Integer> l = new ArrayList<Integer>(); l.add((Integer)$2); $$ = l;}
+| listaDimensiones '[' CTE_ENTERA ']' { List<Integer> l  = (List<Integer>)$1; l.add((Integer)$2); $$ = l;}
+;
+
+// * Cero o más declaraciones de variable
+listaDeclaracionesVariable: {$$ = new ArrayList<DeclaracionVariable>(); }
+|listaDeclaracionesVariable declaracionVariable {List<DeclaracionVariable> l = (List<DeclaracionVariable>)$1; l.add((DeclaracionVariable)$2); $$ = l;}
 ;
 
 // * Cero o más sentencias
-listaSentencias: {$$ = new ArrayList<Sentencia>();	}|
-listaSentencias sentencia {$$ = $1; ((List<Sentencia>)$$).add((Sentencia)$2);	}
+listaSentencias: {$$ = new ArrayList<Sentencia>();	}
+|listaSentencias sentencia {List<Sentencia> l = (List<Sentencia>)$1; l.add((Sentencia)$2); $$ = l; }
 ;
 
 /// * Sentencias
 sentencia: PRINT expresion ';' {$$ = new Print(lexico.getLinea(), lexico.getColumna(),(Expresion)$2);	}
-| WHILE expresion DO listaSentencias END WHILE ';' {$$ = new While(lexico.getLinea(), lexico.getColumna(),(Expresion)$2,(List<Sentencia>$4);	}
-|IF expresion THEN listaSentencias ELSE listaSentencias END IF ';' {$$ = new If(lexico.getLinea(), lexico.getColumna(),(Expresion)$2, (List<Sentencia>)$4, (List<Sentencia>)$6;	}
+| WHILE expresion DO listaSentencias END WHILE ';' {$$ = new While(lexico.getLinea(), lexico.getColumna(),(Expresion)$2,(List<Sentencia>)$4);	}
+|IF expresion THEN listaSentencias ELSE listaSentencias END IF ';' {$$ = new If(lexico.getLinea(), lexico.getColumna(),(Expresion)$2, (List<Sentencia>)$4, (List<Sentencia>)$6);	}
 |IF expresion THEN listaSentencias END IF ';' {$$ = new If(lexico.getLinea(), lexico.getColumna(),(Expresion)$2, (List<Sentencia>)$4, new ArrayList<Sentencia>());	}
 |RETURN expresion ';' {$$ = new Return(lexico.getLinea(), lexico.getColumna(),(Expresion)$2);	}
-|IDENT '(' parametrosLlamada ')' ';' {$$ = new LlamadaFuncion(lexico.getLinea(), lexico.getColumna(),(String)$1, (List<Expresion>)$3);	}
+|RETURN ';' {$$ = new Return(lexico.getLinea(), lexico.getColumna(),null);	}
+|IDENT '(' parametrosLlamada ')' ';' {$$ = new LlamadaFuncionSent(lexico.getLinea(), lexico.getColumna(),(String)$1, (List<Expresion>)$3);	}
 |READ expresion ';' {$$ = new Read(lexico.getLinea(), lexico.getColumna(),(Expresion)$2);	}
 |expresion '=' expresion ';' {$$ = new Asignacion(lexico.getLinea(), lexico.getColumna(),(Expresion)$1, (Expresion)$3);	}
 ;
 
 // * Cero o más parametros (llamada a funcion) con separadores
-parametrosLlamada: {$$ = new ArrayList<Expresion>();	}|
-parametroLlamada {$$ = $1;}
+parametrosLlamada: {$$ = new ArrayList<Expresion>();	}
+|parametroLlamada {$$ = $1;}
 ;
-parametroLlamada: expresion {$$ = new ArrayList<Expresion>(); ((List<Expresion>)$$).add(Expresion)$1);	}
-| parametroLlamada ',' expresion {$$ = $1; ((List<Expresion>$$).add((Expresion)$3);	}
+parametroLlamada: expresion {$$ = new ArrayList<Expresion>(); ((List<Expresion>)$$).add((Expresion)$1);	}
+| parametroLlamada ',' expresion {List<Expresion> l = (List<Expresion>)$1; l.add((Expresion)$3); $$ = l;	}
 ;
 
 // * Cero o más parametros (declaracion de funcion) con separadores
-parametrosFuncion: {$$ = new ArrayList<DeclaracionVariable>();	}|
-parametroFuncion {$$ = $1;}
+parametrosFuncion: {$$ = new ArrayList<DeclaracionVariable>();	}
+|parametroFuncion {$$ = $1;}
 ;
-parametroFuncion: IDENT AS tipo {$$ = new ArrayList<DeclaracionVariable>(); ((List<DeclaracionVariable>)$$).add(new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(),(Tipo)$3,(String)$1))$1);	}
-| parametroFuncion ',' IDENT AS tipo {$$ = $1; ((List<DeclaracionVariable>$$).add(new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(),(Tipo)$5,(String)$1))$3);	}
+parametroFuncion: IDENT AS tipo {$$ = new ArrayList<DeclaracionVariable>(); ((List<DeclaracionVariable>)$$).add(new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(), (Tipo)$3,(String)$1));	}
+| parametroFuncion ',' IDENT AS tipo {List<DeclaracionVariable> l = (List<DeclaracionVariable>)$1; l.add(new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(),(Tipo)$5,(String)$3)); $$ = l;	}
 ;
 
 //	* Expresiones
-expresion: CTE_ENTERA {$$ = new ConstanteEntera(lexico.getLinea(), lexico.getColumna(),(int)$1);	}
-|CTE_CHAR {$$ = new ConstanteChar(lexico.getLinea(), lexico.getColumna(),(char)$1);	}
-|CTE_REAL {$$ = new ConstanteReal(lexico.getLinea(), lexico.getColumna(),(double)$1);	}
+expresion: CTE_ENTERA {$$ = new ConstanteEntera(lexico.getLinea(), lexico.getColumna(),(Integer)$1);	}
+|CTE_CHAR {$$ = new ConstanteChar(lexico.getLinea(), lexico.getColumna(),(Character)$1);	}
+|CTE_REAL {$$ = new ConstanteReal(lexico.getLinea(), lexico.getColumna(),(Double)$1);	}
 |expresion '+' expresion {$$ = new OperacionAritmetica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "+", (Expresion)$3);	}
 |expresion '-' expresion {$$ = new OperacionAritmetica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "-", (Expresion)$3);	}
 |expresion '*' expresion {$$ = new OperacionAritmetica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "*", (Expresion)$3);	}
 |expresion '/' expresion {$$ = new OperacionAritmetica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "/", (Expresion)$3);	}
-|expresion '>' expresion {$$ = new OperacionComparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, ">", (Expresion)$3);	}
-|expresion '<' expresion {$$ = new OperacionComparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "<", (Expresion)$3);	}
-|expresion MAYORIGUAL expresion {$$ = new OperacionComparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, ">=", (Expresion)$3);	}
-|expresion MENORIGUAL expresion {$$ = new OperacionComparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "<=", (Expresion)$3);	}
+|expresion '>' expresion {$$ = new Comparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, ">", (Expresion)$3);	}
+|expresion '<' expresion {$$ = new Comparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "<", (Expresion)$3);	}
+|expresion MAYORIGUAL expresion {$$ = new Comparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, ">=", (Expresion)$3);	}
+|expresion MENORIGUAL expresion {$$ = new Comparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "<=", (Expresion)$3);	}
 |expresion AND expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "&&", (Expresion)$3);	}
 |expresion OR expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "||", (Expresion)$3);	}
 |expresion DISTINTO expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "<>", (Expresion)$3);	}
 |expresion IGUAL expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "==", (Expresion)$3);	}
-|expresion '[' expresion ']' {$$ = new AccesoArray(lexico.getLinea(), lexico.getColumna(),(Expresion)$1,(String)$3);	}
+|expresion '[' expresion ']' {$$ = new AccesoArray(lexico.getLinea(), lexico.getColumna(),(Expresion)$1,(Expresion)$3);	}
 |expresion '.' IDENT {$$ = new AccesoCampo(lexico.getLinea(), lexico.getColumna(),(Expresion)$1,(String)$3);	}
 |'(' expresion ')' {$$ = (Expresion)$2;	}
-|IDENT '(' parametrosLlamada ')' {$$ = new LlamadaFuncion((String)$1, (List<Expresion>$3);	}
-|CTYPE '(' tipo ',' expresion ')' {$$ = new Cast((Tipo)$3, (Expresion)$5);	}
+|IDENT '(' parametrosLlamada ')' {$$ = new LlamadaFuncion(lexico.getLinea(), lexico.getColumna(), (String)$1, (List<Expresion>)$3);	}
+|CTYPE '(' tipo ',' expresion ')' {$$ = new Cast(lexico.getLinea(), lexico.getColumna(), (Tipo)$3, (Expresion)$5);	}
+|IDENT {$$ = new Variable(lexico.getLinea(), lexico.getColumna(), (String)$1); }
 ;
 
 //	* Tipos
-tipo: INTEGER {$$ = new TipoEntero.getInstance();}
-| CHARACTER {$$ = new TipoChar.getInstance();} 
-| REAL {$$ = new TipoReal.getInstance();}
+tipo: INTEGER {$$ = TipoEntero.getInstance(lexico.getLinea(), lexico.getColumna());}
+| CHARACTER {$$ = TipoChar.getInstance(lexico.getLinea(), lexico.getColumna());} 
+| REAL {$$ = TipoReal.getInstance(lexico.getLinea(), lexico.getColumna());}
+| IDENT {$$ = new TipoStruct(lexico.getLinea(), lexico.getColumna(), (String)$1);}
 
 %%
-Lexico lex;
+Lexico lexico;
 AST root;
 int token;
 
-Parser(Yylex lex){
-
-this.lex = lex;
-
+// * Manejo de Errores Sintácticos
+public void yyerror (String error) {
+    System.err.println ("Error Sintáctico en línea " + lexico.getLinea()+
+		" y columna "+lexico.getColumna()+":\n\t"+error);
 }
 
-void yyerror(String s) {
-System.out.println("Error sintáctico en " + lex.line() + ":" + lex.column() + " Token = " + token + " lexema = \"" + lex.lexeme()+"\"");
+// * Llamada al analizador léxico
+private int yylex () {
+    int token=0;
+    try { 
+	token=lexico.yylex(); 
+    } catch(Throwable e) {
+	    System.err.println ("Error Léxico en línea " + lexico.getLinea()+
+		" y columna "+lexico.getColumna()+":\n\t"+e); 
+    }
+    return token;
 }
 
-int yylex(){
-try{
-int token = lex.yylex();
-yylval= lex.lexeme();
-return token;
-} catch (Exception e) {
-return -1;
-  }
+// * El yylval no es un atributo público
+public Object getYylval() {
+    	return yylval;
 }
-public AST getAST() {
-return root;
+public void setYylval(Object yylval) {
+        this.yylval = yylval;
+}
+
+// * Constructor del Sintáctico
+public Parser(Lexico lexico) {
+	this.lexico = lexico;
+	lexico.setParser(this);
+}
+
+public AST getAst(){
+	return root;
 }

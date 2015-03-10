@@ -1,22 +1,20 @@
 package ast.sentencia;
 
-import java.util.List;
-
 import ast.AbstractAST;
 import ast.expresion.Expresion;
 
 public class Read extends AbstractAST implements Sentencia {
 
-	public List<Expresion> expresiones;
+	public Expresion expresion;
 
-	public Read(int linea, int columna, List<Expresion> expresiones) {
+	public Read(int linea, int columna, Expresion expresion) {
 		super(linea, columna);
-		this.expresiones = expresiones;
+		this.expresion = expresion;
 	}
 
 	@Override
 	public String toString() {
-		return "Lectura [expresiones=" + expresiones + "]";
+		return "Lectura [expresion=" + expresion + "]";
 	}
 
 }

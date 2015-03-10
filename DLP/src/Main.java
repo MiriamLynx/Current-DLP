@@ -1,25 +1,35 @@
+import introspector.model.IntrospectorModel;
+import introspector.view.IntrospectorTree;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+import ast.AST;
+
 public class Main {
-
 	public static void main(String[] args) {
-
-		final String source = "ejemplo.txt";
-
+		String nombreFichero = "ejemplo.txt";
 		Lexico lex;
 		try {
-
-			lex = new Lexico(new FileReader(source));
-
+			// GestorErrores gestor = new GestorErrores();
+			lex = new Lexico(new FileReader("src\\" + nombreFichero));
 			Parser parser = new Parser(lex);
-
 			parser.yyparse();
-
+			AST root = parser.getAst();
+			// if (!gestor.hayErrores()) {
+			showTree(root);
+			// System.out.println(">> Programa correcto sintácticamente.");
+			// }
 		} catch (FileNotFoundException e) {
-
+			System.out.println("Fichero no encontrado.");
+			e.printStackTrace();
 		}
 
+	}
+
+	public static void showTree(Object root) {
+		IntrospectorModel modelo = new IntrospectorModel("Raíz", root);
+		new IntrospectorTree("Introspector", modelo);
 	}
 
 }

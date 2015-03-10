@@ -16,4 +16,5 @@ public class TipoEntero extends AbstractAST implements Tipo {
 		}
 		return instance;
 	}
+
 }
