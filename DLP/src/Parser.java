@@ -850,7 +850,7 @@ case 15:
 break;
 case 16:
 //#line 96 "sintactico.y"
-{ List<Integer> l  = (List<Integer>)val_peek(3); l.add((Integer)val_peek(2)); yyval = l;}
+{ List<Integer> l  = (List<Integer>)val_peek(3); l.add((Integer)val_peek(1)); yyval = l;}
 break;
 case 17:
 //#line 100 "sintactico.y"

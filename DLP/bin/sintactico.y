@@ -93,7 +93,7 @@ declaracionCampo: IDENT AS tipo ';' {$$ = new DeclaracionCampo(lexico.getLinea()
 
 // * Una o más dimensiones de array
 listaDimensiones: '[' CTE_ENTERA ']' { List<Integer> l = new ArrayList<Integer>(); l.add((Integer)$2); $$ = l;}
-| listaDimensiones '[' CTE_ENTERA ']' { List<Integer> l  = (List<Integer>)$1; l.add((Integer)$2); $$ = l;}
+| listaDimensiones '[' CTE_ENTERA ']' { List<Integer> l  = (List<Integer>)$1; l.add((Integer)$3); $$ = l;}
 ;
 
 // * Cero o más declaraciones de variable
