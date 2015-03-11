@@ -21,8 +21,14 @@ public class If extends AbstractAST implements Sentencia {
 
 	@Override
 	public String toString() {
-		return "IfElse [expresion=" + expresion + ", sentencias=" + sentencias
-				+ ", alternativas=" + alternativas + "]";
+		if (alternativas.size() > 0) {
+			return "If Else [ " + expresion + " ]"
+					+ "\nSentencias del cuerpo->\n" + sentencias + "\n"
+					+ "\nSentencias de la alternativa->\n" + alternativas
+					+ "\n";
+		} else {
+			return "If Else [ " + expresion + " ]"
+					+ "\nSentencias del cuerpo->\n" + sentencias + "\n" + "\n";
+		}
 	}
-
 }

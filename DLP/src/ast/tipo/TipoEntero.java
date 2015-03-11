@@ -17,4 +17,9 @@ public class TipoEntero extends AbstractAST implements Tipo {
 		return instance;
 	}
 
+	@Override
+	public String toString() {
+		return "Tipo entero";
+	}
+
 }

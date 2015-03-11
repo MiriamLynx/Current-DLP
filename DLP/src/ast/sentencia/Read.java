@@ -14,7 +14,7 @@ public class Read extends AbstractAST implements Sentencia {
 
 	@Override
 	public String toString() {
-		return "Lectura [expresion=" + expresion + "]";
+		return "Lectura [ " + expresion + " ] \n";
 	}
 
 }

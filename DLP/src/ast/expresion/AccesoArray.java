@@ -13,4 +13,8 @@ public class AccesoArray extends AbstractAST implements Expresion {
 		this.array = array;
 	}
 
+	@Override
+	public String toString() {
+		return "Acceso a array [ " + array + " , " + index + " ] ";
+	}
 }

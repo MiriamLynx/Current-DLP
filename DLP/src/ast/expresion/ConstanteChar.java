@@ -13,7 +13,7 @@ public class ConstanteChar extends AbstractAST implements Expresion {
 
 	@Override
 	public String toString() {
-		return "LiteralCaracter [valor=" + valor + "]";
+		return "Constante caracter [ " + valor + " ] ";
 	}
 
 }

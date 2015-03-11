@@ -13,6 +13,6 @@ public class Variable extends AbstractAST implements Expresion {
 
 	@Override
 	public String toString() {
-		return "LiteralReal [nombre=" + nombre + "]";
+		return "Variable [ " + nombre + " ] ";
 	}
 }

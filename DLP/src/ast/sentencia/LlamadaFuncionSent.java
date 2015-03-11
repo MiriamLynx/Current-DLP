@@ -19,8 +19,8 @@ public class LlamadaFuncionSent extends AbstractAST implements Sentencia {
 
 	@Override
 	public String toString() {
-		return "LlamadaProcedimiento [nombre=" + nombre + ", expresiones="
-				+ expresiones + "]";
+		return "Llamada a funcion (sentencia) [ " + nombre + " ]"
+				+ "\nParametros de la llamada->\n" + expresiones + "\n";
 	}
 
 }

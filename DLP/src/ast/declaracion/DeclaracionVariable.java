@@ -5,19 +5,18 @@ import ast.tipo.Tipo;
 
 public class DeclaracionVariable extends AbstractAST implements Declaracion {
 
-	public String variable;
+	public String nombre;
 	public Tipo tipo;
 
-	public DeclaracionVariable(int linea, int columna, Tipo tipo,
-			String variable) {
+	public DeclaracionVariable(int linea, int columna, Tipo tipo, String nombre) {
 		super(linea, columna);
-		this.variable = variable;
+		this.nombre = nombre;
 		this.tipo = tipo;
 	}
 
 	@Override
 	public String toString() {
-		return "DefVariable [variable=" + variable + ", tipo=" + tipo + "]";
+		return "Declaracion de variable [ " + nombre + " , " + tipo + " ] \n";
 	}
 
 }

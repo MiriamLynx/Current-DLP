@@ -14,7 +14,7 @@ public class Return extends AbstractAST implements Sentencia {
 
 	@Override
 	public String toString() {
-		return "Return [expresion=" + expresion + "]";
+		return "Return [ " + expresion + " ] \n";
 	}
 
 }

@@ -18,8 +18,8 @@ public class LlamadaFuncion extends AbstractAST implements Expresion {
 
 	@Override
 	public String toString() {
-		return "LlamadaFuncion [nombre=" + nombre + ", expresiones="
-				+ expresiones + "]";
+		return "Llamada a funcion (expresion) [ " + nombre + " ]"
+				+ "\nParametros de la llamada ->\n" + expresiones + "\n";
 	}
 
 }

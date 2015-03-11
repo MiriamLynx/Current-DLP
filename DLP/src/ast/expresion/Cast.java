@@ -16,6 +16,6 @@ public class Cast extends AbstractAST implements Expresion {
 
 	@Override
 	public String toString() {
-		return "Cast [tipo=" + tipo + ", casteo=" + casteo + "]";
+		return "Casteo [ " + tipo + " , " + casteo + " ] \n";
 	}
 }

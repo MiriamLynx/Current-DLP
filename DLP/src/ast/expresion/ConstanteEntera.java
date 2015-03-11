@@ -13,7 +13,7 @@ public class ConstanteEntera extends AbstractAST implements Expresion {
 
 	@Override
 	public String toString() {
-		return "LiteralEntero [valor=" + valor + "]";
+		return "Constante entera [ " + valor + " ] ";
 	}
 
 }

@@ -16,7 +16,7 @@ public class DeclaracionCampo extends AbstractAST implements Declaracion {
 
 	@Override
 	public String toString() {
-		return "DefCampo [variable=" + variable + ", tipo=" + tipo + "]";
+		return "Campo [ " + variable + " , " + tipo + " ] ";
 	}
 
 }

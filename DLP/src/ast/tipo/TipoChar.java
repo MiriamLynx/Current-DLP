@@ -16,5 +16,10 @@ public class TipoChar extends AbstractAST implements Tipo {
 		}
 		return instance;
 	}
+	
+	@Override
+	public String toString() {
+		return "Tipo caracter";
+	}
 
 }

@@ -18,8 +18,8 @@ public class Comparacion extends AbstractAST implements Expresion {
 
 	@Override
 	public String toString() {
-		return "Comparacion [izquierda=" + izquierda + ", derecha=" + derecha
-				+ ", operador=" + operador + "]";
+		return "Comparacion [ " + izquierda + " " + operador + " " + derecha
+				+ " ] ";
 	}
 
 }

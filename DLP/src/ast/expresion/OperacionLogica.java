@@ -16,4 +16,10 @@ public class OperacionLogica extends AbstractAST implements Expresion {
 		this.operador = operador;
 	}
 
+	@Override
+	public String toString() {
+		return "Operacion logica [ " + izquierda + " " + operador + " "
+				+ derecha + " ] ";
+	}
+
 }

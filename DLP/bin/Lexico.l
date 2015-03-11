@@ -11,8 +11,14 @@
 
 %{
 // ************  Atributos y métodos ********************
+
+// * El gestor de errores
+private GestorErrores gestor;
+
 // * El analizador sintáctico
 private Parser parser;
+
+
 public void setParser(Parser parser) {
 	this.parser=parser;
 }
@@ -149,4 +155,4 @@ type {return Parser.TYPE; }
 
 {BASURA} { }
 
-. { System.out.println("Error:" + yytext()); }
+. { System.out.println("Error léxico en la linea: "+ this.getLinea() + ", columna: "+ this.getColumna() +"\nCaracter: '"+yycharat(0)+"' no reconocido"); }

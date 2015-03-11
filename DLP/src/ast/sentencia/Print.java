@@ -14,7 +14,7 @@ public class Print extends AbstractAST implements Sentencia {
 
 	@Override
 	public String toString() {
-		return "Escritura [expresion=" + expresion + "]";
+		return "Escritura [ " + expresion + " ] \n";
 	}
 
 }

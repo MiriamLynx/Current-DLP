@@ -11,4 +11,9 @@ public class TipoStruct extends AbstractAST implements Tipo {
 		this.nombre = nombre;
 	}
 
+	@Override
+	public String toString() {
+		return "Tipo struct [ " + nombre + " ]";
+	}
+
 }

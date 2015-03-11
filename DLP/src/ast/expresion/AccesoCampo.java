@@ -15,7 +15,7 @@ public class AccesoCampo extends AbstractAST implements Expresion {
 
 	@Override
 	public String toString() {
-		return "AccesoCampo [campo=" + campo + ", struct=" + struct + "]";
+		return "Acceso a campo [ " + struct + " , " + campo + " ] ";
 	}
 
 }

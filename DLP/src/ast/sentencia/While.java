@@ -19,7 +19,7 @@ public class While extends AbstractAST implements Sentencia {
 
 	@Override
 	public String toString() {
-		return "While [sentencias=" + sentencias + ", expresion=" + expresion
-				+ "]";
+		return "While [ Expresion " + expresion + " ]"
+				+ "\nSentencias del while ->\n" + sentencias + "\n";
 	}
 }

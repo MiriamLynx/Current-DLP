@@ -13,7 +13,7 @@ public class ConstanteReal extends AbstractAST implements Expresion {
 
 	@Override
 	public String toString() {
-		return "LiteralReal [valor=" + valor + "]";
+		return "Constante real [ " + valor + " ] ";
 	}
 
 }

@@ -18,8 +18,8 @@ public class OperacionAritmetica extends AbstractAST implements Expresion {
 
 	@Override
 	public String toString() {
-		return "OperacionAritmetica [izquierda=" + izquierda + ", derecha="
-				+ derecha + ", operador=" + operador + "]";
+		return "Operacion aritmetica [ " + izquierda + " " + operador + " " + derecha
+				+ " ] ";
 	}
 
 }

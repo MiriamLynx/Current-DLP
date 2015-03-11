@@ -15,4 +15,9 @@ public class TipoArray extends AbstractAST implements Tipo {
 		this.tipo = tipo;
 	}
 
+	@Override
+	public String toString() {
+		return "Tipo array [ " + tipo + " , " + size + " ]";
+	}
+
 }

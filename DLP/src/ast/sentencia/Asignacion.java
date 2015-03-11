@@ -10,16 +10,14 @@ public class Asignacion extends AbstractAST implements Sentencia {
 
 	public Asignacion(int linea, int columna, Expresion izquierda,
 			Expresion derecha) {
-		super(linea,columna);
+		super(linea, columna);
 		this.izquierda = izquierda;
 		this.derecha = derecha;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Asignacion [izquierda=" + izquierda + ", derecha=" + derecha
-				+ "]";
+		return "Asignacion [ " + izquierda + " , " + derecha + " ] \n";
 	}
 
 }
