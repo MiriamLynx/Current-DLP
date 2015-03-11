@@ -3,11 +3,12 @@ package ast.tipo;
 import java.util.List;
 
 import ast.AbstractAST;
+import ast.visitor.Visitor;
 
 public class TipoArray extends AbstractAST implements Tipo {
 
-	public List<Integer> size;
-	public Tipo tipo;
+	private List<Integer> size;
+	private Tipo tipo;
 
 	public TipoArray(int linea, int columna, List<Integer> size, Tipo tipo) {
 		super(linea, columna);
@@ -20,4 +21,23 @@ public class TipoArray extends AbstractAST implements Tipo {
 		return "Tipo array [ " + tipo + " , " + size + " ]";
 	}
 
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
+
+	public List<Integer> getSize() {
+		return size;
+	}
+
+	public void setSize(List<Integer> size) {
+		this.size = size;
+	}
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
 }

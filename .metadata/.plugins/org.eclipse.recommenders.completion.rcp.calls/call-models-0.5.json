@@ -1,1 +1,12 @@
-{}
+{
+  "C:\\Users\\UO217345\\Desktop\\DLP\\DLP\\src": {
+    "location": "C:\\Users\\UO217345\\Desktop\\DLP\\DLP\\src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027C:\\Users\\UO217345\\Desktop\\DLP\\DLP\\src\u0027. Skipped."
+  },
+  "C:\\Program Files\\Java\\jre8\\lib\\rt.jar": {
+    "coordinate": "jre:jre:zip:call:1.0.0",
+    "location": "C:\\Program Files\\Java\\jre8\\lib\\rt.jar",
+    "status": "RESOLVED"
+  }
+}

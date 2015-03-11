@@ -1,6 +1,7 @@
 package ast.tipo;
 
 import ast.AbstractAST;
+import ast.visitor.Visitor;
 
 public class TipoReal extends AbstractAST implements Tipo {
 
@@ -20,6 +21,10 @@ public class TipoReal extends AbstractAST implements Tipo {
 	@Override
 	public String toString() {
 		return "Tipo real";
+	}
+	
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
 	}
 
 }

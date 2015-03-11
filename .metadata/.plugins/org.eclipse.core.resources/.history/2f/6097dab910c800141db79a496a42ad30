@@ -1,0 +1,12 @@
+package ast.expresion;
+
+import ast.AbstractAST;
+import ast.visitor.Visitor;
+
+public class NotLogico extends AbstractAST implements Expresion {
+
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
+
+}

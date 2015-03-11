@@ -1,0 +1,24 @@
+package ast.expresion;
+
+import ast.AbstractAST;
+import ast.visitor.Visitor;
+
+public class ConstanteChar extends AbstractAST implements Expresion {
+
+	public char valor;
+
+	public ConstanteChar(int linea, int columna, char valor) {
+		super(linea, columna);
+		this.valor = valor;
+	}
+
+	@Override
+	public String toString() {
+		return "Constante caracter [ " + valor + " ] ";
+	}
+	
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
+
+}

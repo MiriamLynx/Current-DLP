@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import ast.AST;
+import ast.visitor.XMLVisitor;
 
 public class Main {
 	public static void main(String[] args) {
@@ -20,6 +21,8 @@ public class Main {
 			showTree(root);
 			// System.out.println(">> Programa correcto sintácticamente.");
 			// }
+			XMLVisitor v = new XMLVisitor();
+			parser.getAst().accept(v);
 		} catch (FileNotFoundException e) {
 			System.out.println("Fichero no encontrado.");
 			e.printStackTrace();

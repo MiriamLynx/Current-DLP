@@ -1,0 +1,15 @@
+package ast.visitor;
+
+import ast.declaracion.Declaracion;
+import ast.expresion.Expresion;
+import ast.sentencia.Sentencia;
+
+public interface Visitor {
+
+	public Object visit(Declaracion declaracion);
+	
+	public Object visit(Expresion expresion);
+	
+	public Object visit(Sentencia sentencia);
+	
+}

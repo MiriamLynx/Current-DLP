@@ -2,10 +2,11 @@ package ast.sentencia;
 
 import ast.AbstractAST;
 import ast.expresion.Expresion;
+import ast.visitor.Visitor;
 
 public class Return extends AbstractAST implements Sentencia {
 
-	public Expresion expresion;
+	private Expresion expresion;
 
 	public Return(int linea, int columna, Expresion expresion) {
 		super(linea, columna);
@@ -15,6 +16,18 @@ public class Return extends AbstractAST implements Sentencia {
 	@Override
 	public String toString() {
 		return "Return [ " + expresion + " ] \n";
+	}
+	
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
+
+	public Expresion getExpresion() {
+		return expresion;
+	}
+
+	public void setExpresion(Expresion expresion) {
+		this.expresion = expresion;
 	}
 
 }

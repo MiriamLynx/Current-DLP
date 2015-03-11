@@ -1,0 +1,13 @@
+package ast;
+
+import ast.visitor.Visitor;
+
+public interface AST {
+
+	int getLinea();
+
+	int getColumna();
+
+	void accept(Visitor visitor);
+
+}

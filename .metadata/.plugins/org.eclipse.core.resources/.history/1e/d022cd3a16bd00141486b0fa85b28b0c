@@ -1,7 +1,0 @@
-package ast.declaracion;
-
-import ast.AbstractAST;
-
-public class DeclaracionStruct extends AbstractAST implements Declaracion {
-
-}

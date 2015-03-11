@@ -162,6 +162,7 @@ expresion: CTE_ENTERA {$$ = new ConstanteEntera(lexico.getLinea(), lexico.getCol
 |IDENT '(' parametrosLlamada ')' {$$ = new LlamadaFuncion(lexico.getLinea(), lexico.getColumna(), (String)$1, (List<Expresion>)$3);	}
 |CTYPE '(' tipo ',' expresion ')' {$$ = new Cast(lexico.getLinea(), lexico.getColumna(), (Tipo)$3, (Expresion)$5);	}
 |IDENT {$$ = new Variable(lexico.getLinea(), lexico.getColumna(), (String)$1); }
+|NOT expresion {$$ = new NotLogico(lexico.getLinea(), lexico.getColumna(), (Expresion)$2);}
 ;
 
 //	* Tipos

@@ -2,11 +2,12 @@ package ast.declaracion;
 
 import ast.AbstractAST;
 import ast.tipo.Tipo;
+import ast.visitor.Visitor;
 
 public class DeclaracionVariable extends AbstractAST implements Declaracion {
 
-	public String nombre;
-	public Tipo tipo;
+	private String nombre;
+	private Tipo tipo;
 
 	public DeclaracionVariable(int linea, int columna, Tipo tipo, String nombre) {
 		super(linea, columna);
@@ -17,6 +18,26 @@ public class DeclaracionVariable extends AbstractAST implements Declaracion {
 	@Override
 	public String toString() {
 		return "Declaracion de variable [ " + nombre + " , " + tipo + " ] \n";
+	}
+
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
 	}
 
 }

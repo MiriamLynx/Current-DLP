@@ -1,6 +1,7 @@
 package ast.tipo;
 
 import ast.AbstractAST;
+import ast.visitor.Visitor;
 
 public class TipoEntero extends AbstractAST implements Tipo {
 
@@ -22,4 +23,7 @@ public class TipoEntero extends AbstractAST implements Tipo {
 		return "Tipo entero";
 	}
 
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
 }

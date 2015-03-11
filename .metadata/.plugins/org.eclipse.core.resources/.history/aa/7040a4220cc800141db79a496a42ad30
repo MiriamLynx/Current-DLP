@@ -1,0 +1,9 @@
+package ast.visitor;
+
+import ast.Programa;
+
+public interface Visitor {
+
+	public Object visit(Programa programa);
+
+}

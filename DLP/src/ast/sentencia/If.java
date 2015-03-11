@@ -4,12 +4,13 @@ import java.util.List;
 
 import ast.AbstractAST;
 import ast.expresion.Expresion;
+import ast.visitor.Visitor;
 
 public class If extends AbstractAST implements Sentencia {
 
-	public Expresion expresion;
-	public List<Sentencia> sentencias;
-	public List<Sentencia> alternativas;
+	private Expresion expresion;
+	private List<Sentencia> sentencias;
+	private List<Sentencia> alternativas;
 
 	public If(int linea, int columna, Expresion expresion,
 			List<Sentencia> sentencias, List<Sentencia> alternativas) {
@@ -30,5 +31,33 @@ public class If extends AbstractAST implements Sentencia {
 			return "If Else [ " + expresion + " ]"
 					+ "\nSentencias del cuerpo->\n" + sentencias + "\n" + "\n";
 		}
+	}
+	
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
+
+	public Expresion getExpresion() {
+		return expresion;
+	}
+
+	public void setExpresion(Expresion expresion) {
+		this.expresion = expresion;
+	}
+
+	public List<Sentencia> getSentencias() {
+		return sentencias;
+	}
+
+	public void setSentencias(List<Sentencia> sentencias) {
+		this.sentencias = sentencias;
+	}
+
+	public List<Sentencia> getAlternativas() {
+		return alternativas;
+	}
+
+	public void setAlternativas(List<Sentencia> alternativas) {
+		this.alternativas = alternativas;
 	}
 }

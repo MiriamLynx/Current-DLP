@@ -1,8 +1,0 @@
-package ast.sentencia;
-
-import ast.expresion.Expresion;
-
-public class Print {
-
-	public Expresion exp;
-}

@@ -1,0 +1,29 @@
+package ast.tipo;
+
+import ast.AbstractAST;
+import ast.visitor.Visitor;
+
+public class TipoVoid extends AbstractAST implements Tipo {
+
+	private static TipoVoid instance;
+
+	private TipoVoid(int linea, int columna) {
+		super(linea, columna);
+	}
+
+	public static TipoVoid getInstance(int linea, int columna) {
+		if (instance == null) {
+			instance = new TipoVoid(linea, columna);
+		}
+		return instance;
+	}
+
+	@Override
+	public String toString() {
+		return "Tipo entero";
+	}
+
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
+}

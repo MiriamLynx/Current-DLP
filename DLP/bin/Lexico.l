@@ -12,9 +12,6 @@
 %{
 // ************  Atributos y métodos ********************
 
-// * El gestor de errores
-private GestorErrores gestor;
-
 // * El analizador sintáctico
 private Parser parser;
 

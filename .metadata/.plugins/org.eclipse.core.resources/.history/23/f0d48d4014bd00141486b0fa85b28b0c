@@ -1,7 +1,0 @@
-package ast.declaracion;
-
-public class DeclaracionFuncion implements Declaracion {
-
-	public Tipo tipo;
-
-}

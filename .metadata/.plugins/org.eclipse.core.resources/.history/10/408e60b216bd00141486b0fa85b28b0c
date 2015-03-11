@@ -1,5 +1,0 @@
-package ast.expresion;
-
-public class Cast implements Expresion{
-
-}

@@ -59,7 +59,7 @@ proc main()
     local = local + 1;
   end while;
  
-  if a >= 2 and local < 5 then
+  if not a >= 2 and local < 5 then
     escribeEdad(a+local); 
 	return;
   else

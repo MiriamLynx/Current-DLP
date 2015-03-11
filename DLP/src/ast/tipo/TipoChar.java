@@ -1,6 +1,7 @@
 package ast.tipo;
 
 import ast.AbstractAST;
+import ast.visitor.Visitor;
 
 public class TipoChar extends AbstractAST implements Tipo {
 
@@ -20,6 +21,10 @@ public class TipoChar extends AbstractAST implements Tipo {
 	@Override
 	public String toString() {
 		return "Tipo caracter";
+	}
+	
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
 	}
 
 }
