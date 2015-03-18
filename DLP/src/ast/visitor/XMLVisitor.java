@@ -37,8 +37,8 @@ public class XMLVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(DeclaracionCampo node) {
-		System.out.println("<DeclaracionCampo name='" + node.getVariable()
-				+ "'>");
+		System.out
+				.println("<DeclaracionCampo name='" + node.getNombre() + "'>");
 		Object ret = super.visit(node);
 		System.out.println("</DeclaracionCampo>");
 		return ret;

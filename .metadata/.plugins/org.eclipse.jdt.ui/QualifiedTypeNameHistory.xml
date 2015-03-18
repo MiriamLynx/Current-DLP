@@ -15,4 +15,7 @@
 <fullyQualifiedTypeName name="ast.sentencia.Asignacion"/>
 <fullyQualifiedTypeName name="ast.visitor.XMLVisitor"/>
 <fullyQualifiedTypeName name="ast.tipo.TipoVoid"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="error.GestorErrores"/>
+<fullyQualifiedTypeName name="ast.tipo.TipoError"/>
 </qualifiedTypeNameHistroy>

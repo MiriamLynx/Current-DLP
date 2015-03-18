@@ -1,7 +1,0 @@
-package ast.expresion;
-
-import ast.AbstractAST;
-
-public class NotLogico extends AbstractAST implements Expresion {
-
-}

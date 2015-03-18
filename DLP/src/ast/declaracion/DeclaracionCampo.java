@@ -6,30 +6,30 @@ import ast.visitor.Visitor;
 
 public class DeclaracionCampo extends AbstractAST implements Declaracion {
 
-	public String variable;
+	public String nombre;
 	public Tipo tipo;
 
 	public DeclaracionCampo(int linea, int columna, Tipo tipo, String variable) {
 		super(linea, columna);
-		this.variable = variable;
+		this.nombre = variable;
 		this.tipo = tipo;
 	}
 
 	@Override
 	public String toString() {
-		return "Campo [ " + variable + " , " + tipo + " ] ";
+		return "Campo [ " + nombre + " , " + tipo + " ] ";
 	}
 
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 
-	public String getVariable() {
-		return variable;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setVariable(String variable) {
-		this.variable = variable;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public Tipo getTipo() {

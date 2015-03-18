@@ -7,7 +7,7 @@ import ast.tipo.TipoError;
 
 public class GestorErrores {
 
-	private List<TipoError> errores = new ArrayList<TipoError>();
+	private static List<TipoError> errores = new ArrayList<TipoError>();
 
 	public void añadirError(TipoError e) {
 		errores.add(e);
@@ -27,7 +27,7 @@ public class GestorErrores {
 		return errores;
 	}
 
-	public void setErrores(List<TipoError> errores) {
-		this.errores = errores;
+	public static void addError(TipoError error) {
+		errores.add(error);
 	}
 }

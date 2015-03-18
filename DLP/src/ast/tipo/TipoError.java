@@ -6,13 +6,15 @@ import ast.visitor.Visitor;
 
 public class TipoError extends AbstractAST implements Tipo {
 
-	public AST error;
+	public AST nodo;
+	public String error;
 
-	public TipoError(int linea, int columna, AST error) {
-		super(linea, columna);
+	public TipoError(AST nodo, String error) {
+		super(nodo.getLinea(), nodo.getColumna());
+		this.nodo = nodo;
 		this.error = error;
 	}
-	
+
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
