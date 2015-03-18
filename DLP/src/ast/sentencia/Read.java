@@ -6,7 +6,7 @@ import ast.visitor.Visitor;
 
 public class Read extends AbstractAST implements Sentencia {
 
-	private Expresion expresion;
+	public Expresion expresion;
 
 	public Read(int linea, int columna, Expresion expresion) {
 		super(linea, columna);

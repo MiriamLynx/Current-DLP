@@ -7,8 +7,8 @@ import ast.visitor.Visitor;
 
 public class TipoArray extends AbstractAST implements Tipo {
 
-	private List<Integer> size;
-	private Tipo tipo;
+	public List<Integer> size;
+	public Tipo tipo;
 
 	public TipoArray(int linea, int columna, List<Integer> size, Tipo tipo) {
 		super(linea, columna);

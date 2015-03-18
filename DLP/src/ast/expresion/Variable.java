@@ -5,7 +5,7 @@ import ast.visitor.Visitor;
 
 public class Variable extends AbstractAST implements Expresion {
 
-	private String nombre;
+	public String nombre;
 
 	public Variable(int linea, int columna, String nombre) {
 		super(linea, columna);

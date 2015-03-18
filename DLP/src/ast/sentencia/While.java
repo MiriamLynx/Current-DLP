@@ -8,8 +8,8 @@ import ast.visitor.Visitor;
 
 public class While extends AbstractAST implements Sentencia {
 
-	private List<Sentencia> sentencias;
-	private Expresion expresion;
+	public List<Sentencia> sentencias;
+	public Expresion expresion;
 
 	public While(int linea, int columna, Expresion expresion,
 			List<Sentencia> sentencias) {

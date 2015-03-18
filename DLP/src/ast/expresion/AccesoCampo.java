@@ -5,8 +5,8 @@ import ast.visitor.Visitor;
 
 public class AccesoCampo extends AbstractAST implements Expresion {
 
-	private String campo;
-	private Expresion struct;
+	public String campo;
+	public Expresion struct;
 
 	public AccesoCampo(int linea, int columna, Expresion struct, String campo) {
 		super(linea, columna);

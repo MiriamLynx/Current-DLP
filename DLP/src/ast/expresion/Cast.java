@@ -6,8 +6,8 @@ import ast.visitor.Visitor;
 
 public class Cast extends AbstractAST implements Expresion {
 
-	private Tipo tipo;
-	private Expresion casteo;
+	public Tipo tipo;
+	public Expresion casteo;
 
 	public Cast(int linea, int columna, Tipo tipo, Expresion casteo) {
 		super(linea, columna);

@@ -5,7 +5,7 @@ import ast.visitor.Visitor;
 
 public class TipoStruct extends AbstractAST implements Tipo {
 
-	private String nombre;
+	public String nombre;
 
 	public TipoStruct(int linea, int columna, String nombre) {
 		super(linea, columna);

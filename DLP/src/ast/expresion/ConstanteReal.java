@@ -5,7 +5,7 @@ import ast.visitor.Visitor;
 
 public class ConstanteReal extends AbstractAST implements Expresion {
 
-	private double valor;
+	public double valor;
 
 	public ConstanteReal(int linea, int columna, double valor) {
 		super(linea, columna);

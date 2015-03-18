@@ -5,7 +5,7 @@ import ast.visitor.Visitor;
 
 public class ConstanteChar extends AbstractAST implements Expresion {
 
-	private char valor;
+	public char valor;
 
 	public ConstanteChar(int linea, int columna, char valor) {
 		super(linea, columna);

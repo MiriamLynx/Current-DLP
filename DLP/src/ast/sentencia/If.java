@@ -8,9 +8,9 @@ import ast.visitor.Visitor;
 
 public class If extends AbstractAST implements Sentencia {
 
-	private Expresion expresion;
-	private List<Sentencia> sentencias;
-	private List<Sentencia> alternativas;
+	public Expresion expresion;
+	public List<Sentencia> sentencias;
+	public List<Sentencia> alternativas;
 
 	public If(int linea, int columna, Expresion expresion,
 			List<Sentencia> sentencias, List<Sentencia> alternativas) {

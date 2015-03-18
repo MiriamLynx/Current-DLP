@@ -5,9 +5,9 @@ import ast.visitor.Visitor;
 
 public class Comparacion extends AbstractAST implements Expresion {
 
-	private Expresion izquierda;
-	private Expresion derecha;
-	private String operador;
+	public Expresion izquierda;
+	public Expresion derecha;
+	public String operador;
 
 	public Comparacion(int linea, int columna, Expresion izquierda,
 			String operador, Expresion derecha) {

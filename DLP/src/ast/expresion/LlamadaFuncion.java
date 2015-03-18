@@ -7,8 +7,8 @@ import ast.visitor.Visitor;
 
 public class LlamadaFuncion extends AbstractAST implements Expresion {
 
-	private String nombre;
-	private List<Expresion> expresiones;
+	public String nombre;
+	public List<Expresion> expresiones;
 
 	public LlamadaFuncion(int linea, int columna, String nombre,
 			List<Expresion> expresiones) {

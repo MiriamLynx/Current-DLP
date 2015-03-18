@@ -6,8 +6,8 @@ import ast.visitor.Visitor;
 
 public class Asignacion extends AbstractAST implements Sentencia {
 
-	private Expresion izquierda;
-	private Expresion derecha;
+	public Expresion izquierda;
+	public Expresion derecha;
 
 	public Asignacion(int linea, int columna, Expresion izquierda,
 			Expresion derecha) {

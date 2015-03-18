@@ -5,8 +5,8 @@ import ast.visitor.Visitor;
 
 public class AccesoArray extends AbstractAST implements Expresion {
 
-	private Expresion index;
-	private Expresion array;
+	public Expresion index;
+	public Expresion array;
 
 	public AccesoArray(int linea, int columna, Expresion index, Expresion array) {
 		super(linea, columna);

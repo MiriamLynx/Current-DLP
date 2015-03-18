@@ -6,8 +6,8 @@ import ast.visitor.Visitor;
 
 public class DeclaracionVariable extends AbstractAST implements Declaracion {
 
-	private String nombre;
-	private Tipo tipo;
+	public String nombre;
+	public Tipo tipo;
 
 	public DeclaracionVariable(int linea, int columna, Tipo tipo, String nombre) {
 		super(linea, columna);

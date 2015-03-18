@@ -5,7 +5,7 @@ import ast.visitor.Visitor;
 
 public class ConstanteEntera extends AbstractAST implements Expresion {
 
-	private int valor;
+	public int valor;
 
 	public ConstanteEntera(int linea, int columna, int valor) {
 		super(linea, columna);

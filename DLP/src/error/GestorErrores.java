@@ -1,12 +1,13 @@
 package error;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ast.tipo.TipoError;
 
 public class GestorErrores {
 
-	private List<TipoError> errores;
+	private List<TipoError> errores = new ArrayList<TipoError>();
 
 	public void añadirError(TipoError e) {
 		errores.add(e);

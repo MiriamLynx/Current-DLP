@@ -5,9 +5,9 @@ import ast.visitor.Visitor;
 
 public class OperacionLogica extends AbstractAST implements Expresion {
 
-	private Expresion izquierda;
-	private Expresion derecha;
-	private String operador;
+	public Expresion izquierda;
+	public Expresion derecha;
+	public String operador;
 
 	public OperacionLogica(int linea, int columna, Expresion izquierda,
 			String operador, Expresion derecha) {

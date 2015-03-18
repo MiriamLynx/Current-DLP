@@ -5,7 +5,7 @@ import ast.visitor.Visitor;
 
 public class NotLogico extends AbstractAST implements Expresion {
 
-	private Expresion expresion;
+	public Expresion expresion;
 
 	public NotLogico(int linea, int columna, Expresion expresion) {
 		super(linea, columna);

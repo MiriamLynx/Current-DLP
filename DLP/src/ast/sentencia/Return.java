@@ -6,7 +6,7 @@ import ast.visitor.Visitor;
 
 public class Return extends AbstractAST implements Sentencia {
 
-	private Expresion expresion;
+	public Expresion expresion;
 
 	public Return(int linea, int columna, Expresion expresion) {
 		super(linea, columna);

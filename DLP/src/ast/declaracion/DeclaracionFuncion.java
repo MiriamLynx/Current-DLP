@@ -9,11 +9,11 @@ import ast.visitor.Visitor;
 
 public class DeclaracionFuncion extends AbstractAST implements Declaracion {
 
-	private Tipo retorno;
-	private String nombre;
-	private List<DeclaracionVariable> parametros;
-	private List<DeclaracionVariable> declaraciones;
-	private List<Sentencia> sentencias;
+	public Tipo retorno;
+	public String nombre;
+	public List<DeclaracionVariable> parametros;
+	public List<DeclaracionVariable> declaraciones;
+	public List<Sentencia> sentencias;
 
 	public DeclaracionFuncion(int linea, int columna, Tipo retorno,
 			String nombre, List<DeclaracionVariable> parametros,

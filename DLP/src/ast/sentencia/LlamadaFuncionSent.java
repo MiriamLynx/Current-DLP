@@ -8,8 +8,8 @@ import ast.visitor.Visitor;
 
 public class LlamadaFuncionSent extends AbstractAST implements Sentencia {
 
-	private String nombre;
-	private List<Expresion> expresiones;
+	public String nombre;
+	public List<Expresion> expresiones;
 
 	public LlamadaFuncionSent(int linea, int columna, String nombre,
 			List<Expresion> expresiones) {

@@ -6,8 +6,8 @@ import ast.visitor.Visitor;
 
 public class DeclaracionCampo extends AbstractAST implements Declaracion {
 
-	private String variable;
-	private Tipo tipo;
+	public String variable;
+	public Tipo tipo;
 
 	public DeclaracionCampo(int linea, int columna, Tipo tipo, String variable) {
 		super(linea, columna);

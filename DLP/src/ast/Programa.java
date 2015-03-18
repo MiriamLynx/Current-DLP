@@ -7,7 +7,7 @@ import ast.visitor.Visitor;
 
 public class Programa extends AbstractAST {
 
-	private List<Declaracion> declaraciones;
+	public List<Declaracion> declaraciones;
 
 	public List<Declaracion> getDeclaraciones() {
 		return declaraciones;
