@@ -3,9 +3,10 @@ package ast.declaracion;
 import java.util.List;
 
 import ast.AbstractAST;
+import ast.tipo.Tipo;
 import ast.visitor.Visitor;
 
-public class DeclaracionStruct extends AbstractAST implements Declaracion {
+public class DeclaracionStruct extends AbstractAST implements Declaracion, Tipo {
 
 	public String nombre;
 	public List<DeclaracionVariable> declaraciones;

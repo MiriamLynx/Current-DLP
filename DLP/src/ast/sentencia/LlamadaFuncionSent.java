@@ -3,6 +3,7 @@ package ast.sentencia;
 import java.util.List;
 
 import ast.AbstractAST;
+import ast.declaracion.DeclaracionFuncion;
 import ast.expresion.Expresion;
 import ast.visitor.Visitor;
 
@@ -10,6 +11,15 @@ public class LlamadaFuncionSent extends AbstractAST implements Sentencia {
 
 	public String nombre;
 	public List<Expresion> expresiones;
+	public DeclaracionFuncion declaracion;
+
+	public DeclaracionFuncion getDeclaracion() {
+		return declaracion;
+	}
+
+	public void setDeclaracion(DeclaracionFuncion declaracion) {
+		this.declaracion = declaracion;
+	}
 
 	public LlamadaFuncionSent(int linea, int columna, String nombre,
 			List<Expresion> expresiones) {
@@ -23,7 +33,7 @@ public class LlamadaFuncionSent extends AbstractAST implements Sentencia {
 		return "Llamada a funcion (sentencia) [ " + nombre + " ]"
 				+ "\nParametros de la llamada->\n" + expresiones + "\n";
 	}
-	
+
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}

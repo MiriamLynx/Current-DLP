@@ -3,12 +3,22 @@ package ast.expresion;
 import java.util.List;
 
 import ast.AbstractAST;
+import ast.declaracion.DeclaracionFuncion;
 import ast.visitor.Visitor;
 
 public class LlamadaFuncion extends AbstractAST implements Expresion {
 
 	public String nombre;
 	public List<Expresion> expresiones;
+	public DeclaracionFuncion declaracion;
+
+	public DeclaracionFuncion getDeclaracion() {
+		return declaracion;
+	}
+
+	public void setDeclaracion(DeclaracionFuncion declaracion) {
+		this.declaracion = declaracion;
+	}
 
 	public LlamadaFuncion(int linea, int columna, String nombre,
 			List<Expresion> expresiones) {
@@ -22,7 +32,7 @@ public class LlamadaFuncion extends AbstractAST implements Expresion {
 		return "Llamada a funcion (expresion) [ " + nombre + " ]"
 				+ "\nParametros de la llamada ->\n" + expresiones + "\n";
 	}
-	
+
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}

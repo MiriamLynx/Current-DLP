@@ -19,4 +19,10 @@ public class TipoError extends AbstractAST implements Tipo {
 		visitor.visit(this);
 	}
 
+	@Override
+	public String toString() {
+		return "Error semántico en la línea " + nodo.getLinea() + " y columna "
+				+ nodo.getColumna() + " : " + error;
+	}
+
 }

@@ -1,11 +1,21 @@
 package ast.expresion;
 
 import ast.AbstractAST;
+import ast.declaracion.DeclaracionVariable;
 import ast.visitor.Visitor;
 
 public class Variable extends AbstractAST implements Expresion {
 
 	public String nombre;
+	public DeclaracionVariable declaracion;
+
+	public DeclaracionVariable getDeclaracion() {
+		return declaracion;
+	}
+
+	public void setDeclaracion(DeclaracionVariable declaracion) {
+		this.declaracion = declaracion;
+	}
 
 	public Variable(int linea, int columna, String nombre) {
 		super(linea, columna);

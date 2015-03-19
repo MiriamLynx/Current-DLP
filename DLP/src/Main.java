@@ -5,12 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import ast.AST;
+import ast.visitor.IdentificationVisitor;
 import ast.visitor.XMLVisitor;
 import error.GestorErrores;
 
 public class Main {
 	public static void main(String[] args) {
-		String nombreFichero = "ejemplo.txt";
+		String nombreFichero = "pruebaIdentificacion.txt";
 		Lexico lex;
 		try {
 			GestorErrores gestor = new GestorErrores();
@@ -18,12 +19,17 @@ public class Main {
 			Parser parser = new Parser(lex);
 			parser.yyparse();
 			AST root = parser.getAst();
+			IdentificationVisitor iv = new IdentificationVisitor();
+			parser.getAst().accept(iv);
 			if (!gestor.hayErrores()) {
 				showTree(root);
 				System.out.println(">> Programa correcto sintácticamente.");
+				XMLVisitor xmlv = new XMLVisitor();
+				parser.getAst().accept(xmlv);
+			} else {
+				showTree(root);
+				gestor.mostrarErrores();
 			}
-			XMLVisitor v = new XMLVisitor();
-			parser.getAst().accept(v);
 		} catch (FileNotFoundException e) {
 			System.out.println("Fichero no encontrado.");
 			e.printStackTrace();
