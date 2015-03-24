@@ -11,7 +11,7 @@ import error.GestorErrores;
 
 public class Main {
 	public static void main(String[] args) {
-		String nombreFichero = "pruebaIdentificacion.txt";
+		String nombreFichero = "ejemplo.txt";
 		Lexico lex;
 		try {
 			GestorErrores gestor = new GestorErrores();

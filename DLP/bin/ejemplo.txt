@@ -67,6 +67,6 @@ proc main()
   end if;
 
   if z <> 2 or a==9 then
-    escribe(pepe.meses[2]);
+    escribeEdad(pepe.meses[2]);
   end if;
 end proc;
