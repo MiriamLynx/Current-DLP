@@ -90,6 +90,9 @@ public class IdentificationVisitor extends AbstractVisitor {
 					putVariable(declaracionVariable.getNombre(),
 							declaracionVariable);
 				}
+			} else {
+				putVariable(declaracionVariable.getNombre(),
+						declaracionVariable);
 			}
 		}
 		return super.visit(declaracionVariable);
