@@ -1,9 +1,8 @@
 package ast.expresion;
 
-import ast.AbstractAST;
 import ast.visitor.Visitor;
 
-public class OperacionLogica extends AbstractAST implements Expresion {
+public class OperacionLogica extends AbstractExpresion implements Expresion {
 
 	public Expresion izquierda;
 	public Expresion derecha;
@@ -22,7 +21,7 @@ public class OperacionLogica extends AbstractAST implements Expresion {
 		return "Operacion logica [ " + izquierda + " " + operador + " "
 				+ derecha + " ] ";
 	}
-	
+
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}

@@ -1,0 +1,12 @@
+package ast.visitor;
+
+import ast.expresion.ConstanteEntera;
+
+public class InferenceVisitor extends AbstractVisitor {
+
+	public Object visit(ConstanteEntera constanteEntera) {
+
+		return super.visit(constanteEntera);
+	}
+
+}

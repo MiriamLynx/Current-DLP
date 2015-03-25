@@ -21,7 +21,7 @@ public class TipoError extends AbstractAST implements Tipo {
 
 	@Override
 	public String toString() {
-		return "Error semántico en la línea " + nodo.getLinea() + " y columna "
+		return "Error semántico en línea " + nodo.getLinea() + " y columna "
 				+ nodo.getColumna() + " : " + error;
 	}
 

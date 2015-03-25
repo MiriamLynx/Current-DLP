@@ -178,8 +178,8 @@ int token;
 
 // * Manejo de Errores Sintácticos
 public void yyerror (String error) {
-    System.err.println ("Error Sintáctico en línea " + lexico.getLinea()+
-		" y columna "+lexico.getColumna()+":\n\t"+error);
+    System.out.println ("Error sintáctico en línea " + lexico.getLinea()+
+		" y columna "+lexico.getColumna());
 }
 
 // * Llamada al analizador léxico
@@ -188,8 +188,8 @@ private int yylex () {
     try { 
 	token=lexico.yylex(); 
     } catch(Throwable e) {
-	    System.err.println ("Error Léxico en línea " + lexico.getLinea()+
-		" y columna "+lexico.getColumna()+":\n\t"+e); 
+	    System.out.println ("Error léxico en línea " + lexico.getLinea()+
+		" y columna "+lexico.getColumna()); 
     }
     return token;
 }

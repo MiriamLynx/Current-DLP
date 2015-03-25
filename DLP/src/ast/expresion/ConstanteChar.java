@@ -1,9 +1,8 @@
 package ast.expresion;
 
-import ast.AbstractAST;
 import ast.visitor.Visitor;
 
-public class ConstanteChar extends AbstractAST implements Expresion {
+public class ConstanteChar extends AbstractExpresion implements Expresion {
 
 	public char valor;
 
@@ -16,7 +15,7 @@ public class ConstanteChar extends AbstractAST implements Expresion {
 	public String toString() {
 		return "Constante caracter [ " + valor + " ] ";
 	}
-	
+
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}

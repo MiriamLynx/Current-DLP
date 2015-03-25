@@ -1,0 +1,27 @@
+package ast.expresion;
+
+import ast.tipo.Tipo;
+
+public class AbstractExpresion {
+
+	public Tipo tipo;
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
+	public boolean isLvalue() {
+		return lvalue;
+	}
+
+	public void setLvalue(boolean lvalue) {
+		this.lvalue = lvalue;
+	}
+
+	public boolean lvalue;
+
+}

@@ -1,9 +1,8 @@
 package ast.expresion;
 
-import ast.AbstractAST;
 import ast.visitor.Visitor;
 
-public class AccesoCampo extends AbstractAST implements Expresion {
+public class AccesoCampo extends AbstractExpresion implements Expresion {
 
 	public String campo;
 	public Expresion struct;
@@ -18,7 +17,7 @@ public class AccesoCampo extends AbstractAST implements Expresion {
 	public String toString() {
 		return "Acceso a campo [ " + struct + " , " + campo + " ] ";
 	}
-	
+
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}

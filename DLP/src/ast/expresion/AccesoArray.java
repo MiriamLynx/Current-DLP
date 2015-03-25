@@ -1,9 +1,8 @@
 package ast.expresion;
 
-import ast.AbstractAST;
 import ast.visitor.Visitor;
 
-public class AccesoArray extends AbstractAST implements Expresion {
+public class AccesoArray extends AbstractExpresion implements Expresion {
 
 	public Expresion index;
 	public Expresion array;

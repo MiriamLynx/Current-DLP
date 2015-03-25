@@ -1,9 +1,8 @@
 package ast.expresion;
 
-import ast.AbstractAST;
 import ast.visitor.Visitor;
 
-public class ConstanteReal extends AbstractAST implements Expresion {
+public class ConstanteReal extends AbstractExpresion implements Expresion {
 
 	public double valor;
 
@@ -16,7 +15,7 @@ public class ConstanteReal extends AbstractAST implements Expresion {
 	public String toString() {
 		return "Constante real [ " + valor + " ] ";
 	}
-	
+
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}

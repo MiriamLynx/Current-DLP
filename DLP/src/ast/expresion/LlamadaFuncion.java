@@ -2,11 +2,10 @@ package ast.expresion;
 
 import java.util.List;
 
-import ast.AbstractAST;
 import ast.declaracion.DeclaracionFuncion;
 import ast.visitor.Visitor;
 
-public class LlamadaFuncion extends AbstractAST implements Expresion {
+public class LlamadaFuncion extends AbstractExpresion implements Expresion {
 
 	public String nombre;
 	public List<Expresion> expresiones;

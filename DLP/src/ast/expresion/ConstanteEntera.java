@@ -1,9 +1,8 @@
 package ast.expresion;
 
-import ast.AbstractAST;
 import ast.visitor.Visitor;
 
-public class ConstanteEntera extends AbstractAST implements Expresion {
+public class ConstanteEntera extends AbstractExpresion implements Expresion {
 
 	public int valor;
 
@@ -16,7 +15,7 @@ public class ConstanteEntera extends AbstractAST implements Expresion {
 	public String toString() {
 		return "Constante entera [ " + valor + " ] ";
 	}
-	
+
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}

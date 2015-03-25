@@ -1,9 +1,8 @@
 package ast.expresion;
 
-import ast.AbstractAST;
 import ast.visitor.Visitor;
 
-public class OperacionAritmetica extends AbstractAST implements Expresion {
+public class OperacionAritmetica extends AbstractExpresion implements Expresion {
 
 	public Expresion izquierda;
 	public Expresion derecha;
@@ -19,10 +18,10 @@ public class OperacionAritmetica extends AbstractAST implements Expresion {
 
 	@Override
 	public String toString() {
-		return "Operacion aritmetica [ " + izquierda + " " + operador + " " + derecha
-				+ " ] ";
+		return "Operacion aritmetica [ " + izquierda + " " + operador + " "
+				+ derecha + " ] ";
 	}
-	
+
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}

@@ -1,10 +1,9 @@
 package ast.expresion;
 
-import ast.AbstractAST;
 import ast.tipo.Tipo;
 import ast.visitor.Visitor;
 
-public class Cast extends AbstractAST implements Expresion {
+public class Cast extends AbstractExpresion implements Expresion {
 
 	public Tipo tipo;
 	public Expresion casteo;
@@ -19,7 +18,7 @@ public class Cast extends AbstractAST implements Expresion {
 	public String toString() {
 		return "Casteo [ " + tipo + " , " + casteo + " ] \n";
 	}
-	
+
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}

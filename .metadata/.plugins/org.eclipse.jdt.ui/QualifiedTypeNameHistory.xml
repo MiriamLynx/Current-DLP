@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.io.FileReader"/>
-<fullyQualifiedTypeName name="ast.AST"/>
-<fullyQualifiedTypeName name="ast.tipo.Tipo"/>
 <fullyQualifiedTypeName name="ast.expresion.Expresion"/>
 <fullyQualifiedTypeName name="ast.sentencia.Sentencia"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="ast.visitor.AbstractVisitor"/>
 <fullyQualifiedTypeName name="ast.Programa"/>
 <fullyQualifiedTypeName name="ast.expresion.AccesoArray"/>
-<fullyQualifiedTypeName name="ast.expresion.ConstanteEntera"/>
 <fullyQualifiedTypeName name="ast.expresion.LlamadaFuncion"/>
 <fullyQualifiedTypeName name="ast.expresion.OperacionAritmetica"/>
 <fullyQualifiedTypeName name="ast.sentencia.Asignacion"/>
 <fullyQualifiedTypeName name="ast.visitor.XMLVisitor"/>
 <fullyQualifiedTypeName name="ast.tipo.TipoVoid"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="error.GestorErrores"/>
 <fullyQualifiedTypeName name="ast.tipo.TipoError"/>
+<fullyQualifiedTypeName name="ast.AST"/>
+<fullyQualifiedTypeName name="ast.expresion.ConstanteEntera"/>
+<fullyQualifiedTypeName name="ast.tipo.Tipo"/>
+<fullyQualifiedTypeName name="error.GestorErrores"/>
+<fullyQualifiedTypeName name="ast.tipo.TipoEntero"/>
 </qualifiedTypeNameHistroy>

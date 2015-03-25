@@ -1,10 +1,9 @@
 package ast.expresion;
 
-import ast.AbstractAST;
 import ast.declaracion.DeclaracionVariable;
 import ast.visitor.Visitor;
 
-public class Variable extends AbstractAST implements Expresion {
+public class Variable extends AbstractExpresion implements Expresion {
 
 	public String nombre;
 	public DeclaracionVariable declaracion;

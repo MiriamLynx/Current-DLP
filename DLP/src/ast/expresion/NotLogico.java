@@ -1,9 +1,8 @@
 package ast.expresion;
 
-import ast.AbstractAST;
 import ast.visitor.Visitor;
 
-public class NotLogico extends AbstractAST implements Expresion {
+public class NotLogico extends AbstractExpresion implements Expresion {
 
 	public Expresion expresion;
 
