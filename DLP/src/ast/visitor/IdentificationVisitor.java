@@ -11,9 +11,17 @@ import ast.declaracion.DeclaracionStruct;
 import ast.declaracion.DeclaracionVariable;
 import ast.expresion.LlamadaFuncion;
 import ast.expresion.Variable;
+import ast.sentencia.If;
 import ast.sentencia.LlamadaFuncionSent;
+import ast.sentencia.Return;
+import ast.sentencia.Sentencia;
+import ast.sentencia.While;
+import ast.tipo.Tipo;
 import ast.tipo.TipoArray;
+import ast.tipo.TipoChar;
+import ast.tipo.TipoEntero;
 import ast.tipo.TipoError;
+import ast.tipo.TipoReal;
 import ast.tipo.TipoStruct;
 import error.GestorErrores;
 
@@ -27,6 +35,10 @@ public class IdentificationVisitor extends AbstractVisitor {
 	public Object visit(Programa programa) {
 		set();
 		Object ret = super.visit(programa);
+		if (funciones.get("main") == null) {
+			GestorErrores.addError(new TipoError(programa,
+					"El programa no contiene funcion main"));
+		}
 		reset();
 		return ret;
 	}
@@ -47,7 +59,27 @@ public class IdentificationVisitor extends AbstractVisitor {
 					"La funcion '" + declaracionFuncion.getNombre()
 							+ "' ya ha sido declarada"));
 		} else {
+			assertTipoPrimitivo(declaracionFuncion.getRetorno());
 			funciones.put(declaracionFuncion.getNombre(), declaracionFuncion);
+			int sentReturn = 0;
+			for (Sentencia s : declaracionFuncion.getSentencias()) {
+				if (s instanceof While) {
+					((While) s).setFuncion(declaracionFuncion);
+				} else if (s instanceof If) {
+					((If) s).setFuncion(declaracionFuncion);
+				} else if (s instanceof Return) {
+					((Return) s).setFuncion(declaracionFuncion);
+					sentReturn++;
+				}
+			}
+			if (declaracionFuncion.getRetorno() != null && sentReturn == 0) {
+				GestorErrores
+						.addError(new TipoError(
+								declaracionFuncion,
+								"La funcion '"
+										+ declaracionFuncion.getNombre()
+										+ "' no contiene ninguna sentencia de retorno"));
+			}
 		}
 
 		set();
@@ -55,6 +87,28 @@ public class IdentificationVisitor extends AbstractVisitor {
 		reset();
 
 		return ret;
+	}
+
+	public Object visit(While whil) {
+		for (Sentencia s : whil.getSentencias()) {
+			if (s instanceof If) {
+				((If) s).setFuncion(whil.getFuncion());
+			} else if (s instanceof Return) {
+				((Return) s).setFuncion(whil.getFuncion());
+			}
+		}
+		return super.visit(whil);
+	}
+
+	public Object visit(If sentIf) {
+		for (Sentencia s : sentIf.getSentencias()) {
+			if (s instanceof While) {
+				((While) s).setFuncion(sentIf.getFuncion());
+			} else if (s instanceof Return) {
+				((Return) s).setFuncion(sentIf.getFuncion());
+			}
+		}
+		return super.visit(sentIf);
 	}
 
 	public Object visit(DeclaracionStruct declaracionStruct) {
@@ -149,7 +203,10 @@ public class IdentificationVisitor extends AbstractVisitor {
 				} else {
 					declaracion.setTipo(structs.get(((TipoStruct) declaracion
 							.getTipo()).getNombre()));
+					variable.setDeclaracion(declaracion);
 				}
+			} else {
+				variable.setDeclaracion(declaracion);
 			}
 		}
 		return super.visit(variable);
@@ -179,6 +236,14 @@ public class IdentificationVisitor extends AbstractVisitor {
 			}
 		}
 		return null;
+	}
+
+	private void assertTipoPrimitivo(Tipo tipo) {
+		if (!(tipo instanceof TipoEntero) && !(tipo instanceof TipoChar)
+				&& !(tipo == null) && !(tipo instanceof TipoReal)) {
+			GestorErrores.addError(new TipoError(tipo,
+					"Las funciones solo pueden retornar tipos primitivos"));
+		}
 	}
 
 }

@@ -41,6 +41,20 @@ end function;
 
 function k () as integer //No tiene retorno
  dim i as integer; 
+ 	while i do
+		if i then
+			while i do
+				return i;
+			end while;
+		end if;
+	end while;
+	while i do
+		if i then
+			while i do
+				return 2.5; //Error porque devuelve entero
+			end while;
+		end if;
+	end while;
 end function;
 
 proc n () 
@@ -51,12 +65,25 @@ proc main()
 	dim i as integer;
 	dim f as real;
 	dim v[10] as integer;
-
+	dim w[10][20] as integer;
+	dim y[10][20][30] as integer;
+	
 	if 2.5 then end if; // La condicion debe ser de tipo entero
 	if i then end if;
 	
 	while juan do end while;	// La condicion debe ser de tipo entero
 	while i do end while;
+	while i do
+		if i then
+			while i do
+				return 4; // error porque no puede devolver nada
+			end while;
+		end if;
+	end while;
+	
+	
+	
+	
 	5 = 6; // Valor de la izquierda no modificable
 	i = f; // Valores de distinto tipo
 	juan = anton; // Valor de la izquierda debe ser simple
@@ -90,7 +117,8 @@ proc main()
 	print i == 2;
 	print i <> 2;
 	
-	print ctype(integer,(2.5) + i);
+	print ctype(integer,(2.5) + i); // Los operandos deben de ser del mismo tipo
+	print ctype(integer,2.5 + 3.1); 
 	print ctype(Persona,2.5);	// Tipos simples
 	print ctype(integer, juan);		// Expresiones de tipos simples
 	print ctype(real,2.5);	// Deben ser distintos tipos
@@ -99,8 +127,9 @@ proc main()
 	print 2[5];	// Debe ser tipo array
 	print v[5.0];	// Debe ser indice entero
 	print v[i+2];
-	print v[i+2][i];
-	print v[i+2][i][i*3];
+	print w[i+2][i];
+	print y[i+2][i][i*3];
+	print y[i+2][i];//Error y tiene tres dimensiones
 	
 	print juan.edad;
 	print i.edad;	// Se requiere tipo struct

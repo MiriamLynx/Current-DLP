@@ -34,7 +34,7 @@ dim microsoft as Empresa;
 
 function dobleSuma (a as integer, b as integer) as integer
 	dim local as integer;
-
+    c[5] = a + b;
 	local = a + b;
 	return local * 2;
 end function;

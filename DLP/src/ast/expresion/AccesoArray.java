@@ -4,10 +4,10 @@ import ast.visitor.Visitor;
 
 public class AccesoArray extends AbstractExpresion implements Expresion {
 
-	public Expresion index;
 	public Expresion array;
+	public Expresion index;
 
-	public AccesoArray(int linea, int columna, Expresion index, Expresion array) {
+	public AccesoArray(int linea, int columna, Expresion array, Expresion index) {
 		super(linea, columna);
 		this.index = index;
 		this.array = array;

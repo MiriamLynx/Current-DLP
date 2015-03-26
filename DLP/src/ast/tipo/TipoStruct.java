@@ -1,6 +1,7 @@
 package ast.tipo;
 
 import ast.AbstractAST;
+import ast.declaracion.DeclaracionStruct;
 import ast.visitor.Visitor;
 
 public class TipoStruct extends AbstractAST implements Tipo {

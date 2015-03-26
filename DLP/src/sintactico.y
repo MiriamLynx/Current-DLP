@@ -74,7 +74,7 @@ declaracionFuncion: FUNCTION IDENT '(' parametrosFuncion ')' AS tipo listaDeclar
 ;
 
 // * Declaracion de struct
-declaracionStruct: TYPE IDENT listaDeclaracionesCampo END TYPE ';' {$$ = new DeclaracionStruct(lexico.getLinea(), lexico.getColumna(), (String)$2, (List<DeclaracionVariable>)$3); }
+declaracionStruct: TYPE IDENT listaDeclaracionesCampo END TYPE ';' {$$ = new DeclaracionStruct(lexico.getLinea(), lexico.getColumna(), (String)$2, (List<DeclaracionCampo>)$3); }
 ;
 
 // * Declaracion de procedimiento

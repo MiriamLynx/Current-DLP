@@ -3,6 +3,7 @@ package ast.sentencia;
 import java.util.List;
 
 import ast.AbstractAST;
+import ast.declaracion.DeclaracionFuncion;
 import ast.expresion.Expresion;
 import ast.visitor.Visitor;
 
@@ -11,6 +12,7 @@ public class If extends AbstractAST implements Sentencia {
 	public Expresion expresion;
 	public List<Sentencia> sentencias;
 	public List<Sentencia> alternativas;
+	public DeclaracionFuncion funcion;
 
 	public If(int linea, int columna, Expresion expresion,
 			List<Sentencia> sentencias, List<Sentencia> alternativas) {
@@ -32,7 +34,7 @@ public class If extends AbstractAST implements Sentencia {
 					+ "\nSentencias del cuerpo->\n" + sentencias + "\n" + "\n";
 		}
 	}
-	
+
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
@@ -59,5 +61,13 @@ public class If extends AbstractAST implements Sentencia {
 
 	public void setAlternativas(List<Sentencia> alternativas) {
 		this.alternativas = alternativas;
+	}
+	
+	public DeclaracionFuncion getFuncion() {
+		return funcion;
+	}
+
+	public void setFuncion(DeclaracionFuncion funcion) {
+		this.funcion = funcion;
 	}
 }

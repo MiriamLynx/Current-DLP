@@ -852,7 +852,7 @@ case 8:
 break;
 case 9:
 //#line 77 "sintactico.y"
-{yyval = new DeclaracionStruct(lexico.getLinea(), lexico.getColumna(), (String)val_peek(4), (List<DeclaracionVariable>)val_peek(3)); }
+{yyval = new DeclaracionStruct(lexico.getLinea(), lexico.getColumna(), (String)val_peek(4), (List<DeclaracionCampo>)val_peek(3)); }
 break;
 case 10:
 //#line 81 "sintactico.y"

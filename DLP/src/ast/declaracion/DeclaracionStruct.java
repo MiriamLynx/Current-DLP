@@ -9,10 +9,10 @@ import ast.visitor.Visitor;
 public class DeclaracionStruct extends AbstractAST implements Declaracion, Tipo {
 
 	public String nombre;
-	public List<DeclaracionVariable> declaraciones;
+	public List<DeclaracionCampo> declaraciones;
 
 	public DeclaracionStruct(int linea, int columna, String nombre,
-			List<DeclaracionVariable> declaraciones) {
+			List<DeclaracionCampo> declaraciones) {
 		super(linea, columna);
 		this.nombre = nombre;
 		this.declaraciones = declaraciones;
@@ -36,11 +36,11 @@ public class DeclaracionStruct extends AbstractAST implements Declaracion, Tipo 
 		this.nombre = nombre;
 	}
 
-	public List<DeclaracionVariable> getDeclaraciones() {
+	public List<DeclaracionCampo> getDeclaraciones() {
 		return declaraciones;
 	}
 
-	public void setDeclaraciones(List<DeclaracionVariable> declaraciones) {
+	public void setDeclaraciones(List<DeclaracionCampo> declaraciones) {
 		this.declaraciones = declaraciones;
 	}
 

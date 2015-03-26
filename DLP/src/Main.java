@@ -6,6 +6,7 @@ import java.io.FileReader;
 
 import ast.AST;
 import ast.visitor.IdentificationVisitor;
+import ast.visitor.InferenceVisitor;
 import ast.visitor.XMLVisitor;
 import error.GestorErrores;
 
@@ -20,7 +21,9 @@ public class Main {
 			parser.yyparse();
 			AST root = parser.getAst();
 			IdentificationVisitor iv = new IdentificationVisitor();
+			InferenceVisitor inv = new InferenceVisitor();
 			parser.getAst().accept(iv);
+			parser.getAst().accept(inv);
 			if (!gestor.hayErrores()) {
 				showTree(root);
 				System.out.println(">> Programa correcto sintácticamente.");
