@@ -16,9 +16,11 @@ import ast.expresion.LlamadaFuncion;
 import ast.expresion.OperacionAritmetica;
 import ast.expresion.Variable;
 import ast.sentencia.Asignacion;
+import ast.sentencia.If;
 import ast.sentencia.LlamadaFuncionSent;
+import ast.sentencia.Print;
 import ast.sentencia.Return;
-import ast.tipo.Tipo;
+import ast.sentencia.While;
 import ast.tipo.TipoChar;
 import ast.tipo.TipoEntero;
 import ast.tipo.TipoError;
@@ -93,18 +95,18 @@ public class InferenceVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(AccesoArray accesoArray) {
-		super.visit(accesoArray);
+		Object ret = super.visit(accesoArray);
 		accesoArray.setLvalue(true);
 		accesoArray.setTipo(accesoArray.getArray().getTipo());
-		assertTipoEntero(accesoArray.getIndex().getTipo());
-		return null;
+		assertTipoEntero(accesoArray);
+		return ret;
 	}
 
 	public Object visit(AccesoCampo accesoCampo) {
-		super.visit(accesoCampo);
+		Object ret = super.visit(accesoCampo);
 		if (accesoCampo.getStruct().getTipo() != null) {
 			accesoCampo.setLvalue(true);
-			if (assertTipoStruct(accesoCampo.getStruct().getTipo())) {
+			if (assertTipoStruct(accesoCampo)) {
 				boolean encontrado = false;
 				for (DeclaracionCampo dc : ((DeclaracionStruct) accesoCampo
 						.getStruct().getTipo()).getDeclaraciones()) {
@@ -120,26 +122,43 @@ public class InferenceVisitor extends AbstractVisitor {
 				}
 			}
 		}
-		return null;
+		return ret;
 	}
 
 	public Object visit(Return ret) {
-		super.visit(ret);
-		if (ret.getExpresion() != null) {
-			if (ret.getFuncion().getRetorno() != null) {
-				if (ret.getFuncion().getRetorno().getClass() != ret
-						.getExpresion().getTipo().getClass()) {
+		Object rett = super.visit(ret);
+		if (ret.getRetornoFuncion() != null) {
+			if (ret.getExpresion() != null) {
+				if (ret.getRetornoFuncion().getClass() != ret.getExpresion()
+						.getTipo().getClass()) {
 					GestorErrores
 							.addError(new TipoError(ret,
 									"El tipo de retorno no coincide con el tipo de la funcion"));
 				}
 			} else {
+				GestorErrores.addError(new TipoError(ret,
+						"Una funcion no puede retornar null"));
+			}
+		} else {
+			if (ret.getExpresion() != null) {
 				GestorErrores
 						.addError(new TipoError(ret,
 								"Un procedimiento no puede tener sentencia de retorno"));
 			}
 		}
-		return null;
+		return rett;
+	}
+
+	public Object visit(If sentIf) {
+		Object ret = super.visit(sentIf);
+		assertTipoEntero(sentIf);
+		return ret;
+	}
+
+	public Object visit(While whil) {
+		Object ret = super.visit(whil);
+		assertTipoEntero(whil);
+		return ret;
 	}
 
 	public Object visit(Asignacion asignacion) {
@@ -153,16 +172,44 @@ public class InferenceVisitor extends AbstractVisitor {
 		return null;
 	}
 
-	private void assertTipoEntero(Tipo tipo) {
-		if (!(tipo instanceof TipoEntero)) {
-			GestorErrores.addError(new TipoError(tipo,
+	public Object visit(Print print) {
+		Object ret = super.visit(print);
+		assertTipoEntero(print);
+		return ret;
+	}
+
+	private void assertTipoEntero(Print print) {
+		if (!(print.getExpresion().getTipo() instanceof TipoEntero)) {
+			GestorErrores
+					.addError(new TipoError(print,
+							"La expresion de una sentencia print debe ser de tipo entero"));
+		}
+	}
+
+	private void assertTipoEntero(While whil) {
+		if (!(whil.getExpresion().getTipo() instanceof TipoEntero)) {
+			GestorErrores.addError(new TipoError(whil,
+					"La expresion de un while debe ser de tipo entero"));
+		}
+	}
+
+	private void assertTipoEntero(If sentIf) {
+		if (!(sentIf.getExpresion().getTipo() instanceof TipoEntero)) {
+			GestorErrores.addError(new TipoError(sentIf,
+					"La expresion de un if debe ser de tipo entero"));
+		}
+	}
+
+	private void assertTipoEntero(AccesoArray accesoArray) {
+		if (!(accesoArray.getIndex().getTipo() instanceof TipoEntero)) {
+			GestorErrores.addError(new TipoError(accesoArray,
 					"El indice de acceso a un array debe ser de tipo entero"));
 		}
 	}
 
-	private boolean assertTipoStruct(Tipo tipo) {
-		if (!(tipo instanceof DeclaracionStruct)) {
-			GestorErrores.addError(new TipoError(tipo,
+	private boolean assertTipoStruct(AccesoCampo accesoCampo) {
+		if (!(accesoCampo.getStruct().getTipo() instanceof DeclaracionStruct)) {
+			GestorErrores.addError(new TipoError(accesoCampo,
 					"La variable debe ser un struct"));
 			return false;
 		}
@@ -187,20 +234,26 @@ public class InferenceVisitor extends AbstractVisitor {
 	}
 
 	private void assertTiposIguales(Expresion izquierda, Expresion derecha) {
-		if (izquierda.getTipo().getClass() != derecha.getTipo().getClass()) {
-			GestorErrores
-					.addError(new TipoError(izquierda,
-							"Las dos expresiones de la operacion no son del mismo tipo"));
+		// Variables sin definir
+		if (izquierda.getTipo() != null && derecha.getTipo() != null) {
+			if (izquierda.getTipo().getClass() != derecha.getTipo().getClass()) {
+				GestorErrores
+						.addError(new TipoError(izquierda,
+								"Las dos expresiones de la operacion no son del mismo tipo"));
+			}
 		}
 
 	}
 
 	private void assertTipoPrimitivo(Expresion expresion) {
-		if (!(expresion.getTipo() instanceof TipoEntero)
-				&& !(expresion.getTipo() instanceof TipoChar)
-				&& !(expresion.getTipo() instanceof TipoReal)) {
-			GestorErrores.addError(new TipoError(expresion,
-					"La expresion debe ser de un tipo primitivo"));
+		// Variables sin definir
+		if (expresion.getTipo() != null) {
+			if (!(expresion.getTipo() instanceof TipoEntero)
+					&& !(expresion.getTipo() instanceof TipoChar)
+					&& !(expresion.getTipo() instanceof TipoReal)) {
+				GestorErrores.addError(new TipoError(expresion,
+						"La expresion debe ser de un tipo primitivo"));
+			}
 		}
 	}
 

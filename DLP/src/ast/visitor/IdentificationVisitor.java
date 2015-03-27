@@ -64,11 +64,13 @@ public class IdentificationVisitor extends AbstractVisitor {
 			int sentReturn = 0;
 			for (Sentencia s : declaracionFuncion.getSentencias()) {
 				if (s instanceof While) {
-					((While) s).setFuncion(declaracionFuncion);
+					((While) s).setRetornoFuncion(declaracionFuncion
+							.getRetorno());
 				} else if (s instanceof If) {
-					((If) s).setFuncion(declaracionFuncion);
+					((If) s).setRetornoFuncion(declaracionFuncion.getRetorno());
 				} else if (s instanceof Return) {
-					((Return) s).setFuncion(declaracionFuncion);
+					((Return) s).setRetornoFuncion(declaracionFuncion
+							.getRetorno());
 					sentReturn++;
 				}
 			}
@@ -92,9 +94,9 @@ public class IdentificationVisitor extends AbstractVisitor {
 	public Object visit(While whil) {
 		for (Sentencia s : whil.getSentencias()) {
 			if (s instanceof If) {
-				((If) s).setFuncion(whil.getFuncion());
+				((If) s).setRetornoFuncion(whil.getRetornoFuncion());
 			} else if (s instanceof Return) {
-				((Return) s).setFuncion(whil.getFuncion());
+				((Return) s).setRetornoFuncion(whil.getRetornoFuncion());
 			}
 		}
 		return super.visit(whil);
@@ -103,9 +105,9 @@ public class IdentificationVisitor extends AbstractVisitor {
 	public Object visit(If sentIf) {
 		for (Sentencia s : sentIf.getSentencias()) {
 			if (s instanceof While) {
-				((While) s).setFuncion(sentIf.getFuncion());
+				((While) s).setRetornoFuncion(sentIf.getRetornoFuncion());
 			} else if (s instanceof Return) {
-				((Return) s).setFuncion(sentIf.getFuncion());
+				((Return) s).setRetornoFuncion(sentIf.getRetornoFuncion());
 			}
 		}
 		return super.visit(sentIf);

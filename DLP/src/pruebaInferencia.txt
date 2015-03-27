@@ -18,6 +18,7 @@ NOTA: Es posible que el alumno deba adaptar ligeramente la sintaxis del lenguaje
 con la del lenguaje que le corresponde.
 */
 
+
 type Persona 
 	edad as integer;
 	meses[12] as integer;
@@ -29,17 +30,18 @@ dim anton as Persona;
 function g () as Persona //Error: Retorno de tipo no simple
 end function;
 
-
 function h () as integer 
  return 5.6;	// Tipo de retorno no coincide
 end function;
+
+
 
 function j (a as integer, b as real) as real
 	h(2);	// Numero de argumentos incorrecto
 	return; // Debe haber un valor de retorno
 end function;
 
-function k () as integer //No tiene retorno
+function k () as integer
  dim i as integer; 
  	while i do
 		if i then
@@ -55,7 +57,10 @@ function k () as integer //No tiene retorno
 			end while;
 		end if;
 	end while;
+	return 5;
 end function;
+
+
 
 proc n () 
  return 2.5; //No debe tener return ya que es void
@@ -82,8 +87,6 @@ proc main()
 	end while;
 	
 	
-	
-	
 	5 = 6; // Valor de la izquierda no modificable
 	i = f; // Valores de distinto tipo
 	juan = anton; // Valor de la izquierda debe ser simple
@@ -99,7 +102,7 @@ proc main()
 	j(12);		// Número de argumentos no coincide
 	j(12, 12.5, 4); // Número de argumentos no coincide
 	
-	print main();	// No tiene tipo de retorno
+	//print main();	// No tiene tipo de retorno
 	print j(12, 12.5);
 	print j(12, 12); // Tipo de los parámetros no coincide
 	print j(12);		// Número de argumentos no coincide

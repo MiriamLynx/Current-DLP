@@ -3,15 +3,15 @@ package ast.sentencia;
 import java.util.List;
 
 import ast.AbstractAST;
-import ast.declaracion.DeclaracionFuncion;
 import ast.expresion.Expresion;
+import ast.tipo.Tipo;
 import ast.visitor.Visitor;
 
 public class While extends AbstractAST implements Sentencia {
 
 	public List<Sentencia> sentencias;
 	public Expresion expresion;
-	public DeclaracionFuncion funcion;
+	public Tipo retornoFuncion;
 
 	public While(int linea, int columna, Expresion expresion,
 			List<Sentencia> sentencias) {
@@ -46,11 +46,12 @@ public class While extends AbstractAST implements Sentencia {
 		this.expresion = expresion;
 	}
 
-	public DeclaracionFuncion getFuncion() {
-		return funcion;
+	public Tipo getRetornoFuncion() {
+		return retornoFuncion;
 	}
 
-	public void setFuncion(DeclaracionFuncion funcion) {
-		this.funcion = funcion;
+	public void setRetornoFuncion(Tipo funcion) {
+		this.retornoFuncion = funcion;
 	}
+
 }
