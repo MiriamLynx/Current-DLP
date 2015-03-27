@@ -23,7 +23,6 @@ import ast.tipo.TipoChar;
 import ast.tipo.TipoEntero;
 import ast.tipo.TipoError;
 import ast.tipo.TipoReal;
-import ast.tipo.TipoStruct;
 import error.GestorErrores;
 
 public class InferenceVisitor extends AbstractVisitor {
@@ -103,19 +102,22 @@ public class InferenceVisitor extends AbstractVisitor {
 
 	public Object visit(AccesoCampo accesoCampo) {
 		super.visit(accesoCampo);
-		accesoCampo.setLvalue(true);
-		if (assertTipoStruct(accesoCampo.getStruct().getTipo())) {
-			boolean encontrado = false;
-			for (DeclaracionCampo dc : ((DeclaracionStruct) accesoCampo
-					.getStruct().getTipo()).getDeclaraciones()) {
-				if (dc.getNombre().equals(accesoCampo.getCampo())) {
-					accesoCampo.setTipo(dc.getTipo());
-					encontrado = true;
+		if (accesoCampo.getStruct().getTipo() != null) {
+			accesoCampo.setLvalue(true);
+			if (assertTipoStruct(accesoCampo.getStruct().getTipo())) {
+				boolean encontrado = false;
+				for (DeclaracionCampo dc : ((DeclaracionStruct) accesoCampo
+						.getStruct().getTipo()).getDeclaraciones()) {
+					if (dc.getNombre().equals(accesoCampo.getCampo())) {
+						accesoCampo.setTipo(dc.getTipo());
+						encontrado = true;
+					}
 				}
-			}
-			if (!encontrado) {
-				GestorErrores.addError(new TipoError(accesoCampo, "El campo '"
-						+ accesoCampo.getCampo() + "' no ha sido declarado"));
+				if (!encontrado) {
+					GestorErrores.addError(new TipoError(accesoCampo,
+							"El campo '" + accesoCampo.getCampo()
+									+ "' no ha sido declarado"));
+				}
 			}
 		}
 		return null;
@@ -159,12 +161,12 @@ public class InferenceVisitor extends AbstractVisitor {
 	}
 
 	private boolean assertTipoStruct(Tipo tipo) {
-		if (!(tipo instanceof TipoStruct)) {
+		if (!(tipo instanceof DeclaracionStruct)) {
 			GestorErrores.addError(new TipoError(tipo,
 					"La variable debe ser un struct"));
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	private void assertParametrosCorrectos(AST nodo,
