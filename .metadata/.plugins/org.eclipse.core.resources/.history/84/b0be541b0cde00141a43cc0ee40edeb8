@@ -21,7 +21,7 @@ public class DeclaracionStruct extends AbstractAST implements Declaracion, Tipo 
 
 	@Override
 	public String toString() {
-		return "Declaracion de struct [ " + nombre + " , "  + "Dir: " + direccion + " ]"
+		return "Declaracion de struct [ " + nombre + " ]"
 				+ "\nLista de Campos ->\n" + declaraciones + "\n";
 	}
 

@@ -18,7 +18,7 @@ public class DeclaracionCampo extends AbstractAST implements Declaracion {
 
 	@Override
 	public String toString() {
-		return "Campo [ " + nombre + " , " + tipo + " ] ";
+		return "Campo [ " + nombre + " , " + tipo + " , " + "Dir: " + direccion + " ] ";
 	}
 
 	public void accept(Visitor visitor) {

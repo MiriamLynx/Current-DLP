@@ -18,8 +18,7 @@ public class DeclaracionVariable extends AbstractAST implements Declaracion {
 
 	@Override
 	public String toString() {
-		return "Declaracion de variable [ " + nombre + " , " + tipo + " , "
-				+ "Dir: " + direccion + " ] \n";
+		return "Declaracion de variable [ " + nombre + " , " + tipo + " ] \n";
 	}
 
 	public void accept(Visitor visitor) {

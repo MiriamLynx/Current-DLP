@@ -4,22 +4,21 @@ import ast.AbstractAST;
 import ast.tipo.Tipo;
 import ast.visitor.Visitor;
 
-public class DeclaracionVariable extends AbstractAST implements Declaracion {
+public class DeclaracionCampo extends AbstractAST implements Declaracion {
 
 	public String nombre;
 	public Tipo tipo;
 	public int direccion;
 
-	public DeclaracionVariable(int linea, int columna, Tipo tipo, String nombre) {
+	public DeclaracionCampo(int linea, int columna, Tipo tipo, String variable) {
 		super(linea, columna);
-		this.nombre = nombre;
+		this.nombre = variable;
 		this.tipo = tipo;
 	}
 
 	@Override
 	public String toString() {
-		return "Declaracion de variable [ " + nombre + " , " + tipo + " , "
-				+ "Dir: " + direccion + " ] \n";
+		return "Campo [ " + nombre + " , " + tipo + " ] ";
 	}
 
 	public void accept(Visitor visitor) {
