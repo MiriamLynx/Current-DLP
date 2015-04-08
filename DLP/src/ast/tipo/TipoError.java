@@ -25,4 +25,8 @@ public class TipoError extends AbstractAST implements Tipo {
 				+ nodo.getColumna() + " : " + error;
 	}
 
+	public int size() {
+		return 0;
+	}
+
 }

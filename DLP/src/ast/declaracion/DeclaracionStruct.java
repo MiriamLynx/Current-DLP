@@ -10,6 +10,7 @@ public class DeclaracionStruct extends AbstractAST implements Declaracion, Tipo 
 
 	public String nombre;
 	public List<DeclaracionCampo> declaraciones;
+	public int direccion;
 
 	public DeclaracionStruct(int linea, int columna, String nombre,
 			List<DeclaracionCampo> declaraciones) {
@@ -42,6 +43,22 @@ public class DeclaracionStruct extends AbstractAST implements Declaracion, Tipo 
 
 	public void setDeclaraciones(List<DeclaracionCampo> declaraciones) {
 		this.declaraciones = declaraciones;
+	}
+
+	public int size() {
+		int sum = 0;
+		for (DeclaracionCampo c : declaraciones) {
+			sum += c.getTipo().size();
+		}
+		return sum;
+	}
+
+	public int getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(int direccion) {
+		this.direccion = direccion;
 	}
 
 }

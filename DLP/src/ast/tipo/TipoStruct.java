@@ -1,7 +1,6 @@
 package ast.tipo;
 
 import ast.AbstractAST;
-import ast.declaracion.DeclaracionStruct;
 import ast.visitor.Visitor;
 
 public class TipoStruct extends AbstractAST implements Tipo {
@@ -28,6 +27,10 @@ public class TipoStruct extends AbstractAST implements Tipo {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public int size() {
+		return 0;
 	}
 
 }

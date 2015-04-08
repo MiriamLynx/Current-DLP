@@ -26,4 +26,8 @@ public class TipoEntero extends AbstractAST implements Tipo {
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
+
+	public int size() {
+		return 2;
+	}
 }

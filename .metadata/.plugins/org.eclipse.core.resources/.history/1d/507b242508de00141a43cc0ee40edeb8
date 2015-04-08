@@ -1,0 +1,11 @@
+package ast.visitor;
+
+public class MemoryVisitor {
+
+	private int siguienteLibre = 0;
+
+	public Object visit(DeclaracionVariable variableGlobal) {
+
+	}
+
+}

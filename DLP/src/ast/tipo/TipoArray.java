@@ -40,4 +40,12 @@ public class TipoArray extends AbstractAST implements Tipo {
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
+
+	public int size() {
+		int mul = 1;
+		for (int i = 0; i < size.size(); i++) {
+			mul *= size.get(i);
+		}
+		return tipo.size() * mul;
+	}
 }
