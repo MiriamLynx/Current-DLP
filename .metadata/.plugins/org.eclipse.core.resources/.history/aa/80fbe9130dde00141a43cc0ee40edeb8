@@ -28,7 +28,6 @@ public class MemoryVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(DeclaracionFuncion funcion) {
-
 		int parametrosBP = 4;
 
 		if (funcion.getParametros().size() > 0) {
