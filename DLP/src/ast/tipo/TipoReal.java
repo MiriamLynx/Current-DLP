@@ -31,4 +31,11 @@ public class TipoReal extends AbstractAST implements Tipo {
 		return 4;
 	}
 
+	public String getMAPLname() {
+		return "real";
+	}
+
+	public String getSufijo() {
+		return "f";
+	}
 }

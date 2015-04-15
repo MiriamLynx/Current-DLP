@@ -31,4 +31,12 @@ public class TipoChar extends AbstractAST implements Tipo {
 		return 1;
 	}
 
+	public String getMAPLname() {
+		return "char";
+	}
+	
+	public String getSufijo() {
+		return "b";
+	}
+
 }

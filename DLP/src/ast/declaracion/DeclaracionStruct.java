@@ -21,8 +21,9 @@ public class DeclaracionStruct extends AbstractAST implements Declaracion, Tipo 
 
 	@Override
 	public String toString() {
-		return "Declaracion de struct [ " + nombre + " , "  + "Dir: " + direccion + " ]"
-				+ "\nLista de Campos ->\n" + declaraciones + "\n";
+		return "Declaracion de struct [ " + nombre + " , " + "Dir: "
+				+ direccion + " ]" + "\nLista de Campos ->\n" + declaraciones
+				+ "\n";
 	}
 
 	public void accept(Visitor visitor) {
@@ -59,6 +60,14 @@ public class DeclaracionStruct extends AbstractAST implements Declaracion, Tipo 
 
 	public void setDireccion(int direccion) {
 		this.direccion = direccion;
+	}
+
+	public String getMAPLname() {
+		return getNombre();
+	}
+
+	public String getSufijo() {
+		return "nope";
 	}
 
 }

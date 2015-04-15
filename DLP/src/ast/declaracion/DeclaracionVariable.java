@@ -9,6 +9,7 @@ public class DeclaracionVariable extends AbstractAST implements Declaracion {
 	public String nombre;
 	public Tipo tipo;
 	public int direccion;
+	public String ambito = "global";
 
 	public DeclaracionVariable(int linea, int columna, Tipo tipo, String nombre) {
 		super(linea, columna);
@@ -48,6 +49,14 @@ public class DeclaracionVariable extends AbstractAST implements Declaracion {
 
 	public void setDireccion(int direccion) {
 		this.direccion = direccion;
+	}
+
+	public String getAmbito() {
+		return ambito;
+	}
+
+	public void setAmbito(String ambito) {
+		this.ambito = ambito;
 	}
 
 }

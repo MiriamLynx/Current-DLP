@@ -34,6 +34,7 @@ public class MemoryVisitor extends AbstractVisitor {
 		if (funcion.getParametros().size() > 0) {
 			for (int i = funcion.getParametros().size() - 1; i >= 0; i--) {
 				funcion.getParametros().get(i).setDireccion(parametrosBP);
+				funcion.getParametros().get(i).setAmbito("param");
 				parametrosBP += funcion.getParametros().get(i).getTipo().size();
 			}
 		}
@@ -44,6 +45,7 @@ public class MemoryVisitor extends AbstractVisitor {
 			localesBP = funcion.getDeclaraciones().get(0).getTipo().size();
 			for (int i = 0; i < funcion.getDeclaraciones().size(); i++) {
 				funcion.getDeclaraciones().get(i).setDireccion(localesBP);
+				funcion.getParametros().get(i).setAmbito("local");
 				localesBP -= funcion.getDeclaraciones().get(i).getTipo().size();
 			}
 		}

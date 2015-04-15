@@ -29,4 +29,12 @@ public class TipoError extends AbstractAST implements Tipo {
 		return 0;
 	}
 
+	public String getMAPLname() {
+		return "error";
+	}
+
+	public String getSufijo() {
+		return "error";
+	}
+
 }

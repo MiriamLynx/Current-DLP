@@ -30,4 +30,12 @@ public class TipoEntero extends AbstractAST implements Tipo {
 	public int size() {
 		return 2;
 	}
+
+	public String getMAPLname() {
+		return "int";
+	}
+	
+	public String getSufijo() {
+		return "i";
+	}
 }

@@ -33,4 +33,12 @@ public class TipoStruct extends AbstractAST implements Tipo {
 		return 0;
 	}
 
+	public String getMAPLname() {
+		return getNombre();
+	}
+
+	public String getSufijo() {
+		return "nope";
+	}
+
 }

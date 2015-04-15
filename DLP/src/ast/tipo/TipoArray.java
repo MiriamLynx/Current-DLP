@@ -48,4 +48,17 @@ public class TipoArray extends AbstractAST implements Tipo {
 		}
 		return tipo.size() * mul;
 	}
+
+	public String getMAPLname() {
+		String cad = "";
+		for (int i : size) {
+			cad += "<" + i + "> *";
+		}
+		cad += tipo.getMAPLname();
+		return cad;
+	}
+	
+	public String getSufijo() {
+		return "nope";
+	}
 }
