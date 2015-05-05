@@ -30,7 +30,7 @@ public class Main {
 				XMLVisitor xmlv = new XMLVisitor();
 				parser.getAst().accept(xmlv);
 			} else {
-				showTree(root);
+				//showTree(root);
 				gestor.mostrarErrores();
 			}
 		} catch (FileNotFoundException e) {

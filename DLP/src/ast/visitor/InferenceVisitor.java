@@ -8,19 +8,25 @@ import ast.declaracion.DeclaracionStruct;
 import ast.declaracion.DeclaracionVariable;
 import ast.expresion.AccesoArray;
 import ast.expresion.AccesoCampo;
+import ast.expresion.Cast;
+import ast.expresion.Comparacion;
 import ast.expresion.ConstanteChar;
 import ast.expresion.ConstanteEntera;
 import ast.expresion.ConstanteReal;
 import ast.expresion.Expresion;
 import ast.expresion.LlamadaFuncion;
 import ast.expresion.OperacionAritmetica;
+import ast.expresion.OperacionLogica;
 import ast.expresion.Variable;
 import ast.sentencia.Asignacion;
 import ast.sentencia.If;
 import ast.sentencia.LlamadaFuncionSent;
 import ast.sentencia.Print;
+import ast.sentencia.Read;
 import ast.sentencia.Return;
 import ast.sentencia.While;
+import ast.tipo.Tipo;
+import ast.tipo.TipoArray;
 import ast.tipo.TipoChar;
 import ast.tipo.TipoEntero;
 import ast.tipo.TipoError;
@@ -97,7 +103,9 @@ public class InferenceVisitor extends AbstractVisitor {
 	public Object visit(AccesoArray accesoArray) {
 		Object ret = super.visit(accesoArray);
 		accesoArray.setLvalue(true);
-		accesoArray.setTipo(accesoArray.getArray().getTipo());
+		if (assertTipoArray(accesoArray.getArray())) {
+			accesoArray.setTipo((((TipoArray) accesoArray.getArray().getTipo()).getTipoBase()));
+		}
 		assertTipoEntero(accesoArray);
 		return ret;
 	}
@@ -141,9 +149,8 @@ public class InferenceVisitor extends AbstractVisitor {
 			}
 		} else {
 			if (ret.getExpresion() != null) {
-				GestorErrores
-						.addError(new TipoError(ret,
-								"Un procedimiento no puede tener sentencia de retorno"));
+				GestorErrores.addError(new TipoError(ret,
+						"Esta funcion no puede tener sentencia de retorno"));
 			}
 		}
 		return rett;
@@ -163,6 +170,7 @@ public class InferenceVisitor extends AbstractVisitor {
 
 	public Object visit(Asignacion asignacion) {
 		super.visit(asignacion);
+		assertTipoPrimitivo(asignacion.getIzquierda());
 		if (!asignacion.getIzquierda().isLvalue()) {
 			GestorErrores
 					.addError(new TipoError(asignacion,
@@ -174,15 +182,52 @@ public class InferenceVisitor extends AbstractVisitor {
 
 	public Object visit(Print print) {
 		Object ret = super.visit(print);
-		assertTipoEntero(print);
+		assertPrintPrimitivo(print.getExpresion());
 		return ret;
 	}
 
-	private void assertTipoEntero(Print print) {
-		if (!(print.getExpresion().getTipo() instanceof TipoEntero)) {
-			GestorErrores
-					.addError(new TipoError(print,
-							"La expresion de una sentencia print debe ser de tipo entero"));
+	public Object visit(Read read) {
+		Object ret = super.visit(read);
+		assertTipoPrimitivo(read.getExpresion());
+		if (!read.getExpresion().isLvalue()) {
+			GestorErrores.addError(new TipoError(read,
+					"La expresion de un read debe de ser modificable"));
+		}
+		return ret;
+	}
+
+	public Object visit(Comparacion comparacion) {
+		super.visit(comparacion);
+		comparacion.setTipo(TipoEntero.getInstance(comparacion.getLinea(),
+				comparacion.getColumna()));
+		assertTiposIguales(comparacion.getIzquierda(), comparacion.getDerecha());
+		assertTipoPrimitivo(comparacion.getIzquierda());
+		assertTipoPrimitivo(comparacion.getDerecha());
+		return null;
+	}
+
+	public Object visit(OperacionLogica logica) {
+		super.visit(logica);
+		logica.setTipo(TipoEntero.getInstance(logica.getLinea(),
+				logica.getColumna()));
+		assertTipoEntero(logica.getIzquierda());
+		assertTipoEntero(logica.getDerecha());
+		return null;
+	}
+
+	public Object visit(Cast casteo) {
+		super.visit(casteo);
+		assertCastPrimitivo(casteo);
+		assertTipoPrimitivo(casteo.getCasteo());
+		casteo.setTipo(casteo.getTipoBase());
+		assertTiposDistintos(casteo.getTipoBase(), casteo.getCasteo());
+		return null;
+	}
+
+	private void assertTipoEntero(Expresion expresion) {
+		if (!(expresion.getTipo() instanceof TipoEntero)) {
+			GestorErrores.addError(new TipoError(expresion,
+					"La expresion debe ser de tipo entero"));
 		}
 	}
 
@@ -216,6 +261,15 @@ public class InferenceVisitor extends AbstractVisitor {
 		return true;
 	}
 
+	private boolean assertTipoArray(Expresion array) {
+		if (!(array.getTipo() instanceof TipoArray)) {
+			GestorErrores.addError(new TipoError(array,
+					"La variable debe ser un array"));
+			return false;
+		}
+		return true;
+	}
+
 	private void assertParametrosCorrectos(AST nodo,
 			List<DeclaracionVariable> params, List<Expresion> call) {
 		if (params.size() != call.size()) {
@@ -234,26 +288,44 @@ public class InferenceVisitor extends AbstractVisitor {
 	}
 
 	private void assertTiposIguales(Expresion izquierda, Expresion derecha) {
-		// Variables sin definir
-		if (izquierda.getTipo() != null && derecha.getTipo() != null) {
-			if (izquierda.getTipo().getClass() != derecha.getTipo().getClass()) {
-				GestorErrores
-						.addError(new TipoError(izquierda,
-								"Las dos expresiones de la operacion no son del mismo tipo"));
-			}
+		if (izquierda.getTipo().getClass() != derecha.getTipo().getClass()) {
+			GestorErrores
+					.addError(new TipoError(izquierda,
+							"Las dos expresiones de la operacion no son del mismo tipo"));
 		}
+	}
 
+	private void assertTiposDistintos(Tipo tipobase, Expresion casteo) {
+		if (tipobase.getClass() == casteo.getTipo().getClass()) {
+			GestorErrores.addError(new TipoError(casteo,
+					"La expresion del casteo es del mismo tipo"));
+		}
 	}
 
 	private void assertTipoPrimitivo(Expresion expresion) {
-		// Variables sin definir
-		if (expresion.getTipo() != null) {
-			if (!(expresion.getTipo() instanceof TipoEntero)
-					&& !(expresion.getTipo() instanceof TipoChar)
-					&& !(expresion.getTipo() instanceof TipoReal)) {
-				GestorErrores.addError(new TipoError(expresion,
-						"La expresion debe ser de un tipo primitivo"));
-			}
+		if (!(expresion.getTipo() instanceof TipoEntero)
+				&& !(expresion.getTipo() instanceof TipoChar)
+				&& !(expresion.getTipo() instanceof TipoReal)) {
+			GestorErrores.addError(new TipoError(expresion,
+					"La expresion debe ser de un tipo primitivo"));
+		}
+	}
+
+	private void assertPrintPrimitivo(Expresion expresion) {
+		if (!(expresion.getTipo() instanceof TipoEntero)
+				&& !(expresion.getTipo() instanceof TipoChar)
+				&& !(expresion.getTipo() instanceof TipoReal)) {
+			GestorErrores.addError(new TipoError(expresion,
+					"La expresion de un print debe ser de un tipo primitivo"));
+		}
+	}
+
+	private void assertCastPrimitivo(Cast casteo) {
+		if (!(casteo.getTipoBase() instanceof TipoEntero)
+				&& !(casteo.getTipoBase() instanceof TipoChar)
+				&& !(casteo.getTipoBase() instanceof TipoReal)) {
+			GestorErrores.addError(new TipoError(casteo,
+					"El tipo base de un casteo debe ser primitivo"));
 		}
 	}
 

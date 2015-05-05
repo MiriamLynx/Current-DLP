@@ -78,7 +78,7 @@ public class AbstractVisitor implements Visitor {
 	}
 
 	public Object visit(Cast cast) {
-		cast.getTipo().accept(this);
+		cast.getTipoBase().accept(this);
 		cast.getCasteo().accept(this);
 		return null;
 	}
@@ -169,7 +169,7 @@ public class AbstractVisitor implements Visitor {
 	}
 
 	public Object visit(TipoArray tipoArray) {
-		tipoArray.getTipo().accept(this);
+		tipoArray.getTipoBase().accept(this);
 		return null;
 	}
 

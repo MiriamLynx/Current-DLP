@@ -59,9 +59,12 @@ public class IdentificationVisitor extends AbstractVisitor {
 					"La funcion '" + declaracionFuncion.getNombre()
 							+ "' ya ha sido declarada"));
 		} else {
-			assertTipoPrimitivo(declaracionFuncion.getRetorno());
+			for (DeclaracionVariable c : declaracionFuncion.getParametros()) {
+				assertParametroPrimitivo(c);
+			}
+			assertRetornoPrimitivo(declaracionFuncion.getRetorno());
 			funciones.put(declaracionFuncion.getNombre(), declaracionFuncion);
-			int sentReturn = 0;
+			int sentReturn = count(declaracionFuncion);
 			for (Sentencia s : declaracionFuncion.getSentencias()) {
 				if (s instanceof While) {
 					((While) s).setRetornoFuncion(declaracionFuncion
@@ -71,7 +74,6 @@ public class IdentificationVisitor extends AbstractVisitor {
 				} else if (s instanceof Return) {
 					((Return) s).setRetornoFuncion(declaracionFuncion
 							.getRetorno());
-					sentReturn++;
 				}
 			}
 			if (declaracionFuncion.getRetorno() != null && sentReturn == 0) {
@@ -89,6 +91,48 @@ public class IdentificationVisitor extends AbstractVisitor {
 		reset();
 
 		return ret;
+	}
+
+	private int count(DeclaracionFuncion declaracion) {
+		int count = 0;
+		for (Sentencia s : declaracion.getSentencias()) {
+			if (s instanceof While) {
+				count += count((While) s);
+			} else if (s instanceof If) {
+				count += count((If) s);
+			} else if (s instanceof Return) {
+				count += 1;
+			}
+		}
+		return count;
+	}
+
+	private int count(While whil) {
+		int count = 0;
+		for (Sentencia s : whil.getSentencias()) {
+			if (s instanceof While) {
+				count += count((While) s) + count;
+			} else if (s instanceof If) {
+				count += count((If) s);
+			} else if (s instanceof Return) {
+				count += 1;
+			}
+		}
+		return count;
+	}
+
+	private int count(If sentIf) {
+		int count = 0;
+		for (Sentencia s : sentIf.getSentencias()) {
+			if (s instanceof While) {
+				count += count((While) s) + count;
+			} else if (s instanceof If) {
+				count += count((If) s);
+			} else if (s instanceof Return) {
+				count += 1;
+			}
+		}
+		return count;
 	}
 
 	public Object visit(While whil) {
@@ -155,10 +199,10 @@ public class IdentificationVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(TipoArray array) {
-		if (array.getTipo() instanceof TipoStruct) {
-			if (structs.get(((TipoStruct) array.getTipo()).getNombre()) == null) {
+		if (array.getTipoBase() instanceof TipoStruct) {
+			if (structs.get(((TipoStruct) array.getTipoBase()).getNombre()) == null) {
 				GestorErrores.addError(new TipoError(array, "El struct '"
-						+ ((TipoStruct) array.getTipo()).getNombre()
+						+ ((TipoStruct) array.getTipoBase()).getNombre()
 						+ "' no ha sido declarado"));
 			}
 		}
@@ -240,11 +284,21 @@ public class IdentificationVisitor extends AbstractVisitor {
 		return null;
 	}
 
-	private void assertTipoPrimitivo(Tipo tipo) {
+	private void assertRetornoPrimitivo(Tipo tipo) {
 		if (!(tipo instanceof TipoEntero) && !(tipo instanceof TipoChar)
 				&& !(tipo == null) && !(tipo instanceof TipoReal)) {
 			GestorErrores.addError(new TipoError(tipo,
 					"Las funciones solo pueden retornar tipos primitivos"));
+		}
+	}
+
+	private void assertParametroPrimitivo(DeclaracionVariable declaracion) {
+		if (!(declaracion.getTipo() instanceof TipoEntero)
+				&& !(declaracion.getTipo() instanceof TipoChar)
+				&& !(declaracion.getTipo() == null)
+				&& !(declaracion.getTipo() instanceof TipoReal)) {
+			GestorErrores.addError(new TipoError(declaracion, "El parametro "
+					+ declaracion.getNombre() + " no es de tipo primitivo"));
 		}
 	}
 

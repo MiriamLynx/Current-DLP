@@ -5,30 +5,30 @@ import ast.visitor.Visitor;
 
 public class Cast extends AbstractExpresion implements Expresion {
 
-	public Tipo tipo;
+	public Tipo tipoBase;
 	public Expresion casteo;
 
 	public Cast(int linea, int columna, Tipo tipo, Expresion casteo) {
 		super(linea, columna);
-		this.tipo = tipo;
+		this.tipoBase = tipo;
 		this.casteo = casteo;
 	}
 
 	@Override
 	public String toString() {
-		return "Casteo [ " + tipo + " , " + casteo + " ] \n";
+		return "Casteo [ " + tipoBase + " , " + casteo + " ] \n";
 	}
 
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 
-	public Tipo getTipo() {
-		return tipo;
+	public Tipo getTipoBase() {
+		return tipoBase;
 	}
 
-	public void setTipo(Tipo tipo) {
-		this.tipo = tipo;
+	public void setTipoBase(Tipo tipo) {
+		this.tipoBase = tipo;
 	}
 
 	public Expresion getCasteo() {

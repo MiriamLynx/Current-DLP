@@ -30,18 +30,19 @@ dim anton as Persona;
 function g () as Persona //Error: Retorno de tipo no simple
 end function;
 
+function x() as integer //Error: retorna entero y no tiene expresiones de retorno
+end function;
+
 function h () as integer 
  return 5.6;	// Tipo de retorno no coincide
 end function;
-
-
 
 function j (a as integer, b as real) as real
 	h(2);	// Numero de argumentos incorrecto
 	return; // Debe haber un valor de retorno
 end function;
 
-function k () as integer
+function k (p as integer, w as Persona) as integer  //Debería dar error w y no p al no ser de tipo simple
  dim i as integer; 
  	while i do
 		if i then
@@ -57,21 +58,42 @@ function k () as integer
 			end while;
 		end if;
 	end while;
-	return 5;
 end function;
 
-
-
-proc n () 
+proc n (maria as Persona) //Parametros han de ser de tipo simple
  return 2.5; //No debe tener return ya que es void
 end proc;
 
-proc main()
+function m() as integer //Entre sus sentencias no hay un return
 	dim i as integer;
 	dim f as real;
 	dim v[10] as integer;
 	dim w[10][20] as integer;
 	dim y[10][20][30] as integer;
+	if i then end if;
+	while i do end while;
+end function;
+
+function o() as integer //No debería dar error ya que tiene un return interior
+	dim i as integer;
+	while i do
+		if i then
+			while i do
+				return i;
+			end while;
+		end if;
+	end while;
+end function;
+
+
+proc main()
+
+	dim i as integer;
+	dim f as real;
+	dim v[10] as integer;
+	dim w[10][20] as integer;
+	dim y[10][20][30] as integer;
+	
 	
 	if 2.5 then end if; // La condicion debe ser de tipo entero
 	if i then end if;
@@ -85,7 +107,6 @@ proc main()
 			end while;
 		end if;
 	end while;
-	
 	
 	5 = 6; // Valor de la izquierda no modificable
 	i = f; // Valores de distinto tipo
@@ -102,7 +123,7 @@ proc main()
 	j(12);		// Número de argumentos no coincide
 	j(12, 12.5, 4); // Número de argumentos no coincide
 	
-	//print main();	// No tiene tipo de retorno
+	print main();	// No tiene tipo de retorno
 	print j(12, 12.5);
 	print j(12, 12); // Tipo de los parámetros no coincide
 	print j(12);		// Número de argumentos no coincide
@@ -132,10 +153,17 @@ proc main()
 	print v[i+2];
 	print w[i+2][i];
 	print y[i+2][i][i*3];
-	print y[i+2][i];//Error y tiene tres dimensiones
+	
+	print y[88][180];//Error y tiene tres dimensiones
+	print y; //Error y tiene tres dimensiones
+	
+	print juan.meses; //Error meses tiene una dimensión
+	print juan.meses[0][3]; //Error meses tiene una dimensión
+	print juan.meses[3];
 	
 	print juan.edad;
 	print i.edad;	// Se requiere tipo struct
 	print juan.nombre; // Campo no definido
+	
 end proc;
 
