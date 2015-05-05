@@ -1,0 +1,32 @@
+package ast.visitor;
+
+import ast.declaracion.DeclaracionFuncion;
+import ast.declaracion.DeclaracionStruct;
+import ast.declaracion.DeclaracionVariable;
+
+public class MemoryVisitor {
+
+	private int siguienteLibre = 0;
+	private int relativoABP = 4;
+
+	public Object visit(DeclaracionVariable variableGlobal) {
+		variableGlobal.setDireccion(siguienteLibre);
+		siguienteLibre += variableGlobal.getTipo().size();
+		return null;
+	}
+
+	public Object visit(DeclaracionStruct structGlobal) {
+		structGlobal.setDireccion(siguienteLibre);
+		siguienteLibre += structGlobal.size();
+		return null;
+	}
+
+	public Object visit(DeclaracionFuncion funcion) {
+		for (int i = funcion.getParametros().size(); i >= 0; i--) {
+			funcion.getParametros().get(i).setDireccion(relativoABP);
+			relativoABP += funcion.getParametros().get(i).getTipo().size();
+		}
+		return null;
+	}
+
+}

@@ -22,9 +22,20 @@ public class TipoReal extends AbstractAST implements Tipo {
 	public String toString() {
 		return "Tipo real";
 	}
-	
+
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 
+	public int size() {
+		return 4;
+	}
+
+	public String getMAPLname() {
+		return "real";
+	}
+
+	public String getSufijo() {
+		return "f";
+	}
 }

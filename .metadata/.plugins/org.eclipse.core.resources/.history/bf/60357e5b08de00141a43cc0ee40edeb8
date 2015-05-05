@@ -1,0 +1,26 @@
+package ast.visitor;
+
+import ast.declaracion.DeclaracionStruct;
+import ast.declaracion.DeclaracionVariable;
+
+public class MemoryVisitor {
+
+	private int siguienteLibre = 0;
+
+	public Object visit(DeclaracionVariable variableGlobal) {
+		variableGlobal.setDireccion(siguienteLibre);
+		setSiguienteLibre(variableGlobal);
+		return null;
+	}
+
+	public Object visit(DeclaracionStruct structGlobal) {
+		structGlobal.setDireccion(siguienteLibre);
+		setSiguienteLibre(structGlobal);
+		return null;
+	}
+
+	private void setSiguienteLibre(Declaracion variableGlobal) {
+		siguienteLibre += variableGlobal.getTipo().size();
+	}
+
+}

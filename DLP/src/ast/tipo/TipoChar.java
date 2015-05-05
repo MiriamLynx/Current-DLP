@@ -17,14 +17,26 @@ public class TipoChar extends AbstractAST implements Tipo {
 		}
 		return instance;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Tipo caracter";
 	}
-	
+
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
+	}
+
+	public int size() {
+		return 1;
+	}
+
+	public String getMAPLname() {
+		return "char";
+	}
+	
+	public String getSufijo() {
+		return "b";
 	}
 
 }

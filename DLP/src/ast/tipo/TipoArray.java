@@ -40,4 +40,25 @@ public class TipoArray extends AbstractAST implements Tipo {
 	public void setTipoBase(Tipo tipo) {
 		this.tipoBase = tipo;
 	}
+
+	public int size() {
+		int mul = 1;
+		for (int i = 0; i < size.size(); i++) {
+			mul *= size.get(i);
+		}
+		return tipoBase.size() * mul;
+	}
+
+	public String getMAPLname() {
+		String cad = "";
+		for (int i : size) {
+			cad += "<" + i + "> *";
+		}
+		cad += tipoBase.getMAPLname();
+		return cad;
+	}
+
+	public String getSufijo() {
+		return "nope";
+	}
 }

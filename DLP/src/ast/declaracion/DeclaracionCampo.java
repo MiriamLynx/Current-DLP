@@ -8,6 +8,7 @@ public class DeclaracionCampo extends AbstractAST implements Declaracion {
 
 	public String nombre;
 	public Tipo tipo;
+	public int direccion;
 
 	public DeclaracionCampo(int linea, int columna, Tipo tipo, String variable) {
 		super(linea, columna);
@@ -17,7 +18,7 @@ public class DeclaracionCampo extends AbstractAST implements Declaracion {
 
 	@Override
 	public String toString() {
-		return "Campo [ " + nombre + " , " + tipo + " ] ";
+		return "Campo [ " + nombre + " , " + tipo + " , " + "Dir: " + direccion + " ] ";
 	}
 
 	public void accept(Visitor visitor) {
@@ -38,6 +39,14 @@ public class DeclaracionCampo extends AbstractAST implements Declaracion {
 
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
+	}
+
+	public int getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(int direccion) {
+		this.direccion = direccion;
 	}
 
 }

@@ -1,0 +1,43 @@
+package ast.declaracion;
+
+import ast.AbstractAST;
+import ast.tipo.Tipo;
+import ast.visitor.Visitor;
+
+public class DeclaracionCampo extends AbstractAST implements Declaracion {
+
+	public String nombre;
+	public Tipo tipo;
+
+	public DeclaracionCampo(int linea, int columna, Tipo tipo, String variable) {
+		super(linea, columna);
+		this.nombre = variable;
+		this.tipo = tipo;
+	}
+
+	@Override
+	public String toString() {
+		return "Campo [ " + nombre + " , " + tipo + " ] ";
+	}
+
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
+}
