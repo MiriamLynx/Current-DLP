@@ -1,13 +1,16 @@
 package ast.expresion;
 
+import java.util.List;
+
 import ast.visitor.Visitor;
 
 public class AccesoArray extends AbstractExpresion implements Expresion {
 
 	public Expresion array;
-	public Expresion index;
+	public List<Expresion> index;
 
-	public AccesoArray(int linea, int columna, Expresion array, Expresion index) {
+	public AccesoArray(int linea, int columna, Expresion array,
+			List<Expresion> index) {
 		super(linea, columna);
 		this.index = index;
 		this.array = array;
@@ -22,11 +25,11 @@ public class AccesoArray extends AbstractExpresion implements Expresion {
 		visitor.visit(this);
 	}
 
-	public Expresion getIndex() {
+	public List<Expresion> getIndex() {
 		return index;
 	}
 
-	public void setIndex(Expresion index) {
+	public void setIndex(List<Expresion> index) {
 		this.index = index;
 	}
 

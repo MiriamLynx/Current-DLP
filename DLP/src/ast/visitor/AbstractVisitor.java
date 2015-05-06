@@ -15,6 +15,7 @@ import ast.expresion.Comparacion;
 import ast.expresion.ConstanteChar;
 import ast.expresion.ConstanteEntera;
 import ast.expresion.ConstanteReal;
+import ast.expresion.Expresion;
 import ast.expresion.LlamadaFuncion;
 import ast.expresion.NotLogico;
 import ast.expresion.OperacionAritmetica;
@@ -67,7 +68,9 @@ public class AbstractVisitor implements Visitor {
 	}
 
 	public Object visit(AccesoArray accesoArray) {
-		accesoArray.getIndex().accept(this);
+		for (Expresion e : accesoArray.getIndex()) {
+			e.accept(this);
+		}
 		accesoArray.getArray().accept(this);
 		return null;
 	}

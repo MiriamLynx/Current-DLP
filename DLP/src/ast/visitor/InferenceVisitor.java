@@ -104,7 +104,14 @@ public class InferenceVisitor extends AbstractVisitor {
 		Object ret = super.visit(accesoArray);
 		accesoArray.setLvalue(true);
 		if (assertTipoArray(accesoArray.getArray())) {
-			accesoArray.setTipo((((TipoArray) accesoArray.getArray().getTipo()).getTipoBase()));
+			accesoArray.setTipo((((TipoArray) accesoArray.getArray().getTipo())
+					.getTipoBase()));
+			if (accesoArray.getIndex().size() != ((TipoArray) accesoArray
+					.getArray().getTipo()).getSizes().size()) {
+				GestorErrores
+						.addError(new TipoError(accesoArray,
+								"Acceso al array con un numero de dimensiones incorrecto"));
+			}
 		}
 		assertTipoEntero(accesoArray);
 		return ret;
@@ -246,9 +253,12 @@ public class InferenceVisitor extends AbstractVisitor {
 	}
 
 	private void assertTipoEntero(AccesoArray accesoArray) {
-		if (!(accesoArray.getIndex().getTipo() instanceof TipoEntero)) {
-			GestorErrores.addError(new TipoError(accesoArray,
-					"El indice de acceso a un array debe ser de tipo entero"));
+		for (Expresion e : accesoArray.getIndex()) {
+			if (!(e.getTipo() instanceof TipoEntero)) {
+				GestorErrores
+						.addError(new TipoError(accesoArray,
+								"El indice de acceso a un array debe ser de tipo entero"));
+			}
 		}
 	}
 

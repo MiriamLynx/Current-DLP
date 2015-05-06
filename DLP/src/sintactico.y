@@ -45,6 +45,7 @@ import java.util.ArrayList;
 %left '>' MAYORIGUAL '<' MENORIGUAL IGUAL DISTINTO
 %left '+' '-'
 %left '*' '/' '%'
+%nonassoc acceso
 %nonassoc '[' ']'
 %nonassoc '(' ')'
 %nonassoc '.'
@@ -156,13 +157,18 @@ expresion: CTE_ENTERA {$$ = new ConstanteEntera(lexico.getLinea(), lexico.getCol
 |expresion OR expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "||", (Expresion)$3);	}
 |expresion DISTINTO expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "<>", (Expresion)$3);	}
 |expresion IGUAL expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "==", (Expresion)$3);	}
-|expresion '[' expresion ']' {$$ = new AccesoArray(lexico.getLinea(), lexico.getColumna(),(Expresion)$1,(Expresion)$3);	}
+|expresion listaDimensionesAcceso {$$ = new AccesoArray(lexico.getLinea(), lexico.getColumna(),(Expresion)$1,(List<Expresion>)$2);	} %prec acceso
 |expresion '.' IDENT {$$ = new AccesoCampo(lexico.getLinea(), lexico.getColumna(),(Expresion)$1,(String)$3);	}
 |'(' expresion ')' {$$ = (Expresion)$2;	}
 |IDENT '(' parametrosLlamada ')' {$$ = new LlamadaFuncion(lexico.getLinea(), lexico.getColumna(), (String)$1, (List<Expresion>)$3);	}
 |CTYPE '(' tipo ',' expresion ')' {$$ = new Cast(lexico.getLinea(), lexico.getColumna(), (Tipo)$3, (Expresion)$5);	}
 |IDENT {$$ = new Variable(lexico.getLinea(), lexico.getColumna(), (String)$1); }
 |NOT expresion {$$ = new NotLogico(lexico.getLinea(), lexico.getColumna(), (Expresion)$2);}
+;
+
+// * Una o más dimensiones de acceso a array
+listaDimensionesAcceso: '[' expresion ']' { List<Expresion> l = new ArrayList<Expresion>(); l.add((Expresion)$2); $$ = l;} 
+| listaDimensionesAcceso '[' expresion ']' { List<Expresion> l  = (List<Expresion>)$1; l.add((Expresion)$3); $$ = l;}
 ;
 
 //	* Tipos

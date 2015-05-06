@@ -7,30 +7,30 @@ import ast.visitor.Visitor;
 
 public class TipoArray extends AbstractAST implements Tipo {
 
-	public List<Integer> size;
+	public List<Integer> sizes;
 	public Tipo tipoBase;
 
 	public TipoArray(int linea, int columna, List<Integer> size, Tipo tipo) {
 		super(linea, columna);
-		this.size = size;
+		this.sizes = size;
 		this.tipoBase = tipo;
 	}
 
 	@Override
 	public String toString() {
-		return "Tipo array [ " + tipoBase + " , " + size + " ]";
+		return "Tipo array [ " + tipoBase + " , " + sizes + " ]";
 	}
 
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 
-	public List<Integer> getSize() {
-		return size;
+	public List<Integer> getSizes() {
+		return sizes;
 	}
 
-	public void setSize(List<Integer> size) {
-		this.size = size;
+	public void setSizes(List<Integer> sizes) {
+		this.sizes = sizes;
 	}
 
 	public Tipo getTipoBase() {
@@ -43,15 +43,15 @@ public class TipoArray extends AbstractAST implements Tipo {
 
 	public int size() {
 		int mul = 1;
-		for (int i = 0; i < size.size(); i++) {
-			mul *= size.get(i);
+		for (int i = 0; i < sizes.size(); i++) {
+			mul *= sizes.get(i);
 		}
 		return tipoBase.size() * mul;
 	}
 
 	public String getMAPLname() {
 		String cad = "";
-		for (int i : size) {
+		for (int i : sizes) {
 			cad += "<" + i + "> *";
 		}
 		cad += tipoBase.getMAPLname();
