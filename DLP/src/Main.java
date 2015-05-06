@@ -13,7 +13,7 @@ import error.GestorErrores;
 
 public class Main {
 	public static void main(String[] args) {
-		String nombreFichero = "pruebaInferencia.txt";
+		String nombreFichero = "pruebaIdentificacion.txt";
 		Lexico lex;
 		try {
 			GestorErrores gestor = new GestorErrores();
@@ -33,7 +33,7 @@ public class Main {
 				XMLVisitor xmlv = new XMLVisitor();
 				parser.getAst().accept(xmlv);
 			} else {
-				//showTree(root);
+				// showTree(root);
 				gestor.mostrarErrores();
 			}
 		} catch (FileNotFoundException e) {
