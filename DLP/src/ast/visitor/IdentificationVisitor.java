@@ -34,7 +34,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 
 	public Object visit(Programa programa) {
 		set();
-		Object ret = super.visit(programa);
+		Object ret = super.visit(programa, null);
 		if (funciones.get("main") == null) {
 			GestorErrores.addError(new TipoError(programa,
 					"El programa no contiene funcion main"));
@@ -50,7 +50,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 		} else {
 			campos.put(declaracionCampo.getNombre(), declaracionCampo);
 		}
-		return super.visit(declaracionCampo);
+		return super.visit(declaracionCampo, null);
 	}
 
 	public Object visit(DeclaracionFuncion declaracionFuncion) {
@@ -66,15 +66,8 @@ public class IdentificationVisitor extends AbstractVisitor {
 			funciones.put(declaracionFuncion.getNombre(), declaracionFuncion);
 			int sentReturn = count(declaracionFuncion);
 			for (Sentencia s : declaracionFuncion.getSentencias()) {
-				if (s instanceof While) {
-					((While) s).setRetornoFuncion(declaracionFuncion
-							.getRetorno());
-				} else if (s instanceof If) {
-					((If) s).setRetornoFuncion(declaracionFuncion.getRetorno());
-				} else if (s instanceof Return) {
-					((Return) s).setRetornoFuncion(declaracionFuncion
-							.getRetorno());
-				}
+				s.setDeclaracionFuncion(declaracionFuncion);
+
 			}
 			if (declaracionFuncion.getRetorno() != null && sentReturn == 0) {
 				GestorErrores
@@ -87,7 +80,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 		}
 
 		set();
-		Object ret = super.visit(declaracionFuncion);
+		Object ret = super.visit(declaracionFuncion, null);
 		reset();
 
 		return ret;
@@ -137,24 +130,16 @@ public class IdentificationVisitor extends AbstractVisitor {
 
 	public Object visit(While whil) {
 		for (Sentencia s : whil.getSentencias()) {
-			if (s instanceof If) {
-				((If) s).setRetornoFuncion(whil.getRetornoFuncion());
-			} else if (s instanceof Return) {
-				((Return) s).setRetornoFuncion(whil.getRetornoFuncion());
-			}
+			s.setDeclaracionFuncion(whil.getDeclaracionFuncion());
 		}
-		return super.visit(whil);
+		return super.visit(whil, null);
 	}
 
 	public Object visit(If sentIf) {
 		for (Sentencia s : sentIf.getSentencias()) {
-			if (s instanceof While) {
-				((While) s).setRetornoFuncion(sentIf.getRetornoFuncion());
-			} else if (s instanceof Return) {
-				((Return) s).setRetornoFuncion(sentIf.getRetornoFuncion());
-			}
+			s.setDeclaracionFuncion(sentIf.getDeclaracionFuncion());
 		}
-		return super.visit(sentIf);
+		return super.visit(sentIf, null);
 	}
 
 	public Object visit(DeclaracionStruct declaracionStruct) {
@@ -167,7 +152,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 		}
 
 		campos.clear();
-		Object ret = super.visit(declaracionStruct);
+		Object ret = super.visit(declaracionStruct, null);
 
 		return ret;
 	}
@@ -195,7 +180,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 						declaracionVariable);
 			}
 		}
-		return super.visit(declaracionVariable);
+		return super.visit(declaracionVariable, null);
 	}
 
 	public Object visit(TipoArray array) {
@@ -206,7 +191,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 						+ "' no ha sido declarado"));
 			}
 		}
-		return super.visit(array);
+		return super.visit(array, null);
 	}
 
 	public Object visit(LlamadaFuncion llamadaFuncion) {
@@ -217,7 +202,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 			llamadaFuncion.setDeclaracion(funciones.get(llamadaFuncion
 					.getNombre()));
 		}
-		return super.visit(llamadaFuncion);
+		return super.visit(llamadaFuncion, null);
 	}
 
 	public Object visit(LlamadaFuncionSent llamadaFuncion) {
@@ -228,7 +213,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 			llamadaFuncion.setDeclaracion(funciones.get(llamadaFuncion
 					.getNombre()));
 		}
-		return super.visit(llamadaFuncion);
+		return super.visit(llamadaFuncion, null);
 	}
 
 	public Object visit(Variable variable) {
@@ -255,7 +240,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 				variable.setDeclaracion(declaracion);
 			}
 		}
-		return super.visit(variable);
+		return super.visit(variable, null);
 	}
 
 	private void set() {

@@ -19,6 +19,15 @@ public class DeclaracionStruct extends AbstractAST implements Declaracion, Tipo 
 		this.declaraciones = declaraciones;
 	}
 
+	public DeclaracionCampo getCampo(String campo) {
+		for (DeclaracionCampo c : declaraciones) {
+			if (c.getNombre().equals(campo)) {
+				return c;
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public String toString() {
 		return "Declaracion de struct [ " + nombre + " , " + "Dir: "
@@ -26,8 +35,8 @@ public class DeclaracionStruct extends AbstractAST implements Declaracion, Tipo 
 				+ "\n";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public String getNombre() {

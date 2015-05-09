@@ -2,17 +2,14 @@ package ast.sentencia;
 
 import java.util.List;
 
-import ast.AbstractAST;
 import ast.expresion.Expresion;
-import ast.tipo.Tipo;
 import ast.visitor.Visitor;
 
-public class If extends AbstractAST implements Sentencia {
+public class If extends AbstractSentencia implements Sentencia {
 
 	public Expresion expresion;
 	public List<Sentencia> sentencias;
 	public List<Sentencia> alternativas;
-	public Tipo retornoFuncion;
 
 	public If(int linea, int columna, Expresion expresion,
 			List<Sentencia> sentencias, List<Sentencia> alternativas) {
@@ -35,8 +32,8 @@ public class If extends AbstractAST implements Sentencia {
 		}
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public Expresion getExpresion() {
@@ -63,11 +60,4 @@ public class If extends AbstractAST implements Sentencia {
 		this.alternativas = alternativas;
 	}
 
-	public Tipo getRetornoFuncion() {
-		return retornoFuncion;
-	}
-
-	public void setRetornoFuncion(Tipo funcion) {
-		this.retornoFuncion = funcion;
-	}
 }

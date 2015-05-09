@@ -27,8 +27,8 @@ public class Programa extends AbstractAST {
 		return "Declaraciones del programa ->\n" + declaraciones + "\n";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 }

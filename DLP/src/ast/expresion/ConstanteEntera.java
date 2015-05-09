@@ -16,8 +16,8 @@ public class ConstanteEntera extends AbstractExpresion implements Expresion {
 		return "Constante entera [ " + valor + " ] ";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public int getValor() {

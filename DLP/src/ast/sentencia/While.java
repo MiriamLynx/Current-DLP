@@ -2,16 +2,13 @@ package ast.sentencia;
 
 import java.util.List;
 
-import ast.AbstractAST;
 import ast.expresion.Expresion;
-import ast.tipo.Tipo;
 import ast.visitor.Visitor;
 
-public class While extends AbstractAST implements Sentencia {
+public class While extends AbstractSentencia implements Sentencia {
 
 	public List<Sentencia> sentencias;
 	public Expresion expresion;
-	public Tipo retornoFuncion;
 
 	public While(int linea, int columna, Expresion expresion,
 			List<Sentencia> sentencias) {
@@ -26,8 +23,8 @@ public class While extends AbstractAST implements Sentencia {
 				+ "\nSentencias del while ->\n" + sentencias + "\n";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public List<Sentencia> getSentencias() {
@@ -44,14 +41,6 @@ public class While extends AbstractAST implements Sentencia {
 
 	public void setExpresion(Expresion expresion) {
 		this.expresion = expresion;
-	}
-
-	public Tipo getRetornoFuncion() {
-		return retornoFuncion;
-	}
-
-	public void setRetornoFuncion(Tipo funcion) {
-		this.retornoFuncion = funcion;
 	}
 
 }

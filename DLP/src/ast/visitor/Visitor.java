@@ -33,64 +33,64 @@ import ast.tipo.TipoStruct;
 
 public interface Visitor {
 
-	public Object visit(Programa programa);
+	public Object visit(Programa programa, Object param);
 
-	public Object visit(DeclaracionCampo declaracionCampo);
+	public Object visit(DeclaracionCampo declaracionCampo, Object param);
 
-	public Object visit(DeclaracionFuncion declaracionFuncion);
+	public Object visit(DeclaracionFuncion declaracionFuncion, Object param);
 
-	public Object visit(DeclaracionStruct declaracionStruct);
+	public Object visit(DeclaracionStruct declaracionStruct, Object param);
 
-	public Object visit(DeclaracionVariable declaracionVariable);
+	public Object visit(DeclaracionVariable declaracionVariable, Object param);
 
-	public Object visit(AccesoArray accesoArray);
+	public Object visit(AccesoArray accesoArray, Object param);
 
-	public Object visit(AccesoCampo accesoCampo);
+	public Object visit(AccesoCampo accesoCampo, Object param);
 
-	public Object visit(Cast cast);
+	public Object visit(Cast cast, Object param);
 
-	public Object visit(Comparacion comparacion);
+	public Object visit(Comparacion comparacion, Object param);
 
-	public Object visit(ConstanteChar constanteChar);
+	public Object visit(ConstanteChar constanteChar, Object param);
 
-	public Object visit(ConstanteEntera constanteEntera);
+	public Object visit(ConstanteEntera constanteEntera, Object param);
 
-	public Object visit(ConstanteReal constanteReal);
+	public Object visit(ConstanteReal constanteReal, Object param);
 
-	public Object visit(LlamadaFuncion llamadaFuncion);
+	public Object visit(LlamadaFuncion llamadaFuncion, Object param);
 
-	public Object visit(OperacionAritmetica operacionAritmetica);
+	public Object visit(OperacionAritmetica operacionAritmetica, Object param);
 
-	public Object visit(OperacionLogica operacionLogica);
+	public Object visit(OperacionLogica operacionLogica, Object param);
 
-	public Object visit(Variable variable);
+	public Object visit(Variable variable, Object param);
 
-	public Object visit(NotLogico notLogico);
+	public Object visit(NotLogico notLogico, Object param);
 
-	public Object visit(Asignacion asignacion);
+	public Object visit(Asignacion asignacion, Object param);
 
-	public Object visit(If if1);
+	public Object visit(If if1, Object param);
 
-	public Object visit(LlamadaFuncionSent llamadaFuncionSent);
+	public Object visit(LlamadaFuncionSent llamadaFuncionSent, Object param);
 
-	public Object visit(Print print);
+	public Object visit(Print print, Object param);
 
-	public Object visit(Read read);
+	public Object visit(Read read, Object param);
 
-	public Object visit(Return return1);
+	public Object visit(Return return1, Object param);
 
-	public Object visit(While while1);
+	public Object visit(While while1, Object param);
 
-	public Object visit(TipoArray tipoArray);
+	public Object visit(TipoArray tipoArray, Object param);
 
-	public Object visit(TipoChar tipoChar);
+	public Object visit(TipoChar tipoChar, Object param);
 
-	public Object visit(TipoEntero tipoEntero);
+	public Object visit(TipoEntero tipoEntero, Object param);
 
-	public Object visit(TipoError tipoError);
+	public Object visit(TipoError tipoError, Object param);
 
-	public Object visit(TipoReal tipoReal);
+	public Object visit(TipoReal tipoReal, Object param);
 
-	public Object visit(TipoStruct tipoStruct);
+	public Object visit(TipoStruct tipoStruct, Object param);
 
 }

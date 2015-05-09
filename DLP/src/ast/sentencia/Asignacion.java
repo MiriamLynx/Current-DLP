@@ -1,10 +1,9 @@
 package ast.sentencia;
 
-import ast.AbstractAST;
 import ast.expresion.Expresion;
 import ast.visitor.Visitor;
 
-public class Asignacion extends AbstractAST implements Sentencia {
+public class Asignacion extends AbstractSentencia implements Sentencia {
 
 	public Expresion izquierda;
 	public Expresion derecha;
@@ -21,8 +20,8 @@ public class Asignacion extends AbstractAST implements Sentencia {
 		return "Asignacion [ " + izquierda + " , " + derecha + " ] \n";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public Expresion getIzquierda() {

@@ -32,8 +32,8 @@ public class LlamadaFuncion extends AbstractExpresion implements Expresion {
 				+ "\nParametros de la llamada ->\n" + expresiones + "\n";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public String getNombre() {

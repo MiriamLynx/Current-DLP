@@ -22,8 +22,8 @@ public class OperacionLogica extends AbstractExpresion implements Expresion {
 				+ derecha + " ] ";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public Expresion getIzquierda() {

@@ -2,12 +2,11 @@ package ast.sentencia;
 
 import java.util.List;
 
-import ast.AbstractAST;
 import ast.declaracion.DeclaracionFuncion;
 import ast.expresion.Expresion;
 import ast.visitor.Visitor;
 
-public class LlamadaFuncionSent extends AbstractAST implements Sentencia {
+public class LlamadaFuncionSent extends AbstractSentencia implements Sentencia {
 
 	public String nombre;
 	public List<Expresion> expresiones;
@@ -34,8 +33,8 @@ public class LlamadaFuncionSent extends AbstractAST implements Sentencia {
 				+ "\nParametros de la llamada->\n" + expresiones + "\n";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public String getNombre() {

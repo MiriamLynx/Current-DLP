@@ -23,8 +23,8 @@ public class TipoChar extends AbstractAST implements Tipo {
 		return "Tipo caracter";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public int size() {

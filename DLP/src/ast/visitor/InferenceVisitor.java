@@ -39,26 +39,26 @@ public class InferenceVisitor extends AbstractVisitor {
 		constanteEntera.setLvalue(false);
 		constanteEntera.setTipo(TipoEntero.getInstance(
 				constanteEntera.getLinea(), constanteEntera.getColumna()));
-		return super.visit(constanteEntera);
+		return super.visit(constanteEntera, null);
 	}
 
 	public Object visit(ConstanteReal constanteReal) {
 		constanteReal.setLvalue(false);
 		constanteReal.setTipo(TipoReal.getInstance(constanteReal.getLinea(),
 				constanteReal.getColumna()));
-		return super.visit(constanteReal);
+		return super.visit(constanteReal, null);
 	}
 
 	public Object visit(ConstanteChar constanteChar) {
 		constanteChar.setLvalue(false);
 		constanteChar.setTipo(TipoChar.getInstance(constanteChar.getLinea(),
 				constanteChar.getColumna()));
-		return super.visit(constanteChar);
+		return super.visit(constanteChar, null);
 	}
 
 	public Object visit(Variable variable) {
 		if (variable.getDeclaracion() != null) {
-			super.visit(variable);
+			super.visit(variable, null);
 			variable.setLvalue(true);
 			variable.setTipo(variable.getDeclaracion().getTipo());
 		}
@@ -66,7 +66,7 @@ public class InferenceVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(OperacionAritmetica operacionAritmetica) {
-		super.visit(operacionAritmetica);
+		super.visit(operacionAritmetica, null);
 		assertTiposIguales(operacionAritmetica.getIzquierda(),
 				operacionAritmetica.getDerecha());
 		assertTipoPrimitivo(operacionAritmetica.getIzquierda());
@@ -79,7 +79,7 @@ public class InferenceVisitor extends AbstractVisitor {
 
 	public Object visit(LlamadaFuncion llamadaFuncion) {
 		if (llamadaFuncion.getDeclaracion() != null) {
-			super.visit(llamadaFuncion);
+			super.visit(llamadaFuncion, null);
 			llamadaFuncion.setLvalue(false);
 			llamadaFuncion
 					.setTipo(llamadaFuncion.getDeclaracion().getRetorno());
@@ -92,7 +92,7 @@ public class InferenceVisitor extends AbstractVisitor {
 
 	public Object visit(LlamadaFuncionSent llamadaFuncionSent) {
 		if (llamadaFuncionSent.getDeclaracion() != null) {
-			super.visit(llamadaFuncionSent);
+			super.visit(llamadaFuncionSent, null);
 			assertParametrosCorrectos(llamadaFuncionSent, llamadaFuncionSent
 					.getDeclaracion().getParametros(),
 					llamadaFuncionSent.getExpresiones());
@@ -101,7 +101,7 @@ public class InferenceVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(AccesoArray accesoArray) {
-		Object ret = super.visit(accesoArray);
+		Object ret = super.visit(accesoArray, null);
 		accesoArray.setLvalue(true);
 		if (assertTipoArray(accesoArray.getArray())) {
 			accesoArray.setTipo((((TipoArray) accesoArray.getArray().getTipo())
@@ -118,7 +118,7 @@ public class InferenceVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(AccesoCampo accesoCampo) {
-		Object ret = super.visit(accesoCampo);
+		Object ret = super.visit(accesoCampo, null);
 		if (accesoCampo.getStruct().getTipo() != null) {
 			accesoCampo.setLvalue(true);
 			if (assertTipoStruct(accesoCampo)) {
@@ -141,11 +141,11 @@ public class InferenceVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(Return ret) {
-		Object rett = super.visit(ret);
-		if (ret.getRetornoFuncion() != null) {
+		Object rett = super.visit(ret, null);
+		if (ret.getDeclaracionFuncion().getRetorno() != null) {
 			if (ret.getExpresion() != null) {
-				if (ret.getRetornoFuncion().getClass() != ret.getExpresion()
-						.getTipo().getClass()) {
+				if (ret.getDeclaracionFuncion().getRetorno().getClass() != ret
+						.getExpresion().getTipo().getClass()) {
 					GestorErrores
 							.addError(new TipoError(ret,
 									"El tipo de retorno no coincide con el tipo de la funcion"));
@@ -164,19 +164,19 @@ public class InferenceVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(If sentIf) {
-		Object ret = super.visit(sentIf);
+		Object ret = super.visit(sentIf, null);
 		assertTipoEntero(sentIf);
 		return ret;
 	}
 
 	public Object visit(While whil) {
-		Object ret = super.visit(whil);
+		Object ret = super.visit(whil, null);
 		assertTipoEntero(whil);
 		return ret;
 	}
 
 	public Object visit(Asignacion asignacion) {
-		super.visit(asignacion);
+		super.visit(asignacion, null);
 		assertTipoPrimitivo(asignacion.getIzquierda());
 		if (!asignacion.getIzquierda().isLvalue()) {
 			GestorErrores
@@ -188,13 +188,13 @@ public class InferenceVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(Print print) {
-		Object ret = super.visit(print);
+		Object ret = super.visit(print, null);
 		assertPrintPrimitivo(print.getExpresion());
 		return ret;
 	}
 
 	public Object visit(Read read) {
-		Object ret = super.visit(read);
+		Object ret = super.visit(read, null);
 		assertTipoPrimitivo(read.getExpresion());
 		if (!read.getExpresion().isLvalue()) {
 			GestorErrores.addError(new TipoError(read,
@@ -204,7 +204,7 @@ public class InferenceVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(Comparacion comparacion) {
-		super.visit(comparacion);
+		super.visit(comparacion, null);
 		comparacion.setTipo(TipoEntero.getInstance(comparacion.getLinea(),
 				comparacion.getColumna()));
 		assertTiposIguales(comparacion.getIzquierda(), comparacion.getDerecha());
@@ -214,7 +214,7 @@ public class InferenceVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(OperacionLogica logica) {
-		super.visit(logica);
+		super.visit(logica, null);
 		logica.setTipo(TipoEntero.getInstance(logica.getLinea(),
 				logica.getColumna()));
 		assertTipoEntero(logica.getIzquierda());
@@ -223,7 +223,7 @@ public class InferenceVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(Cast casteo) {
-		super.visit(casteo);
+		super.visit(casteo, null);
 		assertCastPrimitivo(casteo);
 		assertTipoPrimitivo(casteo.getCasteo());
 		casteo.setTipo(casteo.getTipoBase());

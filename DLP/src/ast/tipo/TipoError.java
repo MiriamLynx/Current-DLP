@@ -15,8 +15,8 @@ public class TipoError extends AbstractAST implements Tipo {
 		this.error = error;
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	@Override

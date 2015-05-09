@@ -16,8 +16,8 @@ public class ConstanteChar extends AbstractExpresion implements Expresion {
 		return "Constante caracter [ " + valor + " ] ";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public char getValor() {

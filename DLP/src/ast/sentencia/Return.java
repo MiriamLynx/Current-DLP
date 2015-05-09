@@ -1,14 +1,11 @@
 package ast.sentencia;
 
-import ast.AbstractAST;
 import ast.expresion.Expresion;
-import ast.tipo.Tipo;
 import ast.visitor.Visitor;
 
-public class Return extends AbstractAST implements Sentencia {
+public class Return extends AbstractSentencia implements Sentencia {
 
 	public Expresion expresion;
-	public Tipo retornoFuncion;
 
 	public Return(int linea, int columna, Expresion expresion) {
 		super(linea, columna);
@@ -20,8 +17,8 @@ public class Return extends AbstractAST implements Sentencia {
 		return "Return [ " + expresion + " ] \n";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public Expresion getExpresion() {
@@ -32,11 +29,4 @@ public class Return extends AbstractAST implements Sentencia {
 		this.expresion = expresion;
 	}
 
-	public Tipo getRetornoFuncion() {
-		return retornoFuncion;
-	}
-
-	public void setRetornoFuncion(Tipo retornoFuncion) {
-		this.retornoFuncion = retornoFuncion;
-	}
 }

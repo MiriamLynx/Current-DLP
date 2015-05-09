@@ -11,8 +11,8 @@ public class NotLogico extends AbstractExpresion implements Expresion {
 		this.setExpresion(expresion);
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	@Override

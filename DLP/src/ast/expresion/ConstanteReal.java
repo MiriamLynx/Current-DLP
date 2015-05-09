@@ -16,8 +16,8 @@ public class ConstanteReal extends AbstractExpresion implements Expresion {
 		return "Constante real [ " + valor + " ] ";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public double getValor() {

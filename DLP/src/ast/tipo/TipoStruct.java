@@ -17,8 +17,8 @@ public class TipoStruct extends AbstractAST implements Tipo {
 		return "Tipo struct [ " + nombre + " ]";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public String getNombre() {

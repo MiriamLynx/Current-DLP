@@ -8,6 +8,6 @@ public interface AST {
 
 	public int getColumna();
 
-	public void accept(Visitor visitor);
+	public void accept(Visitor visitor, Object object);
 
 }

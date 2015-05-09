@@ -23,8 +23,8 @@ public class TipoReal extends AbstractAST implements Tipo {
 		return "Tipo real";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public int size() {

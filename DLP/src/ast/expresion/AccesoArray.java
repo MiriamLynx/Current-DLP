@@ -21,8 +21,8 @@ public class AccesoArray extends AbstractExpresion implements Expresion {
 		return "Acceso a array [ " + array + " , " + index + " ] ";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public List<Expresion> getIndex() {

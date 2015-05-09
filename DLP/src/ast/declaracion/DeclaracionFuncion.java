@@ -34,8 +34,8 @@ public class DeclaracionFuncion extends AbstractAST implements Declaracion {
 				+ sentencias + "\n";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public Tipo getRetorno() {

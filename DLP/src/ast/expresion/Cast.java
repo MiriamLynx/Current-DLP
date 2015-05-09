@@ -19,8 +19,8 @@ public class Cast extends AbstractExpresion implements Expresion {
 		return "Casteo [ " + tipoBase + " , " + casteo + " ] \n";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public Tipo getTipoBase() {

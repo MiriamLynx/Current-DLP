@@ -37,19 +37,19 @@ import ast.tipo.TipoStruct;
 
 public class AbstractVisitor implements Visitor {
 
-	public Object visit(Programa programa) {
+	public Object visit(Programa programa, Object param) {
 		visitAll(programa.getDeclaraciones());
 		return null;
 	}
 
-	public Object visit(DeclaracionCampo declaracionCampo) {
-		declaracionCampo.getTipo().accept(this);
+	public Object visit(DeclaracionCampo declaracionCampo, Object param) {
+		declaracionCampo.getTipo().accept(this, null);
 		return null;
 	}
 
-	public Object visit(DeclaracionFuncion declaracionFuncion) {
+	public Object visit(DeclaracionFuncion declaracionFuncion, Object param) {
 		if (declaracionFuncion.getRetorno() != null) {
-			declaracionFuncion.getRetorno().accept(this);
+			declaracionFuncion.getRetorno().accept(this, null);
 		}
 		visitAll(declaracionFuncion.getParametros());
 		visitAll(declaracionFuncion.getDeclaraciones());
@@ -57,151 +57,150 @@ public class AbstractVisitor implements Visitor {
 		return null;
 	}
 
-	public Object visit(DeclaracionStruct declaracionStruct) {
+	public Object visit(DeclaracionStruct declaracionStruct, Object param) {
 		visitAll(declaracionStruct.getDeclaraciones());
 		return null;
 	}
 
-	public Object visit(DeclaracionVariable declaracionVariable) {
-		declaracionVariable.getTipo().accept(this);
+	public Object visit(DeclaracionVariable declaracionVariable, Object param) {
+		declaracionVariable.getTipo().accept(this, null);
 		return null;
 	}
 
-	public Object visit(AccesoArray accesoArray) {
+	public Object visit(AccesoArray accesoArray, Object param) {
 		for (Expresion e : accesoArray.getIndex()) {
-			e.accept(this);
+			e.accept(this, null);
 		}
-		accesoArray.getArray().accept(this);
+		accesoArray.getArray().accept(this, null);
 		return null;
 	}
 
-	public Object visit(AccesoCampo accesoCampo) {
-		accesoCampo.getStruct().accept(this);
+	public Object visit(AccesoCampo accesoCampo, Object param) {
+		accesoCampo.getStruct().accept(this, null);
 		return null;
 	}
 
-	public Object visit(Cast cast) {
-		cast.getTipoBase().accept(this);
-		cast.getCasteo().accept(this);
+	public Object visit(Cast cast, Object param) {
+		cast.getTipoBase().accept(this, null);
+		cast.getCasteo().accept(this, null);
 		return null;
 	}
 
-	public Object visit(Comparacion comparacion) {
-		comparacion.getIzquierda().accept(this);
-		comparacion.getDerecha().accept(this);
+	public Object visit(Comparacion comparacion, Object param) {
+		comparacion.getIzquierda().accept(this, null);
+		comparacion.getDerecha().accept(this, null);
 		return null;
 	}
 
-	public Object visit(ConstanteChar constanteChar) {
+	public Object visit(ConstanteChar constanteChar, Object param) {
 		return null;
 	}
 
-	public Object visit(ConstanteEntera constanteEntera) {
+	public Object visit(ConstanteEntera constanteEntera, Object param) {
 		return null;
 	}
 
-	public Object visit(ConstanteReal constanteReal) {
+	public Object visit(ConstanteReal constanteReal, Object param) {
 		return null;
 	}
 
-	public Object visit(LlamadaFuncion llamadaFuncion) {
+	public Object visit(LlamadaFuncion llamadaFuncion, Object param) {
 		visitAll(llamadaFuncion.getExpresiones());
 		return null;
 	}
 
-	public Object visit(OperacionAritmetica operacionAritmetica) {
-		operacionAritmetica.getIzquierda().accept(this);
-		operacionAritmetica.getDerecha().accept(this);
+	public Object visit(OperacionAritmetica operacionAritmetica, Object param) {
+		operacionAritmetica.getIzquierda().accept(this, null);
+		operacionAritmetica.getDerecha().accept(this, null);
 		return null;
 	}
 
-	public Object visit(OperacionLogica operacionLogica) {
-		operacionLogica.getIzquierda().accept(this);
-		operacionLogica.getDerecha().accept(this);
+	public Object visit(OperacionLogica operacionLogica, Object param) {
+		operacionLogica.getIzquierda().accept(this, null);
+		operacionLogica.getDerecha().accept(this, null);
 		return null;
 	}
 
-	public Object visit(Variable variable) {
+	public Object visit(Variable variable, Object param) {
 		return null;
 	}
 
-	public Object visit(NotLogico notLogico) {
-		notLogico.getExpresion().accept(this);
+	public Object visit(NotLogico notLogico, Object param) {
+		notLogico.getExpresion().accept(this, null);
 		return null;
 	}
 
-	public Object visit(Asignacion asignacion) {
-		asignacion.getIzquierda().accept(this);
-		asignacion.getDerecha().accept(this);
+	public Object visit(Asignacion asignacion, Object param) {
+		asignacion.getIzquierda().accept(this, null);
+		asignacion.getDerecha().accept(this, null);
 		return null;
 	}
 
-	public Object visit(If sentIf) {
-		sentIf.getExpresion().accept(this);
+	public Object visit(If sentIf, Object param) {
+		sentIf.getExpresion().accept(this, null);
 		visitAll(sentIf.getSentencias());
 		visitAll(sentIf.getAlternativas());
 		return null;
 	}
 
-	public Object visit(LlamadaFuncionSent llamadaFuncionSent) {
+	public Object visit(LlamadaFuncionSent llamadaFuncionSent, Object param) {
 		visitAll(llamadaFuncionSent.getExpresiones());
 		return null;
 	}
 
-	public Object visit(Print print) {
-		print.getExpresion().accept(this);
+	public Object visit(Print print, Object param) {
+		print.getExpresion().accept(this, null);
 		return null;
 	}
 
-	public Object visit(Read read) {
-		read.getExpresion().accept(this);
+	public Object visit(Read read, Object param) {
+		read.getExpresion().accept(this, null);
 		return null;
 	}
 
-	public Object visit(Return sentReturn) {
+	public Object visit(Return sentReturn, Object param) {
 		if (sentReturn.getExpresion() != null) {
-			sentReturn.getExpresion().accept(this);
+			sentReturn.getExpresion().accept(this, null);
 		}
 		return null;
 	}
 
-	public Object visit(While sentWhile) {
-		sentWhile.getExpresion().accept(this);
+	public Object visit(While sentWhile, Object param) {
+		sentWhile.getExpresion().accept(this, null);
 		visitAll(sentWhile.getSentencias());
 		return null;
 	}
 
-	public Object visit(TipoArray tipoArray) {
-		tipoArray.getTipoBase().accept(this);
+	public Object visit(TipoArray tipoArray, Object param) {
+		tipoArray.getTipoBase().accept(this, null);
 		return null;
 	}
 
-	public Object visit(TipoChar tipoChar) {
+	public Object visit(TipoChar tipoChar, Object param) {
 		return null;
 	}
 
-	public Object visit(TipoEntero tipoEntero) {
+	public Object visit(TipoEntero tipoEntero, Object param) {
 		return null;
 	}
 
-	public Object visit(TipoError tipoError) {
+	public Object visit(TipoError tipoError, Object param) {
 		return null;
 	}
 
-	public Object visit(TipoReal tipoReal) {
+	public Object visit(TipoReal tipoReal, Object param) {
 		return null;
 	}
 
-	public Object visit(TipoStruct tipoStruct) {
+	public Object visit(TipoStruct tipoStruct, Object param) {
 		return null;
 	}
 
 	private void visitAll(List<? extends AST> list) {
 		if (list != null) {
 			for (AST node : list) {
-				node.accept(this);
+				node.accept(this, null);
 			}
 		}
 	}
-
 }

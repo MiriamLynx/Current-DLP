@@ -18,8 +18,8 @@ public class AccesoCampo extends AbstractExpresion implements Expresion {
 		return "Acceso a campo [ " + struct + " , " + campo + " ] ";
 	}
 
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public void accept(Visitor visitor, Object param) {
+		visitor.visit(this, null);
 	}
 
 	public String getCampo() {
