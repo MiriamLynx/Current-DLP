@@ -24,7 +24,7 @@ public class While extends AbstractSentencia implements Sentencia {
 	}
 
 	public void accept(Visitor visitor, Object param) {
-		visitor.visit(this, null);
+		visitor.visit(this, param);
 	}
 
 	public List<Sentencia> getSentencias() {

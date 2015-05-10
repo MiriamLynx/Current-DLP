@@ -32,7 +32,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 	Map<String, DeclaracionCampo> campos = new HashMap<String, DeclaracionCampo>();
 	Stack<Map<String, DeclaracionVariable>> contextos = new Stack<Map<String, DeclaracionVariable>>();
 
-	public Object visit(Programa programa) {
+	public Object visit(Programa programa, Object param) {
 		set();
 		Object ret = super.visit(programa, null);
 		if (funciones.get("main") == null) {
@@ -43,7 +43,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 		return ret;
 	}
 
-	public Object visit(DeclaracionCampo declaracionCampo) {
+	public Object visit(DeclaracionCampo declaracionCampo, Object param) {
 		if (campos.get(declaracionCampo.getNombre()) != null) {
 			GestorErrores.addError(new TipoError(declaracionCampo, "El campo '"
 					+ declaracionCampo.getNombre() + "' ya ha sido declarado"));
@@ -53,7 +53,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 		return super.visit(declaracionCampo, null);
 	}
 
-	public Object visit(DeclaracionFuncion declaracionFuncion) {
+	public Object visit(DeclaracionFuncion declaracionFuncion, Object param) {
 		if (funciones.get(declaracionFuncion.getNombre()) != null) {
 			GestorErrores.addError(new TipoError(declaracionFuncion,
 					"La funcion '" + declaracionFuncion.getNombre()
@@ -67,7 +67,6 @@ public class IdentificationVisitor extends AbstractVisitor {
 			int sentReturn = count(declaracionFuncion);
 			for (Sentencia s : declaracionFuncion.getSentencias()) {
 				s.setDeclaracionFuncion(declaracionFuncion);
-
 			}
 			if (declaracionFuncion.getRetorno() != null && sentReturn == 0) {
 				GestorErrores
@@ -128,21 +127,21 @@ public class IdentificationVisitor extends AbstractVisitor {
 		return count;
 	}
 
-	public Object visit(While whil) {
+	public Object visit(While whil, Object param) {
 		for (Sentencia s : whil.getSentencias()) {
 			s.setDeclaracionFuncion(whil.getDeclaracionFuncion());
 		}
 		return super.visit(whil, null);
 	}
 
-	public Object visit(If sentIf) {
+	public Object visit(If sentIf, Object param) {
 		for (Sentencia s : sentIf.getSentencias()) {
 			s.setDeclaracionFuncion(sentIf.getDeclaracionFuncion());
 		}
 		return super.visit(sentIf, null);
 	}
 
-	public Object visit(DeclaracionStruct declaracionStruct) {
+	public Object visit(DeclaracionStruct declaracionStruct, Object param) {
 		if (structs.get(declaracionStruct.getNombre()) != null) {
 			GestorErrores.addError(new TipoError(declaracionStruct,
 					"El struct '" + declaracionStruct.getNombre()
@@ -157,7 +156,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 		return ret;
 	}
 
-	public Object visit(DeclaracionVariable declaracionVariable) {
+	public Object visit(DeclaracionVariable declaracionVariable, Object param) {
 		if (getVariable(declaracionVariable.getNombre()) != null) {
 			GestorErrores.addError(new TipoError(declaracionVariable,
 					"La variable '" + declaracionVariable.getNombre()
@@ -183,7 +182,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 		return super.visit(declaracionVariable, null);
 	}
 
-	public Object visit(TipoArray array) {
+	public Object visit(TipoArray array, Object param) {
 		if (array.getTipoBase() instanceof TipoStruct) {
 			if (structs.get(((TipoStruct) array.getTipoBase()).getNombre()) == null) {
 				GestorErrores.addError(new TipoError(array, "El struct '"
@@ -194,7 +193,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 		return super.visit(array, null);
 	}
 
-	public Object visit(LlamadaFuncion llamadaFuncion) {
+	public Object visit(LlamadaFuncion llamadaFuncion, Object param) {
 		if (funciones.get(llamadaFuncion.getNombre()) == null) {
 			GestorErrores.addError(new TipoError(llamadaFuncion, "La funcion '"
 					+ llamadaFuncion.getNombre() + "' no ha sido declarada"));
@@ -205,7 +204,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 		return super.visit(llamadaFuncion, null);
 	}
 
-	public Object visit(LlamadaFuncionSent llamadaFuncion) {
+	public Object visit(LlamadaFuncionSent llamadaFuncion, Object param) {
 		if (funciones.get(llamadaFuncion.getNombre()) == null) {
 			GestorErrores.addError(new TipoError(llamadaFuncion, "La funcion '"
 					+ llamadaFuncion.getNombre() + "' no ha sido declarada"));
@@ -216,7 +215,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 		return super.visit(llamadaFuncion, null);
 	}
 
-	public Object visit(Variable variable) {
+	public Object visit(Variable variable, Object param) {
 		if (findDeclaracion(variable.getNombre()) == null) {
 			GestorErrores.addError(new TipoError(variable, "La variable '"
 					+ variable.getNombre() + "' no ha sido declarada"));

@@ -91,13 +91,17 @@ public class CodeVisitor extends AbstractVisitor {
 		out("#FUNC " + funcion.getNombre());
 		out(funcion.getNombre() + ":");
 		for (DeclaracionVariable parametro : funcion.getParametros()) {
-			out("#PARAM " + parametro.getNombre() + ":" + parametro.getTipo());
+			out("#PARAM " + parametro.getNombre() + ":"
+					+ parametro.getTipo().getMAPLname());
 		}
 		int locales = 0;
 		for (DeclaracionVariable local : funcion.getDeclaraciones()) {
 			locales += local.getTipo().size();
 		}
 		out("ENTER " + locales);
+		for (Sentencia s : funcion.getSentencias()) {
+			s.accept(this, null);
+		}
 		return null;
 	}
 

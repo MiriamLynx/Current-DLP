@@ -8,14 +8,14 @@ public class MemoryVisitor extends AbstractVisitor {
 
 	private int siguienteLibre = 0;
 
-	public Object visit(DeclaracionVariable variableGlobal) {
+	public Object visit(DeclaracionVariable variableGlobal, Object param) {
 		variableGlobal.setDireccion(siguienteLibre);
 		siguienteLibre += variableGlobal.getTipo().size();
 		return null;
 	}
 
-	public Object visit(DeclaracionStruct struct) {
-		int camposBP = 4;
+	public Object visit(DeclaracionStruct struct, Object param) {
+		int camposBP = 0;
 		struct.setDireccion(siguienteLibre);
 		siguienteLibre += struct.size();
 		if (struct.getDeclaraciones().size() > 0) {
@@ -27,7 +27,7 @@ public class MemoryVisitor extends AbstractVisitor {
 		return null;
 	}
 
-	public Object visit(DeclaracionFuncion funcion) {
+	public Object visit(DeclaracionFuncion funcion, Object param) {
 
 		int parametrosBP = 4;
 
@@ -42,7 +42,7 @@ public class MemoryVisitor extends AbstractVisitor {
 		int localesBP = 0;
 
 		if (funcion.getDeclaraciones().size() > 0) {
-			localesBP = funcion.getDeclaraciones().get(0).getTipo().size();
+			localesBP -= funcion.getDeclaraciones().get(0).getTipo().size();
 			for (int i = 0; i < funcion.getDeclaraciones().size(); i++) {
 				funcion.getDeclaraciones().get(i).setDireccion(localesBP);
 				funcion.getDeclaraciones().get(i).setAmbito("local");

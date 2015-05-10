@@ -18,7 +18,7 @@ public class Return extends AbstractSentencia implements Sentencia {
 	}
 
 	public void accept(Visitor visitor, Object param) {
-		visitor.visit(this, null);
+		visitor.visit(this, param);
 	}
 
 	public Expresion getExpresion() {

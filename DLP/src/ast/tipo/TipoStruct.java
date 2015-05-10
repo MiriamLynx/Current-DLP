@@ -18,7 +18,7 @@ public class TipoStruct extends AbstractAST implements Tipo {
 	}
 
 	public void accept(Visitor visitor, Object param) {
-		visitor.visit(this, null);
+		visitor.visit(this, param);
 	}
 
 	public String getNombre() {

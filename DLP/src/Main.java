@@ -32,11 +32,12 @@ public class Main {
 			parser.getAst().accept(inv, null);
 			parser.getAst().accept(mv, null);
 			if (!gestor.hayErrores()) {
-				showTree(root);
+				// showTree(root);
 				System.out.println(">> Programa correcto sintácticamente.");
 				XMLVisitor xmlv = new XMLVisitor();
 				parser.getAst().accept(xmlv, null);
 				parser.getAst().accept(cv, null);
+				writer.close();
 			} else {
 				// showTree(root);
 				gestor.mostrarErrores();
