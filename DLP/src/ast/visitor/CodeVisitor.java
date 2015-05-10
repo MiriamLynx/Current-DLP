@@ -108,13 +108,13 @@ public class CodeVisitor extends AbstractVisitor {
 	public Object visit(Variable variable, Object param) {
 		if (param.equals(Funcion.VALOR)) {
 			visit(variable, Funcion.DIRECCION);
-			out("load");
+			out("load" + variable.getTipo().getSufijo());
 		} else {
 			if (variable.getDeclaracion().getAmbito().equals("local")
 					|| variable.getDeclaracion().getAmbito().equals("param")) {
 				out("push bp");
 				out("push " + variable.getDeclaracion().getDireccion());
-				out("add");
+				out("add" + variable.getTipo().getSufijo());
 			} else {
 				out("pusha " + variable.getDeclaracion().getDireccion());
 			}
@@ -137,12 +137,12 @@ public class CodeVisitor extends AbstractVisitor {
 			if (acceso.getIndex().size() > 1) {
 				for (int i = 1; i < acceso.getIndex().size(); i++) {
 					acceso.getIndex().get(i).accept(this, Funcion.VALOR);
-					out("add");
+					out("addi");
 				}
 			}
 
-			out("mul");
-			out("add");
+			out("muli");
+			out("addi");
 		}
 		return null;
 	}
@@ -175,14 +175,14 @@ public class CodeVisitor extends AbstractVisitor {
 		}
 		out("call " + llamadaFuncionSent.getNombre());
 		if (llamadaFuncionSent.getDeclaracion().getRetorno() != null) {
-			out("pop");
+			out("pop" + llamadaFuncionSent.getDeclaracion().getRetorno().getSufijo());
 		}
 		return null;
 	}
 
 	public Object visit(NotLogico not, Object param) {
 		not.getExpresion().accept(this, Funcion.VALOR);
-		operation.get("not");
+		operation.get("not" + not.getTipo().getSufijo());
 		return null;
 	}
 
