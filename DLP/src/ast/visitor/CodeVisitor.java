@@ -78,7 +78,7 @@ public class CodeVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(DeclaracionStruct struct, Object param) {
-		out("#STRUCT " + struct.getNombre());
+		out("#TYPE " + struct.getNombre());
 		return null;
 	}
 
@@ -88,19 +88,30 @@ public class CodeVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(DeclaracionFuncion funcion, Object param) {
-		out("#FUNC " + funcion.getNombre());
+		if (funcion.getRetorno() != null) {
+			out("#FUNC " + funcion.getNombre());
+		} else {
+			out("#PROC " + funcion.getNombre());
+		}
 		out(funcion.getNombre() + ":");
+		int params = 0;
 		for (DeclaracionVariable parametro : funcion.getParametros()) {
+			params += parametro.getTipo().size();
 			out("#PARAM " + parametro.getNombre() + ":"
 					+ parametro.getTipo().getMAPLname());
 		}
 		int locales = 0;
 		for (DeclaracionVariable local : funcion.getDeclaraciones()) {
 			locales += local.getTipo().size();
+			out("#LOCAL " + local.getNombre() + ":"
+					+ local.getTipo().getMAPLname());
 		}
 		out("ENTER " + locales);
 		for (Sentencia s : funcion.getSentencias()) {
 			s.accept(this, null);
+		}
+		if (funcion.getRetorno() == null) {
+			out("ret 0," + locales + ", " + params);
 		}
 		return null;
 	}
@@ -175,14 +186,16 @@ public class CodeVisitor extends AbstractVisitor {
 		}
 		out("call " + llamadaFuncionSent.getNombre());
 		if (llamadaFuncionSent.getDeclaracion().getRetorno() != null) {
-			out("pop" + llamadaFuncionSent.getDeclaracion().getRetorno().getSufijo());
+			out("pop"
+					+ llamadaFuncionSent.getDeclaracion().getRetorno()
+							.getSufijo());
 		}
 		return null;
 	}
 
 	public Object visit(NotLogico not, Object param) {
 		not.getExpresion().accept(this, Funcion.VALOR);
-		operation.get("not" + not.getTipo().getSufijo());
+		operation.get("not");
 		return null;
 	}
 
@@ -191,10 +204,10 @@ public class CodeVisitor extends AbstractVisitor {
 			visit(campo, Funcion.DIRECCION);
 			out("load" + campo.getTipo().getSufijo());
 		} else {
-			campo.getStruct().accept(this, null);
+			campo.getStruct().accept(this, Funcion.DIRECCION);
 			out("pushi "
-					+ ((DeclaracionStruct) campo.getTipo()).getCampo(
-							campo.getCampo()).getDireccion());
+					+ ((DeclaracionStruct) campo.getStruct().getTipo())
+							.getCampo(campo.getCampo()).getDireccion());
 			out("addi");
 		}
 		return null;
@@ -211,7 +224,7 @@ public class CodeVisitor extends AbstractVisitor {
 	public Object visit(OperacionLogica logica, Object param) {
 		logica.getIzquierda().accept(this, Funcion.VALOR);
 		logica.getDerecha().accept(this, Funcion.VALOR);
-		out(operation.get(logica.getOperador()) + logica.getTipo().getSufijo());
+		out(operation.get(logica.getOperador()));
 		return null;
 	}
 
@@ -225,16 +238,16 @@ public class CodeVisitor extends AbstractVisitor {
 	public Object visit(If sentIf, Object param) {
 		getTag(2);
 		sentIf.getExpresion().accept(this, Funcion.VALOR);
-		out("jz " + tag);
+		out("jz " + "tag" + tag);
 		for (Sentencia s : sentIf.getSentencias()) {
 			s.accept(this, null);
 		}
-		out("jump " + (tag + 1));
-		out(tag + ":");
+		out("jmp " + "tag" + (tag + 1));
+		out("tag" + tag + ":");
 		for (Sentencia s : sentIf.getAlternativas()) {
 			s.accept(this, null);
 		}
-		out((tag + 1) + ":");
+		out("tag" + (tag + 1) + ":");
 		return null;
 	}
 
@@ -252,7 +265,6 @@ public class CodeVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(Return senReturn, Object param) {
-		out("#RET " + senReturn.getExpresion().getTipo().getMAPLname());
 		int locales = 0;
 		for (DeclaracionVariable local : senReturn.getDeclaracionFuncion()
 				.getDeclaraciones()) {
@@ -263,26 +275,33 @@ public class CodeVisitor extends AbstractVisitor {
 				.getParametros()) {
 			parametros += parametro.getTipo().size();
 		}
-		out("RET " + senReturn.getDeclaracionFuncion().getRetorno().size()
-				+ ", " + locales + ", " + parametros);
+		if (senReturn.getExpresion() != null) {
+			out("#RET " + senReturn.getExpresion().getTipo().getMAPLname());
+			senReturn.getExpresion().accept(this, Funcion.VALOR);
+			out("ret " + senReturn.getDeclaracionFuncion().getRetorno().size()
+					+ ", " + locales + ", " + parametros);
+		} else {
+			out("#RET void");
+			out("ret 0, " + locales + ", " + parametros);
+		}
 		return null;
 	}
 
 	public Object visit(While sentWhile, Object param) {
 		getTag(2);
 		sentWhile.getExpresion().accept(this, Funcion.VALOR);
-		out(tag + ":");
-		out("jz " + (tag + 1));
+		out("tag" + tag + ":");
+		out("jz " + "tag" + (tag + 1));
 		for (Sentencia s : sentWhile.getSentencias()) {
 			s.accept(this, null);
 		}
-		out("jmp " + tag);
-		out((tag + 1) + ":");
+		out("jmp " + "tag" + tag);
+		out("tag" + (tag + 1) + ":");
 		return null;
 	}
 
 	public Object visit(ConstanteChar charr, Object param) {
-		out("pushb " + charr.getValor());
+		out("pushb " + "'" + charr.getValor() + "'");
 		return null;
 	}
 

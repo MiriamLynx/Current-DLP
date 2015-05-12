@@ -29,7 +29,16 @@ public class LlamadaFuncion extends AbstractExpresion implements Expresion {
 	@Override
 	public String toString() {
 		return "Llamada a funcion (expresion) [ " + nombre + " ]"
-				+ "\nParametros de la llamada ->\n" + expresiones + "\n";
+				+ "\n\t\tParametros de la llamada ->\n" + expresiones();
+	}
+
+	private String expresiones() {
+		String s = "\t\t";
+		for (Expresion d : expresiones) {
+			s += d.toString();
+		}
+
+		return s;
 	}
 
 	public void accept(Visitor visitor, Object param) {

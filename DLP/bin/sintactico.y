@@ -153,8 +153,8 @@ expresion: CTE_ENTERA {$$ = new ConstanteEntera(lexico.getLinea(), lexico.getCol
 |expresion '<' expresion {$$ = new Comparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "<", (Expresion)$3);	}
 |expresion MAYORIGUAL expresion {$$ = new Comparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, ">=", (Expresion)$3);	}
 |expresion MENORIGUAL expresion {$$ = new Comparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "<=", (Expresion)$3);	}
-|expresion AND expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "&&", (Expresion)$3);	}
-|expresion OR expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "||", (Expresion)$3);	}
+|expresion AND expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "and", (Expresion)$3);	}
+|expresion OR expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "or", (Expresion)$3);	}
 |expresion DISTINTO expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "<>", (Expresion)$3);	}
 |expresion IGUAL expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "==", (Expresion)$3);	}
 |expresion listaDimensionesAcceso {$$ = new AccesoArray(lexico.getLinea(), lexico.getColumna(),(Expresion)$1,(List<Expresion>)$2);	} %prec acceso

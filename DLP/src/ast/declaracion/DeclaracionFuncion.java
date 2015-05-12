@@ -28,10 +28,37 @@ public class DeclaracionFuncion extends AbstractAST implements Declaracion {
 
 	@Override
 	public String toString() {
-		return "Declaracion de funcion " + " \nParametros de la funcion->\n"
-				+ parametros + "\nDeclaraciones de la funcion->\n "
-				+ declaraciones + "\nSentencias de la funcion->\n "
-				+ sentencias + "\n";
+		return "Declaracion de funcion " + " \n\tParametros de la funcion->\n"
+				+ parametros() + "\tDeclaraciones de la funcion->\n "
+				+ declaraciones() + "\tSentencias de la funcion->\n "
+				+ sentencias();
+	}
+
+	private String declaraciones() {
+		String s = "";
+		for (Declaracion d : declaraciones) {
+			s += "\t\t" + d.toString();
+		}
+
+		return s;
+	}
+
+	private String sentencias() {
+		String s = "";
+		for (Sentencia d : sentencias) {
+			s += "\t\t" + d.toString();
+		}
+
+		return s;
+	}
+
+	private String parametros() {
+		String s = "";
+		for (Declaracion d : parametros) {
+			s += "\t\t" + d.toString();
+		}
+
+		return s;
 	}
 
 	public void accept(Visitor visitor, Object param) {

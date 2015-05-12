@@ -16,8 +16,6 @@ public class MemoryVisitor extends AbstractVisitor {
 
 	public Object visit(DeclaracionStruct struct, Object param) {
 		int camposBP = 0;
-		struct.setDireccion(siguienteLibre);
-		siguienteLibre += struct.size();
 		if (struct.getDeclaraciones().size() > 0) {
 			for (int i = 0; i < struct.getDeclaraciones().size(); i++) {
 				struct.getDeclaraciones().get(i).setDireccion(camposBP);
@@ -42,11 +40,10 @@ public class MemoryVisitor extends AbstractVisitor {
 		int localesBP = 0;
 
 		if (funcion.getDeclaraciones().size() > 0) {
-			localesBP -= funcion.getDeclaraciones().get(0).getTipo().size();
 			for (int i = 0; i < funcion.getDeclaraciones().size(); i++) {
+				localesBP -= funcion.getDeclaraciones().get(i).getTipo().size();
 				funcion.getDeclaraciones().get(i).setDireccion(localesBP);
 				funcion.getDeclaraciones().get(i).setAmbito("local");
-				localesBP -= funcion.getDeclaraciones().get(i).getTipo().size();
 			}
 		}
 		return null;

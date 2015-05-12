@@ -20,7 +20,16 @@ public class While extends AbstractSentencia implements Sentencia {
 	@Override
 	public String toString() {
 		return "While [ Expresion " + expresion + " ]"
-				+ "\nSentencias del while ->\n" + sentencias + "\n";
+				+ "\tSentencias del while ->\n" + sentencias();
+	}
+
+	private String sentencias() {
+		String s = "";
+		for (Sentencia d : sentencias) {
+			s += "\t\t" + d.toString();
+		}
+
+		return s;
 	}
 
 	public void accept(Visitor visitor, Object param) {

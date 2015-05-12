@@ -29,14 +29,14 @@ import ast.tipo.TipoStruct;
 
 public class XMLVisitor extends AbstractVisitor {
 
-	public Object visit(Programa node) {
+	public Object visit(Programa node, Object param) {
 		System.out.println("<Programa>");
 		Object ret = super.visit(node, null);
 		System.out.println("</Programa>");
 		return ret;
 	}
 
-	public Object visit(DeclaracionCampo node) {
+	public Object visit(DeclaracionCampo node, Object param) {
 		System.out
 				.println("<DeclaracionCampo name='" + node.getNombre() + "'>");
 		Object ret = super.visit(node, null);
@@ -44,7 +44,7 @@ public class XMLVisitor extends AbstractVisitor {
 		return ret;
 	}
 
-	public Object visit(DeclaracionFuncion node) {
+	public Object visit(DeclaracionFuncion node, Object param ) {
 		System.out.println("<DeclaracionFuncion name='" + node.getNombre()
 				+ "'>");
 		Object ret = super.visit(node, null);
@@ -52,7 +52,7 @@ public class XMLVisitor extends AbstractVisitor {
 		return ret;
 	}
 
-	public Object visit(DeclaracionStruct node) {
+	public Object visit(DeclaracionStruct node, Object param ) {
 		System.out.println("<DeclaracionStruct name='" + node.getNombre()
 				+ "'>");
 		Object ret = super.visit(node, null);
@@ -60,7 +60,7 @@ public class XMLVisitor extends AbstractVisitor {
 		return ret;
 	}
 
-	public Object visit(DeclaracionVariable node) {
+	public Object visit(DeclaracionVariable node, Object param ) {
 		System.out.println("<DeclaracionVariable name='" + node.getNombre()
 				+ "'>");
 		Object ret = super.visit(node, null);
@@ -68,56 +68,56 @@ public class XMLVisitor extends AbstractVisitor {
 		return ret;
 	}
 
-	public Object visit(AccesoArray node) {
+	public Object visit(AccesoArray node, Object param ) {
 		System.out.println("<AccesoArray>");
 		Object ret = super.visit(node, null);
 		System.out.println("</AccesoArray>");
 		return ret;
 	}
 
-	public Object visit(AccesoCampo node) {
+	public Object visit(AccesoCampo node, Object param ) {
 		System.out.println("<AccesoCampo>");
 		Object ret = super.visit(node, null);
 		System.out.println("</AccesoCampo>");
 		return ret;
 	}
 
-	public Object visit(Cast node) {
+	public Object visit(Cast node, Object param ) {
 		System.out.println("<Cast>");
 		Object ret = super.visit(node, null);
 		System.out.println("</Cast>");
 		return ret;
 	}
 
-	public Object visit(Comparacion node) {
+	public Object visit(Comparacion node, Object param ) {
 		System.out.println("<Comparacion  name='" + node.getOperador() + "'>");
 		Object ret = super.visit(node, null);
 		System.out.println("</Comparacion>");
 		return ret;
 	}
 
-	public Object visit(ConstanteChar node) {
+	public Object visit(ConstanteChar node, Object param ) {
 		System.out.println("<ConstanteChar>");
 		Object ret = super.visit(node, null);
 		System.out.println("</ConstanteChar>");
 		return ret;
 	}
 
-	public Object visit(ConstanteEntera node) {
+	public Object visit(ConstanteEntera node, Object param ) {
 		System.out.println("<ConstanteEntera>");
 		Object ret = super.visit(node, null);
 		System.out.println("</ConstanteEntera>");
 		return ret;
 	}
 
-	public Object visit(ConstanteReal node) {
+	public Object visit(ConstanteReal node, Object param ) {
 		System.out.println("<ConstanteReal>");
 		Object ret = super.visit(node, null);
 		System.out.println("</ConstanteReal>");
 		return ret;
 	}
 
-	public Object visit(LlamadaFuncion node) {
+	public Object visit(LlamadaFuncion node, Object param ) {
 		System.out.println("<LlamadaFuncionExpresion name='" + node.getNombre()
 				+ "'>");
 		Object ret = super.visit(node, null);
@@ -125,7 +125,7 @@ public class XMLVisitor extends AbstractVisitor {
 		return ret;
 	}
 
-	public Object visit(OperacionAritmetica node) {
+	public Object visit(OperacionAritmetica node, Object param ) {
 		System.out.println("<OperacionAritmetica name='" + node.getOperador()
 				+ "'>");
 		Object ret = super.visit(node, null);
@@ -133,35 +133,35 @@ public class XMLVisitor extends AbstractVisitor {
 		return ret;
 	}
 
-	public Object visit(Variable node) {
+	public Object visit(Variable node, Object param ) {
 		System.out.println("<Variable>");
 		Object ret = super.visit(node, null);
 		System.out.println("</Variable>");
 		return ret;
 	}
 
-	public Object visit(NotLogico node) {
+	public Object visit(NotLogico node, Object param ) {
 		System.out.println("<NotLogico>");
 		Object ret = super.visit(node, null);
 		System.out.println("</NotLogico>");
 		return ret;
 	}
 
-	public Object visit(Asignacion node) {
+	public Object visit(Asignacion node, Object param ) {
 		System.out.println("<Asignacion>");
 		Object ret = super.visit(node, null);
 		System.out.println("</Asignacion>");
 		return ret;
 	}
 
-	public Object visit(If node) {
+	public Object visit(If node, Object param ) {
 		System.out.println("<If>");
 		Object ret = super.visit(node, null);
 		System.out.println("</If>");
 		return ret;
 	}
 
-	public Object visit(LlamadaFuncionSent node) {
+	public Object visit(LlamadaFuncionSent node, Object param ) {
 		System.out.println("<LlamadaFuncionSentencia name='" + node.getNombre()
 				+ "'>");
 		Object ret = super.visit(node, null);
@@ -169,49 +169,49 @@ public class XMLVisitor extends AbstractVisitor {
 		return ret;
 	}
 
-	public Object visit(Print node) {
+	public Object visit(Print node, Object param ) {
 		System.out.println("<Print>");
 		Object ret = super.visit(node, null);
 		System.out.println("</Print>");
 		return ret;
 	}
 
-	public Object visit(Read node) {
+	public Object visit(Read node, Object param ) {
 		System.out.println("<Read>");
 		Object ret = super.visit(node, null);
 		System.out.println("</Read>");
 		return ret;
 	}
 
-	public Object visit(Return node) {
+	public Object visit(Return node, Object param ) {
 		System.out.println("<Return>");
 		Object ret = super.visit(node, null);
 		System.out.println("</Return>");
 		return ret;
 	}
 
-	public Object visit(While node) {
+	public Object visit(While node, Object param ) {
 		System.out.println("<While>");
 		Object ret = super.visit(node, null);
 		System.out.println("</While>");
 		return ret;
 	}
 
-	public Object visit(TipoArray node) {
+	public Object visit(TipoArray node, Object param ) {
 		System.out.println("<TipoArray>");
 		Object ret = super.visit(node, null);
 		System.out.println("</TipoArray>");
 		return ret;
 	}
 
-	public Object visit(TipoEntero node) {
+	public Object visit(TipoEntero node, Object param ) {
 		System.out.println("<TipoEntero>");
 		Object ret = super.visit(node, null);
 		System.out.println("</TipoEntero>");
 		return ret;
 	}
 
-	public Object visit(TipoStruct node) {
+	public Object visit(TipoStruct node, Object param ) {
 		System.out.println("<TipoStruct>");
 		Object ret = super.visit(node, null);
 		System.out.println("</TipoStruct>");

@@ -1013,11 +1013,11 @@ case 50:
 break;
 case 51:
 //#line 156 "sintactico.y"
-{yyval = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), "&&", (Expresion)val_peek(0));	}
+{yyval = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), "and", (Expresion)val_peek(0));	}
 break;
 case 52:
 //#line 157 "sintactico.y"
-{yyval = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), "||", (Expresion)val_peek(0));	}
+{yyval = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)val_peek(2), "or", (Expresion)val_peek(0));	}
 break;
 case 53:
 //#line 158 "sintactico.y"

@@ -19,7 +19,7 @@ public class DeclaracionVariable extends AbstractAST implements Declaracion {
 
 	@Override
 	public String toString() {
-		return "Declaracion de variable [ " + nombre + " , " + tipo + " , "
+		return "Declaracion de variable [ " + nombre + " , " + tipo.getMAPLname() + " , "
 				+ "Dir: " + direccion + " ] \n";
 	}
 

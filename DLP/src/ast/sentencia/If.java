@@ -23,13 +23,30 @@ public class If extends AbstractSentencia implements Sentencia {
 	public String toString() {
 		if (alternativas.size() > 0) {
 			return "If Else [ " + expresion + " ]"
-					+ "\nSentencias del cuerpo->\n" + sentencias + "\n"
-					+ "\nSentencias de la alternativa->\n" + alternativas
-					+ "\n";
+					+ "\n\t\tSentencias del cuerpo->\n" + sentencias()
+					+ "\t\tSentencias de la alternativa->\n" + alternativas();
 		} else {
-			return "If Else [ " + expresion + " ]"
-					+ "\nSentencias del cuerpo->\n" + sentencias + "\n" + "\n";
+			return "If [ " + expresion + " ]"
+					+ "\nSentencias del cuerpo->\n" + sentencias();
 		}
+	}
+
+	private String sentencias() {
+		String s = "";
+		for (Sentencia d : sentencias) {
+			s += "\t\t\t" + d.toString();
+		}
+
+		return s;
+	}
+
+	private String alternativas() {
+		String s = "";
+		for (Sentencia d : alternativas) {
+			s += "\t\t\t" + d.toString();
+		}
+
+		return s;
 	}
 
 	public void accept(Visitor visitor, Object param) {

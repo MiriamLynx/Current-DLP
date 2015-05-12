@@ -1,0 +1,26 @@
+dim a as character;// Dir 0
+ 
+ type Persona
+	edad as integer; //Dir 0
+	meses[12] as integer;//Dir 2
+	a as real; //Dir 26
+end type;
+
+dim b as Persona; // Dir 1
+
+type Prueba
+	campo1 as integer;//Dir 0
+	campo2 as integer;//Dir 2
+end type;
+
+dim c[2] as Persona; //Dir 5
+dim d as integer;//Dir 65
+
+proc main (a as integer, b as real, h as character)// a = BP+9, b = BP+5, h = BP+4
+	dim c as character;//BP-1
+	dim d as integer;//BP-3
+	dim e[2] as Persona; //BP-63
+	dim f as real; //BP-67
+	dim m as Persona;
+	print m.edad;
+end proc;

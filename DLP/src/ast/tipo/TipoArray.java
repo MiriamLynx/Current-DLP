@@ -52,7 +52,7 @@ public class TipoArray extends AbstractAST implements Tipo {
 	public String getMAPLname() {
 		String cad = "";
 		for (int i : sizes) {
-			cad += "<" + i + "> *";
+			cad += i + "*";
 		}
 		cad += tipoBase.getMAPLname();
 		return cad;

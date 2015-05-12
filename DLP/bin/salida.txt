@@ -1,39 +1,224 @@
-#source"generacion1.txt"
+#source"generacion2.txt"
 call main
 halt
-#VAR global:int
-#FUNC doble
-doble:
-#PARAM valor:int
-ENTER 0
-#RET int
-RET 2, 0, 2
-#FUNC main
-main:
+#TYPE Persona
+#VAR empresa:4*Persona
+#PROC inicia
+inicia:
+#LOCAL i:int
 ENTER 2
-pusha 0
-pushi 1
+push bp
+push -2
+addi
+pushi 0
 storei
 push bp
 push -2
-add
-pushi 2
-storei
-pusha 0
-load
-pushi 2
+addi
+loadi
+pushi 4
 lt
-jz 3
-pushi 1
-outi
-jump 4
-3:
+tag3:
+jz tag4
+pusha 0
+pushi 5
 push bp
 push -2
+addi
+loadi
+muli
+addi
+pushi 0
+addi
+push bp
+push -2
+addi
+loadi
+pushb 'A'
+b2i
+addi
+i2b
+storeb
+pusha 0
+pushi 5
+push bp
+push -2
+addi
+loadi
+muli
+addi
+pushi 1
+addi
+pushi 1000
+push bp
+push -2
+addi
+loadi
+pushi 100
+muli
+addi
+i2f
+storef
+push bp
+push -2
+addi
+push bp
+push -2
+addi
+loadi
+pushi 1
+addi
+storei
+jmp tag3
+tag4:
+ret 0,2, 0
+#PROC busca
+busca:
+#PARAM i:int
+ENTER 0
+push bp
+push 4
+addi
+loadi
+pushi 0
+lt
+push bp
+push 4
+addi
+loadi
+pushi 4
+ge
+or
+jz tag5
+#RET void
+ret 0, 0, 2
+jmp tag6
+tag5:
+tag6:
+pusha 0
+pushi 5
+push bp
+push 4
+addi
+loadi
+muli
+addi
+pushi 0
+addi
+loadb
+outb
+pusha 0
+pushi 5
+push bp
+push 4
+addi
+loadi
+muli
+addi
+pushi 1
+addi
+loadf
+outf
+ret 0,0, 2
+#FUNC imprime
+imprime:
+#LOCAL i:int
+#LOCAL aux:Persona
+ENTER 7
+push bp
+push -2
+addi
+pushi 0
+storei
+push bp
+push -2
+addi
+loadi
+pushi 4
+ge
+tag7:
+jz tag8
+push bp
+push -7
 add
-load
-outi
-4:
-pushi 2
-call doble
-outi
+pushi 0
+addi
+pusha 0
+pushi 5
+push bp
+push -2
+addi
+loadi
+muli
+addi
+pushi 0
+addi
+loadb
+storeb
+push bp
+push -7
+add
+pushi 1
+addi
+pusha 0
+pushi 5
+push bp
+push -2
+addi
+loadi
+muli
+addi
+pushi 1
+addi
+loadf
+storef
+push bp
+push -7
+add
+pushi 0
+addi
+loadb
+outb
+push bp
+push -7
+add
+pushi 1
+addi
+loadf
+outf
+push bp
+push -2
+addi
+push bp
+push -2
+addi
+loadi
+pushi 1
+addi
+storei
+jmp tag7
+tag8:
+#RET int
+push bp
+push -2
+addi
+loadi
+ret 2, 7, 0
+#PROC main
+main:
+#LOCAL posicion:int
+ENTER 2
+call inicia
+push bp
+push -2
+addi
+ini
+storei
+push bp
+push -2
+addi
+loadi
+call busca
+call imprime
+popi
+ret 0,2, 0

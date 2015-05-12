@@ -24,7 +24,16 @@ public class Programa extends AbstractAST {
 
 	@Override
 	public String toString() {
-		return "Declaraciones del programa ->\n" + declaraciones + "\n";
+		return "Declaraciones del programa ->\n" + declaraciones();
+	}
+
+	private String declaraciones() {
+		String s = "";
+		for (Declaracion d : declaraciones) {
+			s += "\t" + d.toString();
+		}
+
+		return s;
 	}
 
 	public void accept(Visitor visitor, Object param) {

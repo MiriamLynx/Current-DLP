@@ -15,6 +15,7 @@ import ast.expresion.ConstanteEntera;
 import ast.expresion.ConstanteReal;
 import ast.expresion.Expresion;
 import ast.expresion.LlamadaFuncion;
+import ast.expresion.NotLogico;
 import ast.expresion.OperacionAritmetica;
 import ast.expresion.OperacionLogica;
 import ast.expresion.Variable;
@@ -108,9 +109,10 @@ public class InferenceVisitor extends AbstractVisitor {
 					.getTipoBase()));
 			if (accesoArray.getIndex().size() != ((TipoArray) accesoArray
 					.getArray().getTipo()).getSizes().size()) {
-				GestorErrores
-						.addError(new TipoError(accesoArray,
-								"Acceso al array con un numero de dimensiones incorrecto"));
+				TipoError error = new TipoError(accesoArray,
+						"Acceso al array con un numero de dimensiones incorrecto");
+				GestorErrores.addError(error);
+				accesoArray.setTipo(error);
 			}
 		}
 		assertTipoEntero(accesoArray);
@@ -131,9 +133,10 @@ public class InferenceVisitor extends AbstractVisitor {
 					}
 				}
 				if (!encontrado) {
-					GestorErrores.addError(new TipoError(accesoCampo,
-							"El campo '" + accesoCampo.getCampo()
-									+ "' no ha sido declarado"));
+					TipoError error = new TipoError(accesoCampo, "El campo '"
+							+ accesoCampo.getCampo() + "' no ha sido declarado");
+					GestorErrores.addError(error);
+					accesoCampo.setTipo(error);
 				}
 			}
 		}
@@ -146,18 +149,22 @@ public class InferenceVisitor extends AbstractVisitor {
 			if (ret.getExpresion() != null) {
 				if (ret.getDeclaracionFuncion().getRetorno().getClass() != ret
 						.getExpresion().getTipo().getClass()) {
-					GestorErrores
-							.addError(new TipoError(ret,
-									"El tipo de retorno no coincide con el tipo de la funcion"));
+					TipoError error = new TipoError(ret,
+							"El tipo de retorno no coincide con el tipo de la funcion");
+					GestorErrores.addError(error);
+					ret.getExpresion().setTipo(error);
 				}
 			} else {
-				GestorErrores.addError(new TipoError(ret,
-						"Una funcion no puede retornar null"));
+				TipoError error = new TipoError(ret,
+						"Una funcion no puede retornar null");
+				GestorErrores.addError(error);
 			}
 		} else {
 			if (ret.getExpresion() != null) {
-				GestorErrores.addError(new TipoError(ret,
-						"Esta funcion no puede tener sentencia de retorno"));
+				TipoError error = new TipoError(ret,
+						"Esta funcion no puede tener sentencia de retorno");
+				GestorErrores.addError(error);
+				ret.getExpresion().setTipo(error);
 			}
 		}
 		return rett;
@@ -231,6 +238,14 @@ public class InferenceVisitor extends AbstractVisitor {
 		return null;
 	}
 
+	public Object visit(NotLogico not, Object param) {
+		super.visit(not, null);
+		assertTipoEntero(not);
+		not.setTipo(not.getExpresion().getTipo());
+		not.setLvalue(false);
+		return null;
+	}
+
 	private void assertTipoEntero(Expresion expresion) {
 		if (!(expresion.getTipo() instanceof TipoEntero)) {
 			GestorErrores.addError(new TipoError(expresion,
@@ -262,10 +277,21 @@ public class InferenceVisitor extends AbstractVisitor {
 		}
 	}
 
+	private void assertTipoEntero(NotLogico not) {
+		if (!(not.getExpresion().getTipo() instanceof TipoEntero)) {
+			TipoError error = new TipoError(not,
+					"La expresion de una negacion debe ser de tipo entero");
+			GestorErrores.addError(error);
+			not.setTipo(error);
+		}
+	}
+
 	private boolean assertTipoStruct(AccesoCampo accesoCampo) {
 		if (!(accesoCampo.getStruct().getTipo() instanceof DeclaracionStruct)) {
-			GestorErrores.addError(new TipoError(accesoCampo,
-					"La variable debe ser un struct"));
+			TipoError error = new TipoError(accesoCampo,
+					"La variable debe ser un struct");
+			GestorErrores.addError(error);
+			accesoCampo.setTipo(error);
 			return false;
 		}
 		return true;

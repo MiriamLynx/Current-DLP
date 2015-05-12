@@ -10,7 +10,6 @@ public class DeclaracionStruct extends AbstractAST implements Declaracion, Tipo 
 
 	public String nombre;
 	public List<DeclaracionCampo> declaraciones;
-	public int direccion;
 
 	public DeclaracionStruct(int linea, int columna, String nombre,
 			List<DeclaracionCampo> declaraciones) {
@@ -30,9 +29,17 @@ public class DeclaracionStruct extends AbstractAST implements Declaracion, Tipo 
 
 	@Override
 	public String toString() {
-		return "Declaracion de struct [ " + nombre + " , " + "Dir: "
-				+ direccion + " ]" + "\nLista de Campos ->\n" + declaraciones
-				+ "\n";
+		return "Declaracion de struct [ " + nombre + " ]"
+				+ "\n\tLista de Campos ->\n" + declaraciones();
+	}
+
+	private String declaraciones() {
+		String s = "";
+		for (Declaracion d : declaraciones) {
+			s += "\t\t" + d.toString() + "\n";
+		}
+
+		return s;
 	}
 
 	public void accept(Visitor visitor, Object param) {
@@ -63,20 +70,12 @@ public class DeclaracionStruct extends AbstractAST implements Declaracion, Tipo 
 		return sum;
 	}
 
-	public int getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(int direccion) {
-		this.direccion = direccion;
-	}
-
 	public String getMAPLname() {
 		return getNombre();
 	}
 
 	public String getSufijo() {
-		return "nope";
+		return "";
 	}
 
 }

@@ -44,13 +44,28 @@ public class IdentificationVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(DeclaracionCampo declaracionCampo, Object param) {
+		super.visit(declaracionCampo, null);
 		if (campos.get(declaracionCampo.getNombre()) != null) {
 			GestorErrores.addError(new TipoError(declaracionCampo, "El campo '"
 					+ declaracionCampo.getNombre() + "' ya ha sido declarado"));
 		} else {
+			if (declaracionCampo.getTipo() instanceof TipoStruct) {
+				if (structs.get(((TipoStruct) declaracionCampo.getTipo())
+						.getNombre()) == null) {
+					GestorErrores.addError(new TipoError(declaracionCampo,
+							"El struct '"
+									+ ((TipoStruct) declaracionCampo.getTipo())
+											.getNombre()
+									+ "' no ha sido declarado"));
+				} else {
+					declaracionCampo.setTipo(structs
+							.get(((TipoStruct) declaracionCampo.getTipo())
+									.getNombre()));
+				}
+			}
 			campos.put(declaracionCampo.getNombre(), declaracionCampo);
 		}
-		return super.visit(declaracionCampo, null);
+		return null;
 	}
 
 	public Object visit(DeclaracionFuncion declaracionFuncion, Object param) {
@@ -157,6 +172,7 @@ public class IdentificationVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(DeclaracionVariable declaracionVariable, Object param) {
+		super.visit(declaracionVariable, null);
 		if (getVariable(declaracionVariable.getNombre()) != null) {
 			GestorErrores.addError(new TipoError(declaracionVariable,
 					"La variable '" + declaracionVariable.getNombre()
@@ -173,24 +189,31 @@ public class IdentificationVisitor extends AbstractVisitor {
 				} else {
 					putVariable(declaracionVariable.getNombre(),
 							declaracionVariable);
+					declaracionVariable.setTipo(structs
+							.get(((TipoStruct) declaracionVariable.getTipo())
+									.getNombre()));
 				}
 			} else {
 				putVariable(declaracionVariable.getNombre(),
 						declaracionVariable);
 			}
 		}
-		return super.visit(declaracionVariable, null);
+		return null;
 	}
 
 	public Object visit(TipoArray array, Object param) {
+		super.visit(array, null);
 		if (array.getTipoBase() instanceof TipoStruct) {
 			if (structs.get(((TipoStruct) array.getTipoBase()).getNombre()) == null) {
 				GestorErrores.addError(new TipoError(array, "El struct '"
 						+ ((TipoStruct) array.getTipoBase()).getNombre()
 						+ "' no ha sido declarado"));
+			} else {
+				array.setTipoBase(structs.get(((TipoStruct) array.getTipoBase())
+						.getNombre()));
 			}
 		}
-		return super.visit(array, null);
+		return null;
 	}
 
 	public Object visit(LlamadaFuncion llamadaFuncion, Object param) {
@@ -231,8 +254,6 @@ public class IdentificationVisitor extends AbstractVisitor {
 											.getNombre()
 									+ "' no ha sido declarado"));
 				} else {
-					declaracion.setTipo(structs.get(((TipoStruct) declaracion
-							.getTipo()).getNombre()));
 					variable.setDeclaracion(declaracion);
 				}
 			} else {
