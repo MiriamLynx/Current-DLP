@@ -15,6 +15,7 @@ import ast.expresion.ConstanteEntera;
 import ast.expresion.ConstanteReal;
 import ast.expresion.Expresion;
 import ast.expresion.LlamadaFuncion;
+import ast.expresion.MenosUnario;
 import ast.expresion.NotLogico;
 import ast.expresion.OperacionAritmetica;
 import ast.expresion.OperacionLogica;
@@ -246,6 +247,14 @@ public class InferenceVisitor extends AbstractVisitor {
 		return null;
 	}
 
+	public Object visit(MenosUnario menos, Object param) {
+		super.visit(menos, null);
+		assertTipoEntero(menos);
+		menos.setTipo(menos.getExpresion().getTipo());
+		menos.setLvalue(false);
+		return null;
+	}
+
 	private void assertTipoEntero(Expresion expresion) {
 		if (!(expresion.getTipo() instanceof TipoEntero)) {
 			GestorErrores.addError(new TipoError(expresion,
@@ -283,6 +292,15 @@ public class InferenceVisitor extends AbstractVisitor {
 					"La expresion de una negacion debe ser de tipo entero");
 			GestorErrores.addError(error);
 			not.setTipo(error);
+		}
+	}
+
+	private void assertTipoEntero(MenosUnario menos) {
+		if (!(menos.getExpresion().getTipo() instanceof TipoEntero)) {
+			TipoError error = new TipoError(menos,
+					"La expresion de un menos unario debe ser de tipo entero");
+			GestorErrores.addError(error);
+			menos.setTipo(error);
 		}
 	}
 

@@ -13,6 +13,7 @@ import ast.expresion.ConstanteChar;
 import ast.expresion.ConstanteEntera;
 import ast.expresion.ConstanteReal;
 import ast.expresion.LlamadaFuncion;
+import ast.expresion.MenosUnario;
 import ast.expresion.NotLogico;
 import ast.expresion.OperacionAritmetica;
 import ast.expresion.OperacionLogica;
@@ -92,5 +93,7 @@ public interface Visitor {
 	public Object visit(TipoReal tipoReal, Object param);
 
 	public Object visit(TipoStruct tipoStruct, Object param);
+
+	public Object visit(MenosUnario menosUnario, Object param);
 
 }
