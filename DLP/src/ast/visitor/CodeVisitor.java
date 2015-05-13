@@ -203,9 +203,12 @@ public class CodeVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(Incremento incremento, Object param) {
+		incremento.getExpresion().accept(this, Funcion.DIRECCION);
 		incremento.getExpresion().accept(this, Funcion.VALOR);
 		out("push 1");
 		out("add");
+		out("store");
+		incremento.getExpresion().accept(this, Funcion.VALOR);
 		return null;
 	}
 

@@ -12,8 +12,12 @@ pushi 2
 storei
 #LINE 19
 pusha 0
+pusha 0
 loadi
 push 1
 add
+store
+pusha 0
+loadi
 outi
 ret 0,0, 0
