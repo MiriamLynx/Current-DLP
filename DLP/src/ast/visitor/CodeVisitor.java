@@ -56,6 +56,7 @@ public class CodeVisitor extends AbstractVisitor {
 		operation.put(">=", "ge");
 		operation.put("<=", "le");
 		operation.put("==", "eq");
+		operation.put("<>", "ne");
 		operation.put("not", "not");
 		operation.put("and", "and");
 		operation.put("or", "or");
@@ -127,7 +128,7 @@ public class CodeVisitor extends AbstractVisitor {
 					|| variable.getDeclaracion().getAmbito().equals("param")) {
 				out("push bp");
 				out("push " + variable.getDeclaracion().getDireccion());
-				out("add" + variable.getTipo().getSufijo());
+				out("add");
 			} else {
 				out("pusha " + variable.getDeclaracion().getDireccion());
 			}
@@ -167,7 +168,8 @@ public class CodeVisitor extends AbstractVisitor {
 	public Object visit(Comparacion comparacion, Object param) {
 		comparacion.getIzquierda().accept(this, Funcion.VALOR);
 		comparacion.getDerecha().accept(this, Funcion.VALOR);
-		out(operation.get(comparacion.getOperador()));
+		out(operation.get(comparacion.getOperador())
+				+ comparacion.getIzquierda().getTipo().getSufijo());
 		return null;
 	}
 

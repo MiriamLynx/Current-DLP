@@ -6,7 +6,7 @@ dim a as character;// Dir 0
 	a as real; //Dir 26
 end type;
 
-dim b as Persona; // Dir 1
+dim b as real; // Dir 1
 
 type Prueba
 	campo1 as integer;//Dir 0

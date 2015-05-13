@@ -1,247 +1,36 @@
-#source"generacion2.txt"
+#source"pruebaMemoria.txt"
 call main
 halt
+#VAR a:char
 #TYPE Persona: {
-inicial:char
-sueldo:real
+edad:int
+meses:12*int
+a:real
 }
-#VAR empresa:4*Persona
-#PROC inicia
-inicia:
-#LOCAL i:int
-ENTER 2
-#LINE 36
-push bp
-push -2
-addi
-pushi 0
-storei
-#LINE 41
-tag1:
-push bp
-push -2
-addi
-loadi
-pushi 4
-lt
-jz tag2
-#LINE 38
-pusha 0
-push bp
-push -2
-addi
-loadi
-pushi 5
-muli
-addi
-pushi 0
-addi
-push bp
-push -2
-addi
-loadi
-pushb 65
-b2i
-addi
-i2b
-storeb
-#LINE 39
-pusha 0
-push bp
-push -2
-addi
-loadi
-pushi 5
-muli
-addi
-pushi 1
-addi
-pushi 1000
-push bp
-push -2
-addi
-loadi
-pushi 100
-muli
-addi
-i2f
-storef
-#LINE 40
-push bp
-push -2
-addi
-push bp
-push -2
-addi
-loadi
-pushi 1
-addi
-storei
-jmp tag1
-tag2:
-ret 0,2, 0
-#PROC busca
-busca:
-#PARAM i:int
-ENTER 0
-#LINE 47
-push bp
-push 4
-addi
-loadi
-pushi 0
-lt
-push bp
-push 4
-addi
-loadi
-pushi 4
-ge
-or
-jz tag3
-#LINE 46
-#RET void
-ret 0, 0, 2
-tag3:
-#LINE 48
-pusha 0
-push bp
-push 4
-addi
-loadi
-pushi 5
-muli
-addi
-pushi 0
-addi
-loadb
-outb
-#LINE 49
-pusha 0
-push bp
-push 4
-addi
-loadi
-pushi 5
-muli
-addi
-pushi 1
-addi
-loadf
-outf
-ret 0,0, 2
-#FUNC imprime
-imprime:
-#LOCAL i:int
-#LOCAL aux:Persona
-ENTER 7
-#LINE 57
-push bp
-push -2
-addi
-pushi 0
-storei
-#LINE 66
-tag4:
-push bp
-push -2
-addi
-loadi
-pushi 4
-ge
-nei
-jz tag5
-#LINE 59
-push bp
-push -7
-add
-pushi 0
-addi
-pusha 0
-push bp
-push -2
-addi
-loadi
-pushi 5
-muli
-addi
-pushi 0
-addi
-loadb
-storeb
-#LINE 60
-push bp
-push -7
-add
-pushi 1
-addi
-pusha 0
-push bp
-push -2
-addi
-loadi
-pushi 5
-muli
-addi
-pushi 1
-addi
-loadf
-storef
-#LINE 62
-push bp
-push -7
-add
-pushi 0
-addi
-loadb
-outb
-#LINE 63
-push bp
-push -7
-add
-pushi 1
-addi
-loadf
-outf
-#LINE 65
-push bp
-push -2
-addi
-push bp
-push -2
-addi
-loadi
-pushi 1
-addi
-storei
-jmp tag4
-tag5:
-#LINE 67
-#RET int
-push bp
-push -2
-addi
-loadi
-ret 2, 7, 0
+#VAR b:real
+#TYPE Prueba: {
+campo1:int
+campo2:int
+}
+#VAR c:2*Persona
+#VAR d:int
 #PROC main
 main:
-#LOCAL posicion:int
-ENTER 2
-#LINE 74
-call inicia
-#LINE 76
+#PARAM a:int
+#PARAM b:real
+#PARAM h:char
+#LOCAL c:char
+#LOCAL d:int
+#LOCAL e:2*Persona
+#LOCAL f:real
+#LOCAL m:Persona
+ENTER 97
+#LINE 25
 push bp
-push -2
-addi
-ini
-storei
-#LINE 77
-push bp
-push -2
+push -97
+add
+pushi 0
 addi
 loadi
-call busca
-#LINE 79
-call imprime
-popi
-ret 0,2, 0
+outi
+ret 0,97, 7

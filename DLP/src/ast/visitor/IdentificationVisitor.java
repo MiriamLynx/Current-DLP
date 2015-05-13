@@ -153,6 +153,11 @@ public class IdentificationVisitor extends AbstractVisitor {
 		for (Sentencia s : sentIf.getSentencias()) {
 			s.setDeclaracionFuncion(sentIf.getDeclaracionFuncion());
 		}
+		if (sentIf.getAlternativas().size() > 0) {
+			for (Sentencia s : sentIf.getAlternativas()) {
+				s.setDeclaracionFuncion(sentIf.getDeclaracionFuncion());
+			}
+		}
 		return super.visit(sentIf, null);
 	}
 
