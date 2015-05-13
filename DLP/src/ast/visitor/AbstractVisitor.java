@@ -64,6 +64,11 @@ public class AbstractVisitor implements Visitor {
 
 	public Object visit(DeclaracionVariable declaracionVariable, Object param) {
 		declaracionVariable.getTipo().accept(this, null);
+		if (declaracionVariable.getInicializaciones() != null) {
+			for (Expresion e : declaracionVariable.getInicializaciones()) {
+				e.accept(this, null);
+			}
+		}
 		return null;
 	}
 

@@ -246,6 +246,24 @@ public class InferenceVisitor extends AbstractVisitor {
 		return null;
 	}
 
+	public Object visit(DeclaracionVariable declaracionVariable, Object param) {
+		super.visit(declaracionVariable, null);
+		if (declaracionVariable.getInicializaciones() != null) {
+			assertTiposCorrectos(declaracionVariable);
+		}
+		return null;
+	}
+
+	private void assertTiposCorrectos(DeclaracionVariable declaracionVariable) {
+		for (Expresion e : declaracionVariable.getInicializaciones()) {
+			if (e.getTipo().getClass() != declaracionVariable.getTipo()
+					.getClass()) {
+				GestorErrores.addError(new TipoError(declaracionVariable,
+						"Los valores de la inicializacion no son validos"));
+			}
+		}
+	}
+
 	private void assertTipoEntero(Expresion expresion) {
 		if (!(expresion.getTipo() instanceof TipoEntero)) {
 			GestorErrores.addError(new TipoError(expresion,

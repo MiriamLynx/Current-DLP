@@ -64,10 +64,17 @@ public class CodeVisitor extends AbstractVisitor {
 
 	public Object visit(Programa programa, Object param) {
 		out("#source\"" + file + "\"");
+		for (Declaracion declaracion : programa.getDeclaraciones()) {
+			if (declaracion instanceof DeclaracionVariable) {
+				declaracion.accept(this, null);
+			}
+		}
 		out("call main");
 		out("halt");
 		for (Declaracion declaracion : programa.getDeclaraciones()) {
-			declaracion.accept(this, null);
+			if (!(declaracion instanceof DeclaracionVariable)) {
+				declaracion.accept(this, null);
+			}
 		}
 		return null;
 	}
@@ -75,6 +82,14 @@ public class CodeVisitor extends AbstractVisitor {
 	public Object visit(DeclaracionVariable variable, Object param) {
 		out("#VAR " + variable.getNombre() + ":"
 				+ variable.getTipo().getMAPLname());
+		if (variable.getInicializaciones() != null) {
+			for (int i = 0; i < variable.getInicializaciones().size(); i++) {
+				out("pusha " + variable.getDireccion());
+				variable.getInicializaciones().get(i)
+						.accept(this, Funcion.VALOR);
+				out("store" + variable.getTipo().getSufijo());
+			}
+		}
 		return null;
 	}
 

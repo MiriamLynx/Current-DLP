@@ -1,6 +1,9 @@
 package ast.declaracion;
 
+import java.util.List;
+
 import ast.AbstractAST;
+import ast.expresion.Expresion;
 import ast.tipo.Tipo;
 import ast.visitor.Visitor;
 
@@ -10,6 +13,7 @@ public class DeclaracionVariable extends AbstractAST implements Declaracion {
 	public Tipo tipo;
 	public int direccion;
 	public String ambito = "global";
+	public List<Expresion> inicializaciones;
 
 	public DeclaracionVariable(int linea, int columna, Tipo tipo, String nombre) {
 		super(linea, columna);
@@ -17,10 +21,18 @@ public class DeclaracionVariable extends AbstractAST implements Declaracion {
 		this.tipo = tipo;
 	}
 
+	public DeclaracionVariable(int linea, int columna, Tipo tipo,
+			String nombre, List<Expresion> inicializaciones) {
+		super(linea, columna);
+		this.nombre = nombre;
+		this.tipo = tipo;
+		this.inicializaciones = inicializaciones;
+	}
+
 	@Override
 	public String toString() {
-		return "Declaracion de variable [ " + nombre + " , " + tipo.getMAPLname() + " , "
-				+ "Dir: " + direccion + " ] \n";
+		return "Declaracion de variable [ " + nombre + " , "
+				+ tipo.getMAPLname() + " , " + "Dir: " + direccion + " ] \n";
 	}
 
 	public void accept(Visitor visitor, Object param) {
@@ -57,6 +69,14 @@ public class DeclaracionVariable extends AbstractAST implements Declaracion {
 
 	public void setAmbito(String ambito) {
 		this.ambito = ambito;
+	}
+
+	public List<Expresion> getInicializaciones() {
+		return inicializaciones;
+	}
+
+	public void setInicializaciones(List<Expresion> inicializaciones) {
+		this.inicializaciones = inicializaciones;
 	}
 
 }

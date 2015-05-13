@@ -1,0 +1,9 @@
+dim a as integer = { 2 };
+dim b as character;
+
+
+proc main()
+
+print a;
+
+end proc;

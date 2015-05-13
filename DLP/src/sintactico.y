@@ -84,7 +84,20 @@ declaracionProcedimiento: PROC IDENT '(' parametrosFuncion ')' listaDeclaracione
 
 // * Declaracion de variable
 declaracionVariable: DIM IDENT AS tipo ';' {$$ = new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(),(Tipo)$4, (String)$2); }
+| DIM IDENT AS tipo inicializacion ';' {$$ = new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(),(Tipo)$4, (String)$2, (List<Expresion>)$5); }
 | DIM IDENT listaDimensiones AS tipo ';' { Tipo array = new TipoArray(lexico.getLinea(), lexico.getColumna(), (List<Integer>)$3, (Tipo)$5); $$ = new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(), array, (String)$2);}
+| DIM IDENT listaDimensiones AS tipo inicializacion ';' {Tipo array = new TipoArray(lexico.getLinea(), lexico.getColumna(), (List<Integer>)$3, (Tipo)$5); $$ = new DeclaracionVariable(lexico.getLinea(), lexico.getColumna(), array, (String)$2, (List<Expresion>)$6);}
+;
+
+// * Inicializacion
+inicializacion: '=' '{' listaExpresiones '}' {$$ = $3 ;}
+
+// * Cero o más valores de inicializacion
+listaExpresiones: {$$ = new ArrayList<Expresion>();	}
+|expresiones {$$ = $1; }
+;
+expresiones: expresion {$$ = new ArrayList<Expresion>(); ((List<Expresion>)$$).add((Expresion)$1);	}
+| expresiones ',' expresion {List<Expresion> l = (List<Expresion>)$1; l.add((Expresion)$3); $$ = l;	}
 ;
 
 // * Declaracion de campo
@@ -106,7 +119,6 @@ listaDeclaracionesVariable: {$$ = new ArrayList<DeclaracionVariable>(); }
 listaDeclaracionesCampo: {$$ = new ArrayList<DeclaracionCampo>(); }
 |listaDeclaracionesCampo declaracionCampo {List<DeclaracionCampo> l = (List<DeclaracionCampo>)$1; l.add((DeclaracionCampo)$2); $$ = l;}
 ;
-
 
 // * Cero o más sentencias
 listaSentencias: {$$ = new ArrayList<Sentencia>();	}

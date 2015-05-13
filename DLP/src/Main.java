@@ -14,7 +14,7 @@ import error.GestorErrores;
 
 public class Main {
 	public static void main(String[] args) {
-		String nombreFichero = "pruebaMemoria.txt";
+		String nombreFichero = "inicializacion.txt";
 		Lexico lex;
 		try {
 			GestorErrores gestor = new GestorErrores();
