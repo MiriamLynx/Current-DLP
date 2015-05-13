@@ -14,7 +14,7 @@ import error.GestorErrores;
 
 public class Main {
 	public static void main(String[] args) {
-		String nombreFichero = "pruebaMemoria.txt";
+		String nombreFichero = "incremento.txt";
 		Lexico lex;
 		try {
 			GestorErrores gestor = new GestorErrores();
@@ -35,6 +35,7 @@ public class Main {
 				parser.getAst().accept(cv, null);
 				writer.close();
 			} else {
+				System.out.println(root.toString());
 				gestor.mostrarErrores();
 			}
 		} catch (FileNotFoundException e) {

@@ -14,6 +14,7 @@ import ast.expresion.ConstanteChar;
 import ast.expresion.ConstanteEntera;
 import ast.expresion.ConstanteReal;
 import ast.expresion.Expresion;
+import ast.expresion.Incremento;
 import ast.expresion.LlamadaFuncion;
 import ast.expresion.NotLogico;
 import ast.expresion.OperacionAritmetica;
@@ -246,6 +247,14 @@ public class InferenceVisitor extends AbstractVisitor {
 		return null;
 	}
 
+	public Object visit(Incremento incremento, Object param) {
+		super.visit(incremento, null);
+		assertTipoEntero(incremento);
+		incremento.setTipo(incremento.getExpresion().getTipo());
+		incremento.setLvalue(false);
+		return null;
+	}
+
 	private void assertTipoEntero(Expresion expresion) {
 		if (!(expresion.getTipo() instanceof TipoEntero)) {
 			GestorErrores.addError(new TipoError(expresion,
@@ -283,6 +292,15 @@ public class InferenceVisitor extends AbstractVisitor {
 					"La expresion de una negacion debe ser de tipo entero");
 			GestorErrores.addError(error);
 			not.setTipo(error);
+		}
+	}
+
+	private void assertTipoEntero(Incremento incremento) {
+		if (!(incremento.getExpresion().getTipo() instanceof TipoEntero)) {
+			TipoError error = new TipoError(incremento,
+					"La expresion de un incremento debe ser de tipo entero");
+			GestorErrores.addError(error);
+			incremento.setTipo(error);
 		}
 	}
 

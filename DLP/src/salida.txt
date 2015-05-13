@@ -1,36 +1,19 @@
-#source"pruebaMemoria.txt"
+#source"incremento.txt"
 call main
 halt
-#VAR a:char
-#TYPE Persona: {
-edad:int
-meses:12*int
-a:real
-}
-#VAR b:real
-#TYPE Prueba: {
-campo1:int
-campo2:int
-}
-#VAR c:2*Persona
-#VAR d:int
+#VAR a:int
+#VAR z:int
 #PROC main
 main:
-#PARAM a:int
-#PARAM b:real
-#PARAM h:char
-#LOCAL c:char
-#LOCAL d:int
-#LOCAL e:2*Persona
-#LOCAL f:real
-#LOCAL m:Persona
-ENTER 97
-#LINE 25
-push bp
-push -97
-add
-pushi 0
-addi
+ENTER 0
+#LINE 17
+pusha 0
+pushi 2
+storei
+#LINE 19
+pusha 0
 loadi
+push 1
+add
 outi
-ret 0,97, 7
+ret 0,0, 0

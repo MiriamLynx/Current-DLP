@@ -18,6 +18,7 @@ import ast.expresion.ConstanteChar;
 import ast.expresion.ConstanteEntera;
 import ast.expresion.ConstanteReal;
 import ast.expresion.Expresion;
+import ast.expresion.Incremento;
 import ast.expresion.LlamadaFuncion;
 import ast.expresion.NotLogico;
 import ast.expresion.OperacionAritmetica;
@@ -198,6 +199,13 @@ public class CodeVisitor extends AbstractVisitor {
 	public Object visit(NotLogico not, Object param) {
 		not.getExpresion().accept(this, Funcion.VALOR);
 		out(operation.get("not"));
+		return null;
+	}
+
+	public Object visit(Incremento incremento, Object param) {
+		incremento.getExpresion().accept(this, Funcion.VALOR);
+		out("push 1");
+		out("add");
 		return null;
 	}
 

@@ -78,14 +78,15 @@
   59            | CTYPE '(' tipo ',' expresion ')'
   60            | IDENT
   61            | NOT expresion
+  62            | expresion '+' '+'
 
-  62  listaDimensionesAcceso : '[' expresion ']'
-  63                         | listaDimensionesAcceso '[' expresion ']'
+  63  listaDimensionesAcceso : '[' expresion ']'
+  64                         | listaDimensionesAcceso '[' expresion ']'
 
-  64  tipo : INTEGER
-  65       | CHARACTER
-  66       | REAL
-  67       | IDENT
+  65  tipo : INTEGER
+  66       | CHARACTER
+  67       | REAL
+  68       | IDENT
 
 state 0
 	$accept : . programa $end  (0)
@@ -275,27 +276,27 @@ state 21
 
 
 state 22
-	tipo : INTEGER .  (64)
-
-	.  reduce 64
-
-
-state 23
-	tipo : REAL .  (66)
-
-	.  reduce 66
-
-
-state 24
-	tipo : CHARACTER .  (65)
+	tipo : INTEGER .  (65)
 
 	.  reduce 65
 
 
-state 25
-	tipo : IDENT .  (67)
+state 23
+	tipo : REAL .  (67)
 
 	.  reduce 67
+
+
+state 24
+	tipo : CHARACTER .  (66)
+
+	.  reduce 66
+
+
+state 25
+	tipo : IDENT .  (68)
+
+	.  reduce 68
 
 
 state 26
@@ -837,6 +838,7 @@ state 79
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -950,6 +952,7 @@ state 84
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -988,6 +991,7 @@ state 85
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -1025,6 +1029,7 @@ state 86
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -1068,6 +1073,7 @@ state 88
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -1112,6 +1118,7 @@ state 90
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -1149,6 +1156,7 @@ state 91
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
 	expresion : NOT expresion .  (61)
+	expresion : expresion . '+' '+'  (62)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -1203,6 +1211,7 @@ state 93
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
 	expresion : '(' expresion . ')'  (57)
+	expresion : expresion . '+' '+'  (62)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -1361,6 +1370,7 @@ state 102
 
 state 103
 	expresion : expresion '+' . expresion  (43)
+	expresion : expresion '+' . '+'  (62)
 
 	CTE_ENTERA  shift 65
 	CTE_REAL  shift 66
@@ -1368,10 +1378,11 @@ state 103
 	IDENT  shift 83
 	NOT  shift 75
 	CTYPE  shift 76
+	'+'  shift 132
 	'('  shift 77
 	.  error
 
-	expresion  goto 132
+	expresion  goto 133
 
 
 state 104
@@ -1386,7 +1397,7 @@ state 104
 	'('  shift 77
 	.  error
 
-	expresion  goto 133
+	expresion  goto 134
 
 
 state 105
@@ -1401,7 +1412,7 @@ state 105
 	'('  shift 77
 	.  error
 
-	expresion  goto 134
+	expresion  goto 135
 
 
 state 106
@@ -1416,11 +1427,11 @@ state 106
 	'('  shift 77
 	.  error
 
-	expresion  goto 135
+	expresion  goto 136
 
 
 state 107
-	listaDimensionesAcceso : '[' . expresion ']'  (62)
+	listaDimensionesAcceso : '[' . expresion ']'  (63)
 
 	CTE_ENTERA  shift 65
 	CTE_REAL  shift 66
@@ -1431,21 +1442,21 @@ state 107
 	'('  shift 77
 	.  error
 
-	expresion  goto 136
+	expresion  goto 137
 
 
 state 108
 	expresion : expresion '.' . IDENT  (56)
 
-	IDENT  shift 137
+	IDENT  shift 138
 	.  error
 
 
 state 109
 	expresion : expresion listaDimensionesAcceso .  (55)
-	listaDimensionesAcceso : listaDimensionesAcceso . '[' expresion ']'  (63)
+	listaDimensionesAcceso : listaDimensionesAcceso . '[' expresion ']'  (64)
 
-	'['  shift 138
+	'['  shift 139
 	MAYORIGUAL  reduce 55
 	MENORIGUAL  reduce 55
 	IGUAL  reduce 55
@@ -1471,7 +1482,7 @@ state 109
 state 110
 	declaracionFuncion : FUNCTION IDENT '(' parametrosFuncion ')' AS tipo listaDeclaracionesVariable listaSentencias END . FUNCTION ';'  (8)
 
-	FUNCTION  shift 139
+	FUNCTION  shift 140
 	.  error
 
 
@@ -1491,6 +1502,7 @@ state 111
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -1516,7 +1528,7 @@ state 112
 	sentencia : IDENT '(' parametrosLlamada . ')' ';'  (29)
 	expresion : IDENT '(' parametrosLlamada . ')'  (58)
 
-	')'  shift 140
+	')'  shift 141
 	.  error
 
 
@@ -1524,7 +1536,7 @@ state 113
 	parametrosLlamada : parametroLlamada .  (33)
 	parametroLlamada : parametroLlamada . ',' expresion  (35)
 
-	','  shift 141
+	','  shift 142
 	')'  reduce 33
 
 
@@ -1542,7 +1554,7 @@ state 114
 	')'  reduce 32
 
 	expresion  goto 111
-	parametrosLlamada  goto 142
+	parametrosLlamada  goto 143
 	parametroLlamada  goto 113
 
 
@@ -1559,7 +1571,7 @@ state 116
 
 	.  reduce 21
 
-	listaSentencias  goto 143
+	listaSentencias  goto 144
 
 
 state 117
@@ -1568,7 +1580,7 @@ state 117
 
 	.  reduce 21
 
-	listaSentencias  goto 144
+	listaSentencias  goto 145
 
 
 state 118
@@ -1592,7 +1604,7 @@ state 120
 state 121
 	expresion : CTYPE '(' tipo . ',' expresion ')'  (59)
 
-	','  shift 145
+	','  shift 146
 	.  error
 
 
@@ -1618,6 +1630,7 @@ state 123
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	'+'  shift 103
 	'-'  shift 104
@@ -1660,6 +1673,7 @@ state 124
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	'+'  shift 103
 	'-'  shift 104
@@ -1702,6 +1716,7 @@ state 125
 	expresion : expresion IGUAL expresion .  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	'+'  shift 103
 	'-'  shift 104
@@ -1744,6 +1759,7 @@ state 126
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -1786,6 +1802,7 @@ state 127
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -1828,6 +1845,7 @@ state 128
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	'+'  shift 103
 	'-'  shift 104
@@ -1870,6 +1888,7 @@ state 129
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -1885,7 +1904,7 @@ state 129
 	'/'  shift 106
 	'['  shift 107
 	'.'  shift 108
-	';'  shift 146
+	';'  shift 147
 	.  error
 
 	listaDimensionesAcceso  goto 109
@@ -1907,6 +1926,7 @@ state 130
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	'+'  shift 103
 	'-'  shift 104
@@ -1949,6 +1969,7 @@ state 131
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	'+'  shift 103
 	'-'  shift 104
@@ -1976,6 +1997,12 @@ state 131
 
 
 state 132
+	expresion : expresion '+' '+' .  (62)
+
+	.  reduce 62
+
+
+state 133
 	expresion : expresion . '+' expresion  (43)
 	expresion : expresion '+' expresion .  (43)
 	expresion : expresion . '-' expresion  (44)
@@ -1991,6 +2018,7 @@ state 132
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	'*'  shift 105
 	'/'  shift 106
@@ -2017,7 +2045,7 @@ state 132
 	listaDimensionesAcceso  goto 109
 
 
-state 133
+state 134
 	expresion : expresion . '+' expresion  (43)
 	expresion : expresion . '-' expresion  (44)
 	expresion : expresion '-' expresion .  (44)
@@ -2033,6 +2061,7 @@ state 133
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	'*'  shift 105
 	'/'  shift 106
@@ -2059,7 +2088,7 @@ state 133
 	listaDimensionesAcceso  goto 109
 
 
-state 134
+state 135
 	expresion : expresion . '+' expresion  (43)
 	expresion : expresion . '-' expresion  (44)
 	expresion : expresion . '*' expresion  (45)
@@ -2075,6 +2104,7 @@ state 134
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	'['  shift 107
 	'.'  shift 108
@@ -2101,7 +2131,7 @@ state 134
 	listaDimensionesAcceso  goto 109
 
 
-state 135
+state 136
 	expresion : expresion . '+' expresion  (43)
 	expresion : expresion . '-' expresion  (44)
 	expresion : expresion . '*' expresion  (45)
@@ -2117,6 +2147,7 @@ state 135
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	'['  shift 107
 	'.'  shift 108
@@ -2143,7 +2174,7 @@ state 135
 	listaDimensionesAcceso  goto 109
 
 
-state 136
+state 137
 	expresion : expresion . '+' expresion  (43)
 	expresion : expresion . '-' expresion  (44)
 	expresion : expresion . '*' expresion  (45)
@@ -2158,7 +2189,8 @@ state 136
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
-	listaDimensionesAcceso : '[' expresion . ']'  (62)
+	expresion : expresion . '+' '+'  (62)
+	listaDimensionesAcceso : '[' expresion . ']'  (63)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -2173,21 +2205,21 @@ state 136
 	'*'  shift 105
 	'/'  shift 106
 	'['  shift 107
-	']'  shift 147
+	']'  shift 148
 	'.'  shift 108
 	.  error
 
 	listaDimensionesAcceso  goto 109
 
 
-state 137
+state 138
 	expresion : expresion '.' IDENT .  (56)
 
 	.  reduce 56
 
 
-state 138
-	listaDimensionesAcceso : listaDimensionesAcceso '[' . expresion ']'  (63)
+state 139
+	listaDimensionesAcceso : listaDimensionesAcceso '[' . expresion ']'  (64)
 
 	CTE_ENTERA  shift 65
 	CTE_REAL  shift 66
@@ -2198,21 +2230,21 @@ state 138
 	'('  shift 77
 	.  error
 
-	expresion  goto 148
-
-
-state 139
-	declaracionFuncion : FUNCTION IDENT '(' parametrosFuncion ')' AS tipo listaDeclaracionesVariable listaSentencias END FUNCTION . ';'  (8)
-
-	';'  shift 149
-	.  error
+	expresion  goto 149
 
 
 state 140
+	declaracionFuncion : FUNCTION IDENT '(' parametrosFuncion ')' AS tipo listaDeclaracionesVariable listaSentencias END FUNCTION . ';'  (8)
+
+	';'  shift 150
+	.  error
+
+
+state 141
 	sentencia : IDENT '(' parametrosLlamada ')' . ';'  (29)
 	expresion : IDENT '(' parametrosLlamada ')' .  (58)
 
-	';'  shift 150
+	';'  shift 151
 	MAYORIGUAL  reduce 58
 	MENORIGUAL  reduce 58
 	IGUAL  reduce 58
@@ -2230,7 +2262,7 @@ state 140
 	'.'  reduce 58
 
 
-state 141
+state 142
 	parametroLlamada : parametroLlamada ',' . expresion  (35)
 
 	CTE_ENTERA  shift 65
@@ -2242,17 +2274,17 @@ state 141
 	'('  shift 77
 	.  error
 
-	expresion  goto 151
-
-
-state 142
-	expresion : IDENT '(' parametrosLlamada . ')'  (58)
-
-	')'  shift 152
-	.  error
+	expresion  goto 152
 
 
 state 143
+	expresion : IDENT '(' parametrosLlamada . ')'  (58)
+
+	')'  shift 153
+	.  error
+
+
+state 144
 	listaSentencias : listaSentencias . sentencia  (22)
 	sentencia : IF expresion THEN listaSentencias . ELSE listaSentencias END IF ';'  (25)
 	sentencia : IF expresion THEN listaSentencias . END IF ';'  (26)
@@ -2263,30 +2295,7 @@ state 143
 	IDENT  shift 68
 	PRINT  shift 69
 	IF  shift 70
-	ELSE  shift 153
-	WHILE  shift 71
-	RETURN  shift 72
-	END  shift 154
-	READ  shift 74
-	NOT  shift 75
-	CTYPE  shift 76
-	'('  shift 77
-	.  error
-
-	sentencia  goto 78
-	expresion  goto 79
-
-
-state 144
-	listaSentencias : listaSentencias . sentencia  (22)
-	sentencia : WHILE expresion DO listaSentencias . END WHILE ';'  (24)
-
-	CTE_ENTERA  shift 65
-	CTE_REAL  shift 66
-	CTE_CHAR  shift 67
-	IDENT  shift 68
-	PRINT  shift 69
-	IF  shift 70
+	ELSE  shift 154
 	WHILE  shift 71
 	RETURN  shift 72
 	END  shift 155
@@ -2301,6 +2310,29 @@ state 144
 
 
 state 145
+	listaSentencias : listaSentencias . sentencia  (22)
+	sentencia : WHILE expresion DO listaSentencias . END WHILE ';'  (24)
+
+	CTE_ENTERA  shift 65
+	CTE_REAL  shift 66
+	CTE_CHAR  shift 67
+	IDENT  shift 68
+	PRINT  shift 69
+	IF  shift 70
+	WHILE  shift 71
+	RETURN  shift 72
+	END  shift 156
+	READ  shift 74
+	NOT  shift 75
+	CTYPE  shift 76
+	'('  shift 77
+	.  error
+
+	sentencia  goto 78
+	expresion  goto 79
+
+
+state 146
 	expresion : CTYPE '(' tipo ',' . expresion ')'  (59)
 
 	CTE_ENTERA  shift 65
@@ -2312,22 +2344,22 @@ state 145
 	'('  shift 77
 	.  error
 
-	expresion  goto 156
+	expresion  goto 157
 
 
-state 146
+state 147
 	sentencia : expresion '=' expresion ';' .  (31)
 
 	.  reduce 31
 
 
-state 147
-	listaDimensionesAcceso : '[' expresion ']' .  (62)
-
-	.  reduce 62
-
-
 state 148
+	listaDimensionesAcceso : '[' expresion ']' .  (63)
+
+	.  reduce 63
+
+
+state 149
 	expresion : expresion . '+' expresion  (43)
 	expresion : expresion . '-' expresion  (44)
 	expresion : expresion . '*' expresion  (45)
@@ -2342,7 +2374,8 @@ state 148
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
-	listaDimensionesAcceso : listaDimensionesAcceso '[' expresion . ']'  (63)
+	expresion : expresion . '+' '+'  (62)
+	listaDimensionesAcceso : listaDimensionesAcceso '[' expresion . ']'  (64)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -2357,26 +2390,26 @@ state 148
 	'*'  shift 105
 	'/'  shift 106
 	'['  shift 107
-	']'  shift 157
+	']'  shift 158
 	'.'  shift 108
 	.  error
 
 	listaDimensionesAcceso  goto 109
 
 
-state 149
+state 150
 	declaracionFuncion : FUNCTION IDENT '(' parametrosFuncion ')' AS tipo listaDeclaracionesVariable listaSentencias END FUNCTION ';' .  (8)
 
 	.  reduce 8
 
 
-state 150
+state 151
 	sentencia : IDENT '(' parametrosLlamada ')' ';' .  (29)
 
 	.  reduce 29
 
 
-state 151
+state 152
 	parametroLlamada : parametroLlamada ',' expresion .  (35)
 	expresion : expresion . '+' expresion  (43)
 	expresion : expresion . '-' expresion  (44)
@@ -2392,6 +2425,7 @@ state 151
 	expresion : expresion . IGUAL expresion  (54)
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
+	expresion : expresion . '+' '+'  (62)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -2413,36 +2447,36 @@ state 151
 	listaDimensionesAcceso  goto 109
 
 
-state 152
+state 153
 	expresion : IDENT '(' parametrosLlamada ')' .  (58)
 
 	.  reduce 58
 
 
-state 153
+state 154
 	sentencia : IF expresion THEN listaSentencias ELSE . listaSentencias END IF ';'  (25)
 	listaSentencias : .  (21)
 
 	.  reduce 21
 
-	listaSentencias  goto 158
-
-
-state 154
-	sentencia : IF expresion THEN listaSentencias END . IF ';'  (26)
-
-	IF  shift 159
-	.  error
+	listaSentencias  goto 159
 
 
 state 155
-	sentencia : WHILE expresion DO listaSentencias END . WHILE ';'  (24)
+	sentencia : IF expresion THEN listaSentencias END . IF ';'  (26)
 
-	WHILE  shift 160
+	IF  shift 160
 	.  error
 
 
 state 156
+	sentencia : WHILE expresion DO listaSentencias END . WHILE ';'  (24)
+
+	WHILE  shift 161
+	.  error
+
+
+state 157
 	expresion : expresion . '+' expresion  (43)
 	expresion : expresion . '-' expresion  (44)
 	expresion : expresion . '*' expresion  (45)
@@ -2458,6 +2492,7 @@ state 156
 	expresion : expresion . listaDimensionesAcceso  (55)
 	expresion : expresion . '.' IDENT  (56)
 	expresion : CTYPE '(' tipo ',' expresion . ')'  (59)
+	expresion : expresion . '+' '+'  (62)
 
 	MAYORIGUAL  shift 94
 	MENORIGUAL  shift 95
@@ -2472,20 +2507,20 @@ state 156
 	'*'  shift 105
 	'/'  shift 106
 	'['  shift 107
-	')'  shift 161
+	')'  shift 162
 	'.'  shift 108
 	.  error
 
 	listaDimensionesAcceso  goto 109
 
 
-state 157
-	listaDimensionesAcceso : listaDimensionesAcceso '[' expresion ']' .  (63)
-
-	.  reduce 63
-
-
 state 158
+	listaDimensionesAcceso : listaDimensionesAcceso '[' expresion ']' .  (64)
+
+	.  reduce 64
+
+
+state 159
 	listaSentencias : listaSentencias . sentencia  (22)
 	sentencia : IF expresion THEN listaSentencias ELSE listaSentencias . END IF ';'  (25)
 
@@ -2497,7 +2532,7 @@ state 158
 	IF  shift 70
 	WHILE  shift 71
 	RETURN  shift 72
-	END  shift 162
+	END  shift 163
 	READ  shift 74
 	NOT  shift 75
 	CTYPE  shift 76
@@ -2508,57 +2543,57 @@ state 158
 	expresion  goto 79
 
 
-state 159
-	sentencia : IF expresion THEN listaSentencias END IF . ';'  (26)
-
-	';'  shift 163
-	.  error
-
-
 state 160
-	sentencia : WHILE expresion DO listaSentencias END WHILE . ';'  (24)
+	sentencia : IF expresion THEN listaSentencias END IF . ';'  (26)
 
 	';'  shift 164
 	.  error
 
 
 state 161
+	sentencia : WHILE expresion DO listaSentencias END WHILE . ';'  (24)
+
+	';'  shift 165
+	.  error
+
+
+state 162
 	expresion : CTYPE '(' tipo ',' expresion ')' .  (59)
 
 	.  reduce 59
 
 
-state 162
+state 163
 	sentencia : IF expresion THEN listaSentencias ELSE listaSentencias END . IF ';'  (25)
 
-	IF  shift 165
+	IF  shift 166
 	.  error
 
 
-state 163
+state 164
 	sentencia : IF expresion THEN listaSentencias END IF ';' .  (26)
 
 	.  reduce 26
 
 
-state 164
+state 165
 	sentencia : WHILE expresion DO listaSentencias END WHILE ';' .  (24)
 
 	.  reduce 24
 
 
-state 165
+state 166
 	sentencia : IF expresion THEN listaSentencias ELSE listaSentencias END IF . ';'  (25)
 
-	';'  shift 166
+	';'  shift 167
 	.  error
 
 
-state 166
+state 167
 	sentencia : IF expresion THEN listaSentencias ELSE listaSentencias END IF ';' .  (25)
 
 	.  reduce 25
 
 
 48 terminals, 21 nonterminals
-68 grammar rules, 167 states
+69 grammar rules, 168 states

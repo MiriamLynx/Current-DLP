@@ -16,6 +16,7 @@ import ast.expresion.ConstanteChar;
 import ast.expresion.ConstanteEntera;
 import ast.expresion.ConstanteReal;
 import ast.expresion.Expresion;
+import ast.expresion.Incremento;
 import ast.expresion.LlamadaFuncion;
 import ast.expresion.NotLogico;
 import ast.expresion.OperacionAritmetica;
@@ -127,6 +128,11 @@ public class AbstractVisitor implements Visitor {
 
 	public Object visit(NotLogico notLogico, Object param) {
 		notLogico.getExpresion().accept(this, null);
+		return null;
+	}
+
+	public Object visit(Incremento incremento, Object param) {
+		incremento.getExpresion().accept(this, null);
 		return null;
 	}
 

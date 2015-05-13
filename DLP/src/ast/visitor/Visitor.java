@@ -12,6 +12,7 @@ import ast.expresion.Comparacion;
 import ast.expresion.ConstanteChar;
 import ast.expresion.ConstanteEntera;
 import ast.expresion.ConstanteReal;
+import ast.expresion.Incremento;
 import ast.expresion.LlamadaFuncion;
 import ast.expresion.NotLogico;
 import ast.expresion.OperacionAritmetica;
@@ -92,5 +93,7 @@ public interface Visitor {
 	public Object visit(TipoReal tipoReal, Object param);
 
 	public Object visit(TipoStruct tipoStruct, Object param);
+
+	public Object visit(Incremento incremento, Object param);
 
 }
