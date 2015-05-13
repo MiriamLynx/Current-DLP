@@ -56,7 +56,7 @@ public class CodeVisitor extends AbstractVisitor {
 		operation.put(">=", "ge");
 		operation.put("<=", "le");
 		operation.put("==", "eq");
-		operation.put("not", "ne");
+		operation.put("not", "not");
 		operation.put("and", "and");
 		operation.put("or", "or");
 	}
@@ -78,12 +78,14 @@ public class CodeVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(DeclaracionStruct struct, Object param) {
-		out("#TYPE " + struct.getNombre());
+		out("#TYPE " + struct.getNombre() + ": {");
+		super.visit(struct, param);
+		out("}");
 		return null;
 	}
 
 	public Object visit(DeclaracionCampo campo, Object param) {
-		out("#FIELD " + campo.getNombre() + ":" + campo.getTipo().getMAPLname());
+		out(campo.getNombre() + ":" + campo.getTipo().getMAPLname());
 		return null;
 	}
 
@@ -139,19 +141,16 @@ public class CodeVisitor extends AbstractVisitor {
 			out("load" + acceso.getTipo().getSufijo());
 		} else {
 			acceso.getArray().accept(this, Funcion.DIRECCION);
-			out("pushi "
-					+ ((TipoArray) acceso.getArray().getTipo()).getTipoBase()
-							.size());
-
 			acceso.getIndex().get(0).accept(this, Funcion.VALOR);
-
 			if (acceso.getIndex().size() > 1) {
 				for (int i = 1; i < acceso.getIndex().size(); i++) {
 					acceso.getIndex().get(i).accept(this, Funcion.VALOR);
 					out("addi");
 				}
 			}
-
+			out("pushi "
+					+ ((TipoArray) acceso.getArray().getTipo()).getTipoBase()
+							.size());
 			out("muli");
 			out("addi");
 		}
@@ -181,6 +180,7 @@ public class CodeVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(LlamadaFuncionSent llamadaFuncionSent, Object param) {
+		out("#LINE " + llamadaFuncionSent.getLinea());
 		for (Expresion e : llamadaFuncionSent.getExpresiones()) {
 			e.accept(this, Funcion.VALOR);
 		}
@@ -195,7 +195,7 @@ public class CodeVisitor extends AbstractVisitor {
 
 	public Object visit(NotLogico not, Object param) {
 		not.getExpresion().accept(this, Funcion.VALOR);
-		operation.get("not");
+		out(operation.get("not"));
 		return null;
 	}
 
@@ -229,6 +229,7 @@ public class CodeVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(Asignacion asignacion, Object param) {
+		out("#LINE " + asignacion.getLinea());
 		asignacion.getIzquierda().accept(this, Funcion.DIRECCION);
 		asignacion.getDerecha().accept(this, Funcion.VALOR);
 		out("store" + asignacion.getIzquierda().getTipo().getSufijo());
@@ -236,28 +237,41 @@ public class CodeVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(If sentIf, Object param) {
-		getTag(2);
-		sentIf.getExpresion().accept(this, Funcion.VALOR);
-		out("jz " + "tag" + tag);
-		for (Sentencia s : sentIf.getSentencias()) {
-			s.accept(this, null);
+		out("#LINE " + sentIf.getLinea());
+		if (sentIf.getAlternativas().size() > 0) {
+			int tag = getTag(2);
+			sentIf.getExpresion().accept(this, Funcion.VALOR);
+			out("jz " + "tag" + tag);
+			for (Sentencia s : sentIf.getSentencias()) {
+				s.accept(this, null);
+			}
+			out("jmp " + "tag" + (tag + 1));
+			out("tag" + tag + ":");
+			for (Sentencia s : sentIf.getAlternativas()) {
+				s.accept(this, null);
+			}
+			out("tag" + (tag + 1) + ":");
+		} else {
+			int tag = getTag(1);
+			sentIf.getExpresion().accept(this, Funcion.VALOR);
+			out("jz " + "tag" + tag);
+			for (Sentencia s : sentIf.getSentencias()) {
+				s.accept(this, null);
+			}
+			out("tag" + tag + ":");
 		}
-		out("jmp " + "tag" + (tag + 1));
-		out("tag" + tag + ":");
-		for (Sentencia s : sentIf.getAlternativas()) {
-			s.accept(this, null);
-		}
-		out("tag" + (tag + 1) + ":");
 		return null;
 	}
 
 	public Object visit(Print print, Object param) {
+		out("#LINE " + print.getLinea());
 		print.getExpresion().accept(this, Funcion.VALOR);
 		out("out" + print.getExpresion().getTipo().getSufijo());
 		return null;
 	}
 
 	public Object visit(Read read, Object param) {
+		out("#LINE " + read.getLinea());
 		read.getExpresion().accept(this, Funcion.DIRECCION);
 		out("in" + read.getExpresion().getTipo().getSufijo());
 		out("store" + read.getExpresion().getTipo().getSufijo());
@@ -265,6 +279,7 @@ public class CodeVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(Return senReturn, Object param) {
+		out("#LINE " + senReturn.getLinea());
 		int locales = 0;
 		for (DeclaracionVariable local : senReturn.getDeclaracionFuncion()
 				.getDeclaraciones()) {
@@ -288,9 +303,10 @@ public class CodeVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(While sentWhile, Object param) {
-		getTag(2);
-		sentWhile.getExpresion().accept(this, Funcion.VALOR);
+		out("#LINE " + sentWhile.getLinea());
+		int tag = getTag(2);
 		out("tag" + tag + ":");
+		sentWhile.getExpresion().accept(this, Funcion.VALOR);
 		out("jz " + "tag" + (tag + 1));
 		for (Sentencia s : sentWhile.getSentencias()) {
 			s.accept(this, null);
@@ -301,7 +317,7 @@ public class CodeVisitor extends AbstractVisitor {
 	}
 
 	public Object visit(ConstanteChar charr, Object param) {
-		out("pushb " + "'" + charr.getValor() + "'");
+		out("pushb " + (int) charr.getValor());
 		return null;
 	}
 

@@ -1,31 +1,37 @@
 #source"generacion2.txt"
 call main
 halt
-#TYPE Persona
+#TYPE Persona: {
+inicial:char
+sueldo:real
+}
 #VAR empresa:4*Persona
 #PROC inicia
 inicia:
 #LOCAL i:int
 ENTER 2
+#LINE 36
 push bp
 push -2
 addi
 pushi 0
 storei
+#LINE 41
+tag1:
 push bp
 push -2
 addi
 loadi
 pushi 4
 lt
-tag3:
-jz tag4
+jz tag2
+#LINE 38
 pusha 0
-pushi 5
 push bp
 push -2
 addi
 loadi
+pushi 5
 muli
 addi
 pushi 0
@@ -34,17 +40,18 @@ push bp
 push -2
 addi
 loadi
-pushb 'A'
+pushb 65
 b2i
 addi
 i2b
 storeb
+#LINE 39
 pusha 0
-pushi 5
 push bp
 push -2
 addi
 loadi
+pushi 5
 muli
 addi
 pushi 1
@@ -59,6 +66,7 @@ muli
 addi
 i2f
 storef
+#LINE 40
 push bp
 push -2
 addi
@@ -69,13 +77,14 @@ loadi
 pushi 1
 addi
 storei
-jmp tag3
-tag4:
+jmp tag1
+tag2:
 ret 0,2, 0
 #PROC busca
 busca:
 #PARAM i:int
 ENTER 0
+#LINE 47
 push bp
 push 4
 addi
@@ -89,30 +98,31 @@ loadi
 pushi 4
 ge
 or
-jz tag5
+jz tag3
+#LINE 46
 #RET void
 ret 0, 0, 2
-jmp tag6
-tag5:
-tag6:
+tag3:
+#LINE 48
 pusha 0
-pushi 5
 push bp
 push 4
 addi
 loadi
+pushi 5
 muli
 addi
 pushi 0
 addi
 loadb
 outb
+#LINE 49
 pusha 0
-pushi 5
 push bp
 push 4
 addi
 loadi
+pushi 5
 muli
 addi
 pushi 1
@@ -125,53 +135,59 @@ imprime:
 #LOCAL i:int
 #LOCAL aux:Persona
 ENTER 7
+#LINE 57
 push bp
 push -2
 addi
 pushi 0
 storei
+#LINE 66
+tag4:
 push bp
 push -2
 addi
 loadi
 pushi 4
 ge
-tag7:
-jz tag8
+nei
+jz tag5
+#LINE 59
 push bp
 push -7
 add
 pushi 0
 addi
 pusha 0
-pushi 5
 push bp
 push -2
 addi
 loadi
+pushi 5
 muli
 addi
 pushi 0
 addi
 loadb
 storeb
+#LINE 60
 push bp
 push -7
 add
 pushi 1
 addi
 pusha 0
-pushi 5
 push bp
 push -2
 addi
 loadi
+pushi 5
 muli
 addi
 pushi 1
 addi
 loadf
 storef
+#LINE 62
 push bp
 push -7
 add
@@ -179,6 +195,7 @@ pushi 0
 addi
 loadb
 outb
+#LINE 63
 push bp
 push -7
 add
@@ -186,6 +203,7 @@ pushi 1
 addi
 loadf
 outf
+#LINE 65
 push bp
 push -2
 addi
@@ -196,8 +214,9 @@ loadi
 pushi 1
 addi
 storei
-jmp tag7
-tag8:
+jmp tag4
+tag5:
+#LINE 67
 #RET int
 push bp
 push -2
@@ -208,17 +227,21 @@ ret 2, 7, 0
 main:
 #LOCAL posicion:int
 ENTER 2
+#LINE 74
 call inicia
+#LINE 76
 push bp
 push -2
 addi
 ini
 storei
+#LINE 77
 push bp
 push -2
 addi
 loadi
 call busca
+#LINE 79
 call imprime
 popi
 ret 0,2, 0

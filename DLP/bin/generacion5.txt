@@ -1,0 +1,45 @@
+dim casca as integer;
+dim arr[3] as integer;
+
+type Persona 
+	nombre as integer;
+	edad as integer;
+	inicial as real;
+end type;
+
+dim a as integer;
+dim global as Persona;
+
+proc func (ent as integer, entero as integer)
+	dim per as Persona;
+	a = 1;
+	global.nombre = 2;
+	global.edad = 20;
+	global.inicial = 2.0;
+	per.nombre = 1;
+end proc;
+
+proc asigna(ent as integer, enteroo as integer)
+	arr[1] = 1;
+	arr[2] = 2;
+	arr[3] = 3;
+end proc;
+
+proc main()
+	dim local as Persona;
+	dim arrays[3] as integer;
+	
+	print('A');
+	//print('(');
+	a = 1;
+	print(3);
+	func(1,a);
+	local.nombre = 1;
+	
+	print(local.nombre);
+	print(global.nombre); // 1
+
+	asigna(1,1);
+	
+	print arr[2];
+end proc;
