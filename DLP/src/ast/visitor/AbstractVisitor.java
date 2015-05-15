@@ -12,6 +12,7 @@ import ast.expresion.AccesoArray;
 import ast.expresion.AccesoCampo;
 import ast.expresion.Cast;
 import ast.expresion.Comparacion;
+import ast.expresion.ConstanteBool;
 import ast.expresion.ConstanteChar;
 import ast.expresion.ConstanteEntera;
 import ast.expresion.ConstanteReal;
@@ -29,6 +30,7 @@ import ast.sentencia.Read;
 import ast.sentencia.Return;
 import ast.sentencia.While;
 import ast.tipo.TipoArray;
+import ast.tipo.TipoBool;
 import ast.tipo.TipoChar;
 import ast.tipo.TipoEntero;
 import ast.tipo.TipoError;
@@ -202,5 +204,13 @@ public class AbstractVisitor implements Visitor {
 				node.accept(this, null);
 			}
 		}
+	}
+
+	public Object visit(ConstanteBool constanteBool, Object param) {
+		return null;
+	}
+
+	public Object visit(TipoBool tipoBool, Object param) {
+		return null;
 	}
 }

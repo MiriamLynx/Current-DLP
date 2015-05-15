@@ -10,6 +10,7 @@ import ast.expresion.AccesoArray;
 import ast.expresion.AccesoCampo;
 import ast.expresion.Cast;
 import ast.expresion.Comparacion;
+import ast.expresion.ConstanteBool;
 import ast.expresion.ConstanteChar;
 import ast.expresion.ConstanteEntera;
 import ast.expresion.ConstanteReal;
@@ -28,6 +29,7 @@ import ast.sentencia.Return;
 import ast.sentencia.While;
 import ast.tipo.Tipo;
 import ast.tipo.TipoArray;
+import ast.tipo.TipoBool;
 import ast.tipo.TipoChar;
 import ast.tipo.TipoEntero;
 import ast.tipo.TipoError;
@@ -55,6 +57,13 @@ public class InferenceVisitor extends AbstractVisitor {
 		constanteChar.setTipo(TipoChar.getInstance(constanteChar.getLinea(),
 				constanteChar.getColumna()));
 		return super.visit(constanteChar, null);
+	}
+
+	public Object visit(ConstanteBool constanteBool, Object para) {
+		constanteBool.setLvalue(false);
+		constanteBool.setTipo(TipoBool.getInstance(constanteBool.getLinea(),
+				constanteBool.getColumna()));
+		return super.visit(constanteBool, null);
 	}
 
 	public Object visit(Variable variable, Object param) {
@@ -172,13 +181,13 @@ public class InferenceVisitor extends AbstractVisitor {
 
 	public Object visit(If sentIf, Object param) {
 		Object ret = super.visit(sentIf, null);
-		assertTipoEntero(sentIf);
+		assertTipoBool(sentIf);
 		return ret;
 	}
 
 	public Object visit(While whil, Object param) {
 		Object ret = super.visit(whil, null);
-		assertTipoEntero(whil);
+		assertTipoBool(whil);
 		return ret;
 	}
 
@@ -190,7 +199,8 @@ public class InferenceVisitor extends AbstractVisitor {
 					.addError(new TipoError(asignacion,
 							"La parte izquierda de una asignacion debe ser modificable"));
 		}
-		assertTiposIguales(asignacion.getIzquierda(), asignacion.getDerecha());
+		assertTiposIgualesAsignacion(asignacion.getIzquierda(),
+				asignacion.getDerecha());
 		return null;
 	}
 
@@ -212,7 +222,7 @@ public class InferenceVisitor extends AbstractVisitor {
 
 	public Object visit(Comparacion comparacion, Object param) {
 		super.visit(comparacion, null);
-		comparacion.setTipo(TipoEntero.getInstance(comparacion.getLinea(),
+		comparacion.setTipo(TipoBool.getInstance(comparacion.getLinea(),
 				comparacion.getColumna()));
 		assertTiposIguales(comparacion.getIzquierda(), comparacion.getDerecha());
 		assertTipoPrimitivo(comparacion.getIzquierda());
@@ -222,10 +232,10 @@ public class InferenceVisitor extends AbstractVisitor {
 
 	public Object visit(OperacionLogica logica, Object param) {
 		super.visit(logica, null);
-		logica.setTipo(TipoEntero.getInstance(logica.getLinea(),
+		logica.setTipo(TipoBool.getInstance(logica.getLinea(),
 				logica.getColumna()));
-		assertTipoEntero(logica.getIzquierda());
-		assertTipoEntero(logica.getDerecha());
+		assertTipoBool(logica.getIzquierda());
+		assertTipoBool(logica.getDerecha());
 		return null;
 	}
 
@@ -233,6 +243,7 @@ public class InferenceVisitor extends AbstractVisitor {
 		super.visit(casteo, null);
 		assertCastPrimitivo(casteo);
 		assertTipoPrimitivo(casteo.getCasteo());
+		assertNoTipoBool(casteo);
 		casteo.setTipo(casteo.getTipoBase());
 		assertTiposDistintos(casteo.getTipoBase(), casteo.getCasteo());
 		return null;
@@ -240,30 +251,41 @@ public class InferenceVisitor extends AbstractVisitor {
 
 	public Object visit(NotLogico not, Object param) {
 		super.visit(not, null);
-		assertTipoEntero(not);
+		assertTipoBool(not);
 		not.setTipo(not.getExpresion().getTipo());
 		not.setLvalue(false);
 		return null;
 	}
 
-	private void assertTipoEntero(Expresion expresion) {
-		if (!(expresion.getTipo() instanceof TipoEntero)) {
-			GestorErrores.addError(new TipoError(expresion,
-					"La expresion debe ser de tipo entero"));
-		}
-	}
-
-	private void assertTipoEntero(While whil) {
-		if (!(whil.getExpresion().getTipo() instanceof TipoEntero)) {
-			GestorErrores.addError(new TipoError(whil,
-					"La expresion de un while debe ser de tipo entero"));
-		}
-	}
-
-	private void assertTipoEntero(If sentIf) {
-		if (!(sentIf.getExpresion().getTipo() instanceof TipoEntero)) {
+	private void assertTipoBool(If sentIf) {
+		if (!(sentIf.getExpresion().getTipo() instanceof TipoBool)) {
 			GestorErrores.addError(new TipoError(sentIf,
-					"La expresion de un if debe ser de tipo entero"));
+					"La expresion de un if debe ser de tipo booleano"));
+		}
+	}
+
+	private void assertNoTipoBool(Cast casteo) {
+		if (casteo.getTipoBase() instanceof TipoBool) {
+			GestorErrores.addError(new TipoError(casteo,
+					"El tipo base de un casteo no puede ser booleano"));
+		}
+		if (casteo.getCasteo().getTipo() instanceof TipoBool) {
+			GestorErrores.addError(new TipoError(casteo,
+					"No se puede castear un booleano"));
+		}
+	}
+
+	private void assertTipoBool(Expresion expresion) {
+		if (!(expresion.getTipo() instanceof TipoBool)) {
+			GestorErrores.addError(new TipoError(expresion,
+					"La expresion debe ser de tipo booleano"));
+		}
+	}
+
+	private void assertTipoBool(While whil) {
+		if (!(whil.getExpresion().getTipo() instanceof TipoBool)) {
+			GestorErrores.addError(new TipoError(whil,
+					"La expresion de un while debe ser de tipo booleano"));
 		}
 	}
 
@@ -277,10 +299,10 @@ public class InferenceVisitor extends AbstractVisitor {
 		}
 	}
 
-	private void assertTipoEntero(NotLogico not) {
-		if (!(not.getExpresion().getTipo() instanceof TipoEntero)) {
+	private void assertTipoBool(NotLogico not) {
+		if (!(not.getExpresion().getTipo() instanceof TipoBool)) {
 			TipoError error = new TipoError(not,
-					"La expresion de una negacion debe ser de tipo entero");
+					"La expresion de una negacion debe ser de tipo booleano");
 			GestorErrores.addError(error);
 			not.setTipo(error);
 		}
@@ -331,6 +353,15 @@ public class InferenceVisitor extends AbstractVisitor {
 		}
 	}
 
+	private void assertTiposIgualesAsignacion(Expresion izquierda,
+			Expresion derecha) {
+		if (izquierda.getTipo().getClass() != derecha.getTipo().getClass()) {
+			GestorErrores
+					.addError(new TipoError(izquierda,
+							"Las dos expresiones de un asignacion deben ser del mismo tipo"));
+		}
+	}
+
 	private void assertTiposDistintos(Tipo tipobase, Expresion casteo) {
 		if (tipobase.getClass() == casteo.getTipo().getClass()) {
 			GestorErrores.addError(new TipoError(casteo,
@@ -341,7 +372,8 @@ public class InferenceVisitor extends AbstractVisitor {
 	private void assertTipoPrimitivo(Expresion expresion) {
 		if (!(expresion.getTipo() instanceof TipoEntero)
 				&& !(expresion.getTipo() instanceof TipoChar)
-				&& !(expresion.getTipo() instanceof TipoReal)) {
+				&& !(expresion.getTipo() instanceof TipoReal)
+				&& !(expresion.getTipo() instanceof TipoBool)) {
 			GestorErrores.addError(new TipoError(expresion,
 					"La expresion debe ser de un tipo primitivo"));
 		}
@@ -350,7 +382,8 @@ public class InferenceVisitor extends AbstractVisitor {
 	private void assertPrintPrimitivo(Expresion expresion) {
 		if (!(expresion.getTipo() instanceof TipoEntero)
 				&& !(expresion.getTipo() instanceof TipoChar)
-				&& !(expresion.getTipo() instanceof TipoReal)) {
+				&& !(expresion.getTipo() instanceof TipoReal)
+				&& !(expresion.getTipo() instanceof TipoBool)) {
 			GestorErrores.addError(new TipoError(expresion,
 					"La expresion de un print debe ser de un tipo primitivo"));
 		}
@@ -359,7 +392,8 @@ public class InferenceVisitor extends AbstractVisitor {
 	private void assertCastPrimitivo(Cast casteo) {
 		if (!(casteo.getTipoBase() instanceof TipoEntero)
 				&& !(casteo.getTipoBase() instanceof TipoChar)
-				&& !(casteo.getTipoBase() instanceof TipoReal)) {
+				&& !(casteo.getTipoBase() instanceof TipoReal)
+				&& !(casteo.getTipoBase() instanceof TipoBool)) {
 			GestorErrores.addError(new TipoError(casteo,
 					"El tipo base de un casteo debe ser primitivo"));
 		}

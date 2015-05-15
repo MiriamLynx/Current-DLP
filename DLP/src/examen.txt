@@ -1,0 +1,58 @@
+
+dim values[5] as bool;
+
+proc showValues()
+	dim i as integer;
+	dim ending as bool;
+	i = 0;
+	ending = true;
+	while(ending) do
+		print values[i];
+		i = i + 1;
+		ending = i < 5;
+	end while;
+end proc;
+
+proc exam()
+	dim i as integer;
+	dim ending as bool;
+	dim big as bool;
+	i = 0;
+	ending = true;
+	big = false;
+	
+	while(ending) do
+		if big then
+			values[i] = true;
+		else
+			values[i] = false;
+		end if;
+		
+		i = i + 1;
+		big = i > 2;
+			ending = i < 5;
+	end while;
+	
+	showValues(); // Shows 0 0 0 1 1
+	
+//	while (i) do // Compiler error
+//		i = 0;
+//	end while;
+	
+//		if i + 3 then // Compiler error
+//			i = 0;
+//		end if;
+		
+//	ending = i > true; // Compiler error
+//	true = false; // Compiler error
+	
+end proc;
+
+proc main()
+
+	exam();
+	
+end proc;
+
+
+	

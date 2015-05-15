@@ -18,6 +18,7 @@ import ast.sentencia.Sentencia;
 import ast.sentencia.While;
 import ast.tipo.Tipo;
 import ast.tipo.TipoArray;
+import ast.tipo.TipoBool;
 import ast.tipo.TipoChar;
 import ast.tipo.TipoEntero;
 import ast.tipo.TipoError;
@@ -296,7 +297,8 @@ public class IdentificationVisitor extends AbstractVisitor {
 
 	private void assertRetornoPrimitivo(Tipo tipo) {
 		if (!(tipo instanceof TipoEntero) && !(tipo instanceof TipoChar)
-				&& !(tipo == null) && !(tipo instanceof TipoReal)) {
+				&& !(tipo == null) && !(tipo instanceof TipoReal)
+				&& !(tipo instanceof TipoBool)) {
 			GestorErrores.addError(new TipoError(tipo,
 					"Las funciones solo pueden retornar tipos primitivos"));
 		}
@@ -306,10 +308,10 @@ public class IdentificationVisitor extends AbstractVisitor {
 		if (!(declaracion.getTipo() instanceof TipoEntero)
 				&& !(declaracion.getTipo() instanceof TipoChar)
 				&& !(declaracion.getTipo() == null)
-				&& !(declaracion.getTipo() instanceof TipoReal)) {
+				&& !(declaracion.getTipo() instanceof TipoReal)
+				&& !(declaracion.getTipo() instanceof TipoBool)) {
 			GestorErrores.addError(new TipoError(declaracion, "El parametro "
 					+ declaracion.getNombre() + " no es de tipo primitivo"));
 		}
 	}
-
 }

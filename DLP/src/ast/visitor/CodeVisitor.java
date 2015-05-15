@@ -14,6 +14,7 @@ import ast.expresion.AccesoArray;
 import ast.expresion.AccesoCampo;
 import ast.expresion.Cast;
 import ast.expresion.Comparacion;
+import ast.expresion.ConstanteBool;
 import ast.expresion.ConstanteChar;
 import ast.expresion.ConstanteEntera;
 import ast.expresion.ConstanteReal;
@@ -315,6 +316,11 @@ public class CodeVisitor extends AbstractVisitor {
 		}
 		out("jmp " + "tag" + tag);
 		out("tag" + (tag + 1) + ":");
+		return null;
+	}
+
+	public Object visit(ConstanteBool bool, Object param) {
+		out("pushi " + bool.getValor());
 		return null;
 	}
 

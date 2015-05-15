@@ -1,36 +1,678 @@
-#source"pruebaMemoria.txt"
+#source"examenParte2.txt"
 call main
 halt
-#VAR a:char
-#TYPE Persona: {
-edad:int
-meses:12*int
-a:real
+#TYPE Pair: {
+myinteger:int
+mycharacter:char
 }
-#VAR b:real
-#TYPE Prueba: {
-campo1:int
-campo2:int
+#VAR pair:Pair
+#TYPE Employee: {
+age:int
 }
-#VAR c:2*Persona
-#VAR d:int
+#TYPE Acme: {
+employees:2*Employee
+}
+#VAR acme:2*Acme
+#VAR fibonacci:8*3*int
+#FUNC g
+g:
+#PARAM a:int
+ENTER 0
+#LINE 22
+#RET int
+pushi 0
+ret 2, 0, 2
+#PROC exam
+exam:
+#LOCAL a:int
+#LOCAL b:int
+#LOCAL c:int
+#LOCAL i:int
+ENTER 8
+#LINE 30
+push bp
+push -8
+add
+pushi 0
+storei
+#LINE 31
+push bp
+push -2
+add
+push bp
+push -8
+add
+loadi
+pushi 0
+lti
+push bp
+push -8
+add
+loadi
+pushi 0
+eqi
+or
+storei
+#LINE 32
+push bp
+push -4
+add
+push bp
+push -8
+add
+loadi
+pushi 3
+nei
+push bp
+push -8
+add
+loadi
+pushi 4
+gti
+and
+pushi 1
+and
+storei
+#LINE 33
+push bp
+push -6
+add
+push bp
+push -8
+add
+loadi
+pushi 1
+eqi
+not
+storei
+#LINE 34
+push bp
+push -2
+add
+loadi
+outi
+#LINE 35
+push bp
+push -4
+add
+loadi
+outi
+#LINE 36
+push bp
+push -6
+add
+loadi
+outi
+ret 0,8, 0
+#PROC p
+p:
+ENTER 0
+ret 0,0, 0
+#FUNC f
+f:
+#PARAM r:real
+#PARAM e:int
+#LOCAL myreal:real
+#LOCAL c:char
+#LOCAL result:int
+ENTER 7
+#LINE 51
+push bp
+push -4
+add
+push bp
+push 6
+add
+loadf
+pushf 10.0
+mulf
+storef
+#LINE 52
+push bp
+push -5
+add
+pushb 48
+storeb
+#LINE 58
+push bp
+push 4
+add
+loadi
+pushi 256
+lti
+jz tag1
+#LINE 54
+push bp
+push -5
+add
+push bp
+push 4
+add
+loadi
+i2b
+storeb
+#LINE 55
+push bp
+push -7
+add
+push bp
+push -4
+add
+loadf
+f2i
+storei
+jmp tag2
+tag1:
+#LINE 57
+push bp
+push -7
+add
+push bp
+push -4
+add
+loadf
+f2i
+storei
+tag2:
+#LINE 59
+#RET int
+push bp
+push -7
+add
+loadi
+ret 2, 7, 6
+#PROC initialize
+initialize:
+#LOCAL i:int
+ENTER 2
+#LINE 64
+pusha 11
+pushi 0
+pushi 0
+addi
+pushi 2
+muli
+addi
+pushi 0
+storei
+#LINE 65
+pusha 11
+pushi 0
+pushi 1
+addi
+pushi 2
+muli
+addi
+pushi 1
+storei
+#LINE 66
+pusha 11
+pushi 0
+pushi 2
+addi
+pushi 2
+muli
+addi
+pushi 1
+storei
+#LINE 67
+push bp
+push -2
+add
+pushi 1
+storei
+#LINE 73
+tag3:
+push bp
+push -2
+add
+loadi
+pushi 8
+lti
+jz tag4
+#LINE 69
+pusha 11
+push bp
+push -2
+add
+loadi
+pushi 0
+addi
+pushi 2
+muli
+addi
+pusha 11
+push bp
+push -2
+add
+loadi
+pushi 1
+subi
+pushi 1
+addi
+pushi 2
+muli
+addi
+loadi
+storei
+#LINE 70
+pusha 11
+push bp
+push -2
+add
+loadi
+pushi 1
+addi
+pushi 2
+muli
+addi
+pusha 11
+push bp
+push -2
+add
+loadi
+pushi 1
+subi
+pushi 2
+addi
+pushi 2
+muli
+addi
+loadi
+storei
+#LINE 71
+pusha 11
+push bp
+push -2
+add
+loadi
+pushi 2
+addi
+pushi 2
+muli
+addi
+pusha 11
+push bp
+push -2
+add
+loadi
+pushi 0
+addi
+pushi 2
+muli
+addi
+loadi
+pusha 11
+push bp
+push -2
+add
+loadi
+pushi 1
+addi
+pushi 2
+muli
+addi
+loadi
+addi
+storei
+#LINE 72
+push bp
+push -2
+add
+push bp
+push -2
+add
+loadi
+pushi 1
+addi
+storei
+jmp tag3
+tag4:
+ret 0,2, 0
 #PROC main
 main:
-#PARAM a:int
-#PARAM b:real
-#PARAM h:char
-#LOCAL c:char
-#LOCAL d:int
-#LOCAL e:2*Persona
-#LOCAL f:real
-#LOCAL m:Persona
-ENTER 97
-#LINE 25
+#LOCAL i:int
+#LOCAL j:int
+ENTER 4
+#LINE 79
+call p
+#LINE 80
 push bp
-push -97
+push -2
 add
+pushi 0
+storei
+#LINE 81
+pusha 0
+pushi 2
+addi
+pushb 48
+storeb
+#LINE 82
+pusha 0
+pushi 0
+addi
+pushb 48
+b2i
+storei
+#LINE 83
+push bp
+push -2
+add
+loadi
+i2f
+pusha 0
+pushi 2
+addi
+loadb
+b2i
+call f
+outi
+#LINE 84
+pushi 10
+i2b
+outb
+#LINE 85
+pushf 1.3
+pushi 2
+call f
+popi
+#LINE 86
+call initialize
+#LINE 87
+push bp
+push -2
+add
+pushi 0
+storei
+#LINE 99
+tag5:
+push bp
+push -2
+add
+loadi
+pushi 8
+lti
+jz tag6
+#LINE 89
+pushb 40
+outb
+#LINE 90
+push bp
+push -2
+add
+loadi
+pushi 1
+addi
+outi
+#LINE 91
+pushb 41
+outb
+#LINE 92
+pusha 11
+push bp
+push -2
+add
+loadi
+pushi 0
+addi
+pushi 2
+muli
+addi
+loadi
+outi
+#LINE 93
+pushb 43
+outb
+#LINE 94
+pusha 11
+push bp
+push -2
+add
+loadi
+pushi 1
+addi
+pushi 2
+muli
+addi
+loadi
+outi
+#LINE 95
+pushb 61
+outb
+#LINE 96
+pusha 11
+push bp
+push -2
+add
+loadi
+pushi 2
+addi
+pushi 2
+muli
+addi
+loadi
+outi
+#LINE 97
+pushi 10
+i2b
+outb
+#LINE 98
+push bp
+push -2
+add
+push bp
+push -2
+add
+loadi
+pushi 1
+addi
+storei
+jmp tag5
+tag6:
+#LINE 100
+pusha 3
+pushi 1
+pushi 4
+muli
+addi
+pushi 0
+addi
+pushi 1
+pushi 2
+muli
+addi
+pushi 0
+addi
+pushi 56
+storei
+#LINE 101
+pusha 3
+pushi 1
+pushi 4
+muli
+addi
+pushi 0
+addi
+pushi 1
+pushi 2
+muli
+addi
 pushi 0
 addi
 loadi
 outi
-ret 0,97, 7
+#LINE 102
+pushi 10
+i2b
+outb
+#LINE 103
+push bp
+push -2
+add
+pushi 0
+storei
+#LINE 111
+tag7:
+push bp
+push -2
+add
+loadi
+pushi 2
+lti
+jz tag8
+#LINE 105
+push bp
+push -4
+add
+pushi 0
+storei
+#LINE 109
+tag9:
+push bp
+push -4
+add
+loadi
+pushi 2
+lti
+jz tag10
+#LINE 107
+pusha 3
+push bp
+push -2
+add
+loadi
+pushi 4
+muli
+addi
+pushi 0
+addi
+push bp
+push -4
+add
+loadi
+pushi 2
+muli
+addi
+pushi 0
+addi
+push bp
+push -2
+add
+loadi
+push bp
+push -4
+add
+loadi
+addi
+storei
+#LINE 108
+push bp
+push -4
+add
+push bp
+push -4
+add
+loadi
+pushi 1
+addi
+storei
+jmp tag9
+tag10:
+#LINE 110
+push bp
+push -2
+add
+push bp
+push -2
+add
+loadi
+pushi 1
+addi
+storei
+jmp tag7
+tag8:
+#LINE 112
+push bp
+push -2
+add
+pushi 0
+storei
+#LINE 121
+tag11:
+push bp
+push -2
+add
+loadi
+pushi 2
+lti
+jz tag12
+#LINE 114
+push bp
+push -4
+add
+pushi 0
+storei
+#LINE 119
+tag13:
+push bp
+push -4
+add
+loadi
+pushi 2
+gti
+jz tag14
+#LINE 116
+pusha 3
+push bp
+push -2
+add
+loadi
+pushi 4
+muli
+addi
+pushi 0
+addi
+push bp
+push -4
+add
+loadi
+pushi 2
+muli
+addi
+pushi 0
+addi
+loadi
+outi
+#LINE 117
+pushb 32
+outb
+#LINE 118
+push bp
+push -4
+add
+push bp
+push -4
+add
+loadi
+pushi 1
+addi
+storei
+jmp tag13
+tag14:
+#LINE 120
+push bp
+push -2
+add
+push bp
+push -2
+add
+loadi
+pushi 1
+addi
+storei
+jmp tag11
+tag12:
+#LINE 123
+call exam
+ret 0,4, 0

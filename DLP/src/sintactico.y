@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.ArrayList;
 %}
 
-
+%token BOOL
+%token CTE_TRUE
+%token CTE_FALSE
 %token CTE_ENTERA
 %token CTE_REAL
 %token CTE_CHAR
@@ -155,8 +157,8 @@ expresion: CTE_ENTERA {$$ = new ConstanteEntera(lexico.getLinea(), lexico.getCol
 |expresion MENORIGUAL expresion {$$ = new Comparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "<=", (Expresion)$3);	}
 |expresion AND expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "and", (Expresion)$3);	}
 |expresion OR expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "or", (Expresion)$3);	}
-|expresion DISTINTO expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "<>", (Expresion)$3);	}
-|expresion IGUAL expresion {$$ = new OperacionLogica(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "==", (Expresion)$3);	}
+|expresion DISTINTO expresion {$$ = new Comparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "<>", (Expresion)$3);	}
+|expresion IGUAL expresion {$$ = new Comparacion(lexico.getLinea(), lexico.getColumna(), (Expresion)$1, "==", (Expresion)$3);	}
 |expresion listaDimensionesAcceso {$$ = new AccesoArray(lexico.getLinea(), lexico.getColumna(),(Expresion)$1,(List<Expresion>)$2);	} %prec acceso
 |expresion '.' IDENT {$$ = new AccesoCampo(lexico.getLinea(), lexico.getColumna(),(Expresion)$1,(String)$3);	}
 |'(' expresion ')' {$$ = (Expresion)$2;	}
@@ -164,6 +166,8 @@ expresion: CTE_ENTERA {$$ = new ConstanteEntera(lexico.getLinea(), lexico.getCol
 |CTYPE '(' tipo ',' expresion ')' {$$ = new Cast(lexico.getLinea(), lexico.getColumna(), (Tipo)$3, (Expresion)$5);	}
 |IDENT {$$ = new Variable(lexico.getLinea(), lexico.getColumna(), (String)$1); }
 |NOT expresion {$$ = new NotLogico(lexico.getLinea(), lexico.getColumna(), (Expresion)$2);}
+|CTE_TRUE {$$ = new ConstanteBool(lexico.getLinea(), lexico.getColumna(),1);}
+|CTE_FALSE {$$ = new ConstanteBool(lexico.getLinea(), lexico.getColumna(),0);}
 ;
 
 // * Una o más dimensiones de acceso a array
@@ -176,6 +180,7 @@ tipo: INTEGER {$$ = TipoEntero.getInstance(lexico.getLinea(), lexico.getColumna(
 | CHARACTER {$$ = TipoChar.getInstance(lexico.getLinea(), lexico.getColumna());} 
 | REAL {$$ = TipoReal.getInstance(lexico.getLinea(), lexico.getColumna());}
 | IDENT {$$ = new TipoStruct(lexico.getLinea(), lexico.getColumna(), (String)$1);}
+| BOOL {$$ = TipoBool.getInstance(lexico.getLinea(), lexico.getColumna());}
 
 %%
 Lexico lexico;

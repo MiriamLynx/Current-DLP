@@ -1,0 +1,128 @@
+
+type Pair 
+	myinteger as integer;
+	mycharacter as character;
+end type;
+
+dim pair as Pair;
+
+type Employee 
+	age as integer;
+end type;
+
+type Acme 
+	employees[2] as Employee;
+end type;
+
+dim acme[2] as Acme;
+
+dim fibonacci[8][3] as integer;
+
+function g(a as bool) as integer
+	return 0; // Compiler error
+end function;
+
+proc exam()
+	dim a as bool;
+	dim b as bool;
+	dim c as bool;
+	dim i as integer;
+	i = 0;
+	a = i < 0 or i == 0;
+	b = i <> 3 and i > 4 and true;
+	c = not (i == 1);
+	print a;
+	print b;
+	print c; // Shows 1 0 1
+//	a = ctype(bool, i); // Compiler error
+//	a = true and i; // Compiler error
+//	a = not i; // Compiler error
+//	i = 3 == 3; // Compiler error
+//	g(true); // Compiler error
+end proc;
+
+proc p()
+end proc;
+
+function f(r as real, e as integer) as integer
+	dim myreal as real;
+	dim c as character;
+	dim result as integer;
+	myreal = r * 10.0;
+	c = '0';
+	if e < 256 then
+		c = ctype(character,e);
+		result = ctype(integer,myreal);
+	else
+		result = ctype(integer, myreal);
+	end if;
+	return result;
+end function;
+
+proc initialize()
+	dim i as integer;
+	fibonacci[0][0] = 0;
+	fibonacci[0][1] = 1;
+	fibonacci[0][2] = 1;
+	i = 1;
+	while (i < 8) do
+		fibonacci[i][0] = fibonacci[i - 1][1];
+		fibonacci[i][1] = fibonacci[i - 1][2];
+		fibonacci[i][2] = fibonacci[i][0] + fibonacci[i][1];
+		i = i + 1;
+	end while;
+end proc;
+
+proc main()
+	dim i as integer;
+	dim j as integer;
+	p();
+	i = 0;
+	pair.mycharacter = '0';
+	pair.myinteger = ctype(integer, '0');
+	print f(ctype(real,i),ctype(integer,pair.mycharacter));
+	print ctype(character, 10);
+	f(1.3,2);
+	initialize();
+	i = 0;
+	while(i < 8) do
+		print '(';
+		print i + 1;
+		print ')';
+		print fibonacci[i][0];
+		print '+';
+		print fibonacci[i][1];
+		print '=';
+		print fibonacci[i][2];
+		print ctype(character, 10);
+		i = i + 1;
+	end while;
+	acme[1].employees[1].age = 56;
+	print acme[1].employees[1].age;
+	print ctype(character, 10);
+	i = 0;
+	while(i < 2) do
+		j = 0;
+		while(j < 2) do
+			acme[i].employees[j].age = i + j;
+			j = j + 1;
+		end while;
+	i = i + 1;
+	end while;
+	i = 0;
+	while(i < 2) do
+		j = 0;
+		while(j > 2) do
+		print acme[i].employees[j].age;
+		print ' ';
+		j = j + 1;
+		end while;
+		i = i + 1;
+	end while;
+	
+	exam();
+	
+end proc;
+
+
+	

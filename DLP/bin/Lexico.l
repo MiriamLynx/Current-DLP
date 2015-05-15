@@ -58,6 +58,10 @@ BASURA = {COMENTARIOSIMPLE}|{ESPACIOS}|{COMENTARIOMULTILINEA}|{SALTOSDELINEA}
 
 %%
 
+true { return Parser.CTE_TRUE;  }
+
+false { return Parser.CTE_FALSE; }
+
 print { return Parser.PRINT;  }
 
 integer { return Parser.INTEGER;  }
@@ -65,6 +69,8 @@ integer { return Parser.INTEGER;  }
 real { return Parser.REAL;  }
 
 character { return Parser.CHARACTER;  }
+
+bool { return Parser.BOOL;  }
 
 if { return Parser.IF; }
 
